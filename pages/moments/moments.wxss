@@ -1,0 +1,84 @@
+/**moment.wxss**/
+@import "../common/common.wxss";
+@import "../common/momentItem.wxss";
+.moment-nav-wrap{
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 5;
+}
+
+.top-nav {
+  width: 100%;
+  height: 66rpx;
+  border-bottom: 2rpx solid #bbb;
+  background-color: #fff;
+}
+
+.top-nav .top-nav-item {
+  height: 100%;
+  line-height: 66rpx;
+  font-weight: bold;
+  color: #2c3550;
+  font-size: 30rpx;
+}
+
+.line-h {
+  height: 40rpx;
+  margin-top: 8px;
+  background-color: #ddd;
+}
+
+.top-nav-item.current {
+  color: #85a9d6;
+  background: url(../../images/nav_s.png) center bottom no-repeat;
+  background-size: 100rpx 8rpx;
+}
+
+.second-nav{
+  width: 100%;
+  height: 65rpx;
+  background-color: #efefef;
+}
+
+.second-nav .second-nav-item{
+  height: 100%;
+  line-height: 65rpx;
+  color: #848484;
+  font-size: 28rpx;
+  position: relative;
+}
+
+.second-nav .second-nav-item .curIco{
+    display: none;
+    left: 50%;
+    bottom: 0;
+    margin-left: -15rpx;
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 15rpx solid transparent;
+    border-right: 15rpx solid transparent;
+    border-bottom: 10rpx solid #fff;
+}
+
+.second-nav .second-nav-item.current{
+  color: #85a9d6;
+}
+
+.second-nav .second-nav-item.current .curIco{
+  display: block;
+}
+.pullDownRefresh-tip{
+    padding-top: 140rpx;
+    height: 0;
+    overflow: hidden;
+}
+.pullDownRefresh-tip.show{
+  height: 40rpx;
+  line-height: 40rpx;
+}
+.moments-wrap {
+  width: 100%;
+}
+
