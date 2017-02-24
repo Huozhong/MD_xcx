@@ -44,3 +44,19 @@
     font-size: 24rpx;
     color: #000;
 }
+
+.textLeft{
+    text-align: left;
+}
+
+.clearFix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+view{
+  overflow: visible!important;
+}

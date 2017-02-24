@@ -1,10 +1,10 @@
 <!--moments.wxml-->
-<import src="../../wxParse/wxParse.wxml" />
-<view class="container" style="height: 100%">
+<import src="../template/moment_temp.wxml" />
+<view bindtap="bindHideMore">
     <view class="moment-nav-wrap">
         <view class="top-nav flex-wrap flex-tab">
-            <view class="top-nav-item flex-item">好友</view>
-            <view class="line-h"></view>
+            <view class="top-nav-item flex-item" wx:if="{{isLogin}}">好友</view>
+            <view class="line-h" wx:if="{{isLogin}}"></view>
             <view class="top-nav-item flex-item current">热门</view>
         </view>
         <view class="second-nav flex-wrap flex-tab">
@@ -22,42 +22,10 @@
             </view>
         </view>
     </view>
-    <view class="{{pullDown?'pullDownRefresh-tip tip show':'pullDownRefresh-tip tip'}}">更新数据</view>
-    <view class="moments-wrap">
-        <block wx:for="{{moments}}" wx:key="id" wx:for-index="idx" wx:for-item="item" data-ID="{{ID}}">
-            <view class="moment-item">
-                <view class="fl">
-                    <image class="avatar" src="{{item.userInfo.Avatar}}"></image>
-                </view>
-                <view class="momentFr">
-                    <view class="top">
-                        <p class="name fl">{{item.userInfo.NickName}}</p>
-                        <view class="{{item.IsTop >= 1? 'moemntTag hot fl':'moemntTag fl'}}"></view>
-                        <view class="momentMore icon fr"></view>
-                    </view>
-                    <view class="momentTxt" wx:if="{{item.Text}}">
-                        <template is="wxParse" data="{{wxParseData:item.Html.nodes}}" />
-                    </view>
-                    <view class="momentImgs">
-                        <block wx:for="{{item.ImgList}}" wx:key="id" wx:for-index="idx" wx:for-item="imgItem">
-                            <view class="momentImgWrap">
-                                <image src="{{imgItem.thumb}}"></image>
-                            </view>
-                        </block>
-                    </view>
-                    <view class="bottom">
-                        <text>{{item.PublishTime}}</text>
-                        <view class="commentIcoWrap fr" bindtap="bindShowComment" data-mom_id="{{item.ID}}">
-                            <text>{{item.comsNum}}</text>
-                            <view class="momentCommIco icon"></view>
-                        </view>
-                        <view class="likeIcoWrap fr">
-                            <text>{{item.zanlist.length}}</text>
-                            <view class="momentLikeIco icon"></view>
-                        </view>
-                    </view>
-                </view>
-            </view>
-        </block>
+    <view class="container" style="height: 100%">
+        <view class="pullDownRefresh-tip tip" wx:if="{{pullDown}}">更新数据</view>
+        <view class="moments-wrap">
+            <template is="moment_temp" data="{{moments}}"></template>
+        </view>
     </view>
 </view>

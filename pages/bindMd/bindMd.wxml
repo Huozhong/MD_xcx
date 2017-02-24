@@ -1,0 +1,35 @@
+
+<view>
+    <view>
+        <image src="../../images/logo.png" class="mdLogo" />
+    </view>
+    <form class="auth-form" bindsubmit="savePersonInfo" catchreset="formReset">
+        <view class="form-list">
+            <view class="form-item">
+                <view class="form-item-bd">
+                    <view  class="f-pr">
+                        <input type="text" name="email" value="{{name}}" placeholder="请输入网易通行证账号" auto-focus bindinput="bindInput"/>
+                        <view hidden="{{hideSuggest}}" class="suggest">
+                            <block wx:for="{{slist}}" wx:key="id" wx:for-index="idx" wx:for-item="s" data-idx="{{idx}}">
+                                <view class="email" bindtap="onSelect" data-value="{{s}}">{{s}}</view>
+                            </block>
+                        </view>
+                    </view>
+                </view>
+
+            </view>
+            <view class="form-item">
+                <view class="form-item-bd">
+                    <input type="text" password="true" name="password" value="{{psw}}" placeholder="请输入网易通行证密码" />
+                </view>
+            </view>
+        </view>
+        <view wx:if="{{error}}">
+            <text class="error">{{error}}</text>
+        </view>
+        <view class="btn-area">
+            <button formType="warn" class="loginUrsBtn">登 录</button>
+        </view>
+    </form>
+</view>
+

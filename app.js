@@ -1,57 +1,65 @@
 //app.js
+let util = require('utils/util.js');
 App({
-  onLaunch: function () {
-    //调用API从本地缓存中获取数据
-    var logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
-  },
-  getMDUserInfo: function () {
-    let email = wx.getStorageSync('email'),
-      roleid = wx.getStorageSync('roleid');
-    //跳转到auth绑定认证页面
-    if (!email) {
-      wx.showModal({
-        title: '提示',
-        content: '检测到您还未绑定梦岛账号，请绑定',
-        confirmText: '去绑定',
-        success: function (res) {
-          if (res.confirm) {
+    onLaunch: function() {
+        var that = this;
+        // 获取微信用户信息并尝试登录梦岛
+        this.getWxUserInfo(function(result) {
+            that.mdLogin(result);
+        });
+        setTimeout(function() {
             wx.navigateTo({
-              url: '../auth/auth'
-            })
-          } else {
-            wx.switchTab({
-              url: '/pages/moments/moments'
-            })
-          }
-        }
-      });
-    }
-  },
-  getUserInfo: function (cb) {
-    var that = this
-    if (this.globalData.userInfo&&this.globalData.MDUserInfo) {
-      typeof cb == "function" && cb(this.globalData.userInfo)
-    } else {
-      //调用登录接口
-      wx.login({
-        success: function () {
-          that.getMDUserInfo();
-          wx.getUserInfo({
-            success: function (res) {
-              that.globalData.userInfo = res.userInfo
-              typeof cb == "function" && cb(that.globalData.userInfo);
-
+                url: '../moment/moment'
+            });
+        }, 1500);
+        // wx.clearStorage();
+    },
+    wxLogin: function(cb) {
+        //调用微信登录接口
+        wx.login({
+            success: function(res) {
+                typeof cb == "function" && cb(res);
             }
-          })
-        }
-      })
-    }
-  },
+        })
+    },
+    mdLogin: function(wxuser) {
+        var that = this;
+        let sessionid = wx.getStorageSync('sessionid');
+        if (sessionid) {
+            util.requestData(util.HOST + 'wxLogin', { code: wxuser.code, mdid: sessionid }, function(result) {
+                that.globalData.MDUserInfo = result;
+            }, function(result) {
 
-  globalData: {
-    userInfo: null,
-    MDUserInfo: null
-  }
+            });
+        }
+    },
+    getWxUserInfo: function(cb) {
+        let that = this
+        this.wxLogin(function(result) {
+            wx.getUserInfo({
+                success: function(res) {
+                    that.globalData.userInfo = res.userInfo;
+                    typeof cb == "function" && cb(result);
+
+                }
+            })
+        })
+    },
+    // 从后台获取梦岛用户信息
+    getMdUserDataFromServer: function(code) {
+
+    },
+    // 将梦岛用户信息存储在本地
+    setMdUserInfo: function(user) {
+        wx.setStorageSync('UserInfo', user);
+    },
+    // 从本地获取梦岛用户信息
+    getMdUserInfo: function(cb) {
+        typeof cb == "function" && cb(wx.getStorageSync('UserInfo'));
+    },
+
+    globalData: {
+        userInfo: null,
+        MDUserInfo: null
+    }
 })

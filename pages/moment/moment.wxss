@@ -1,0 +1,10 @@
+/**moment.wxss**/
+@import "../common/common.wxss";
+@import "../common/momentItem.wxss";
+.moment-wrap{
+  width: 100%;
+}
+.moment-wrap .moment-item{
+  border-bottom: none;
+}
+

@@ -1,8 +1,8 @@
 {
   "pages":[
     "pages/moments/moments",
-    "pages/contact/contact",
-    "pages/message/message",
+    "pages/moment/moment",
+    "pages/bindMd/bindMd",
     "pages/home/home"
   ],
   "window":{

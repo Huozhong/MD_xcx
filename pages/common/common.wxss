@@ -1,6 +1,7 @@
 .icon{
     position: relative;
     top: 50%;
+    transform: translateY(-50%);
     display: inline-block;
     vertical-align: top;
     background: url(../../images/icon.png) no-repeat;

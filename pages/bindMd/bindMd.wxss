@@ -1,0 +1,121 @@
+.form-list {
+  position: relative;
+  margin-bottom: 20rpx;
+  font-size:34rpx;
+}
+
+.form-list:first-child {
+  margin-top: 100rpx;
+}
+
+.form-item {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  width: 100%;
+  padding: 15rpx 40rpx;
+}
+
+.form-item:first-child::before {
+  display: none;
+}
+
+.form-item-hd {
+  width: 150rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+}
+
+.form-item-bd {
+  flex: 1;
+  height: 80rpx;
+}
+
+input, .input {
+  box-sizing: border-box;
+  width: 100%;
+  height: 80rpx;
+  line-height: 80rpx;
+  background-color: #fff;
+  padding: 0 15rpx;
+  border-radius: 10rpx;
+  border: 1rpx solid #c5cddb;
+}
+.suggest {
+  width: 100%;
+  height: 320rpx;
+  line-height:60rpx;
+  position: absolute;
+  z-index:100;
+  left:0;
+  top:70rpx;
+  background-color: #fff;
+  border: 2rpx solid #f8f8f8;
+  border-radius:10rpx;
+}
+.suggest .email {
+  height:58rpx;
+  margin: 0 15rpx;
+  border-bottom: 2rpx solid #e3e3e3;
+  overflow : hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+}
+.input-placeholder {
+  color: #808080;
+}
+
+.edit-btn {
+  width: 300rpx;
+  height: 80rpx;
+  margin: 0 auto;
+  font-size: 32rpx;
+  text-align: center;
+  line-height: 80rpx;
+  background-color: #47a86c;
+  border-radius: 80rpx;
+  color: #fff;
+}
+
+.hidden {
+  display: none;
+}
+.f-pr {
+  position: relative;
+}
+
+.tip {
+    margin:60rpx 0 0 20rpx;
+    font-family:Helvetica,sans-serif;
+    font-size:28rpx;
+    color:#666;
+    line-height:1.8
+}
+.tip view {
+  display: block;
+}
+.error {
+  color:#e48b7c;
+  font-size:28rpx;
+  padding-left:30rpx;
+}
+
+.mdLogo{
+    display: block;
+    width: 485rpx;
+    height: 158rpx;
+    margin: 0 auto;
+    margin-top: 80rpx;
+}
+.btn-area{
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 40rpx;
+}
+.loginUrsBtn{
+    width: 100%;
+    color: #D2FFE5;
+    background: #2c3550;
+    margin:0;
+}

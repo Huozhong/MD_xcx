@@ -14,12 +14,16 @@
 <template name="wxParseVideo">
     <!--增加video标签支持，并循环添加-->
     <view class="{{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
-        <video class="{{item.classStr}} wxParse-{{item.tag}}-video" src="{{item.attr.src}}"></video>
+        <video class="{{item.classStr}} wxParse-{{item.tag}}-video" src="{{item.attr.src}}" autoplay="true"></video>
     </view>
 </template>
-
+<template name="wxParseVideoNews">
+    <view class="{{item.classStr}} wxParse-video" style="{{item.styleStr}}">
+        <video class="{{item.classStr}} wxParse-video-video" src="{{item.attr.movie}}" autoplay="true" controls></video>
+    </view>
+</template>
 <template name="wxParseImg">
-    <image class="{{item.classStr}} wxParse-{{item.tag}}" data-from="{{item.from}}" data-src="{{item.attr.src}}"  data-idx="{{item.imgIndex}}"  src="{{item.attr.src}}" mode="aspectFit" bindload="wxParseImgLoad" bindtap="wxParseImgTap" mode="widthFix" style="width:{{item.width}}px;"   />
+    <image class="{{item.classStr}} wxParse-{{item.tag}}" data-from="{{item.from}}" data-src="{{item.attr.src}}"  data-idx="{{item.imgIndex}}"  src="{{item.attr.src}}" mode="aspectFit" bindload="wxParseImgLoad" bindtap="wxParseImgTap" />
 </template>
 
 <template name="WxEmojiView">
@@ -72,7 +76,7 @@
 
         <!--video类型-->
         <block wx:elif="{{item.tag == 'video'}}">
-            <template is="wxParseVideo" data="{{item}}"/>  
+            <template is="wxParseVideo" data="{{item}}"/>
         </block>
 
         <!--img类型-->
@@ -96,13 +100,22 @@
             </view>
         </block>
 
+        <!--新闻系统传过来的视频div -->
+        <block wx:elif="{{item.styleStr == 'video_ctn'}}">
+                    <template is="wxParseVideoNews" data="{{item}}"/>
+        </block>
         <!--其他块级标签-->
         <block wx:elif="{{item.tagType == 'block'}}">
+            <block wx:if="{{item.classStr == 'video_ctn'}}">
+                <template is="wxParseVideoNews" data="{{item}}"/>
+            </block>
+            <block wx:else>
             <view class="{{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
                 <block  wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">       
-                    <template is="wxParse1" data="{{item}}"/>                 
+                    <template is="wxParse1" data="{{item}}"/>
                 </block>
             </view>
+            </block>
         </block>
 
         <!--内联标签-->
@@ -173,11 +186,16 @@
         
         <!--其他块级标签-->
         <block wx:elif="{{item.tagType == 'block'}}">
-            <view class="{{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
-                <block  wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">       
-                    <template is="wxParse2" data="{{item}}"/>                 
-                </block>
-            </view>
+            <block wx:if="{{item.classStr == 'video_ctn'}}">
+                <template is="wxParseVideoNews" data="{{item}}"/>
+            </block>
+            <block wx:else>
+                <view class="{{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
+                    <block  wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+                        <template is="wxParse2" data="{{item}}"/>
+                    </block>
+                </view>
+            </block>
         </block>
 
         <!--内联标签-->
@@ -247,11 +265,16 @@
         
         <!--其他块级标签-->
         <block wx:elif="{{item.tagType == 'block'}}">
-            <view class="{{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
-                <block  wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">       
-                    <template is="wxParse3" data="{{item}}"/>                 
-                </block>
-            </view>
+            <block wx:if="{{item.classStr == 'video_ctn'}}">
+                <template is="wxParseVideoNews" data="{{item}}"/>
+            </block>
+            <block wx:else>
+                <view class="{{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
+                    <block  wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+                        <template is="wxParse3" data="{{item}}"/>
+                    </block>
+                </view>
+            </block>
         </block>
 
         <!--内联标签-->
@@ -320,11 +343,16 @@
         
         <!--其他块级标签-->
         <block wx:elif="{{item.tagType == 'block'}}">
-            <view class="{{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
-                <block  wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">       
-                    <template is="wxParse4" data="{{item}}"/>                 
-                </block>
-            </view>
+            <block wx:if="{{item.classStr == 'video_ctn'}}">
+                <template is="wxParseVideoNews" data="{{item}}"/>
+            </block>
+            <block wx:else>
+                <view class="{{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
+                    <block  wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+                        <template is="wxParse4" data="{{item}}"/>
+                    </block>
+                </view>
+            </block>
         </block>
 
         <!--内联标签-->
@@ -393,11 +421,16 @@
         
         <!--其他块级标签-->
         <block wx:elif="{{item.tagType == 'block'}}">
-            <view class="{{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
-                <block  wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">       
-                    <template is="wxParse5" data="{{item}}"/>                 
-                </block>
-            </view>
+            <block wx:if="{{item.classStr == 'video_ctn'}}">
+                <template is="wxParseVideoNews" data="{{item}}"/>
+            </block>
+            <block wx:else>
+                <view class="{{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
+                    <block  wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+                        <template is="wxParse5" data="{{item}}"/>
+                    </block>
+                </view>
+            </block>
         </block>
 
         <!--内联标签-->
@@ -466,11 +499,16 @@
         
         <!--其他块级标签-->
         <block wx:elif="{{item.tagType == 'block'}}">
-            <view class="{{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
-                <block  wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">       
-                    <template is="wxParse6" data="{{item}}"/>                 
-                </block>
-            </view>
+            <block wx:if="{{item.classStr == 'video_ctn'}}">
+                <template is="wxParseVideoNews" data="{{item}}"/>
+            </block>
+            <block wx:else>
+                <view class="{{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
+                    <block  wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+                        <template is="wxParse6" data="{{item}}"/>
+                    </block>
+                </view>
+            </block>
         </block>
 
         <!--内联标签-->
@@ -539,11 +577,16 @@
         
         <!--其他块级标签-->
         <block wx:elif="{{item.tagType == 'block'}}">
-            <view class="{{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
-                <block  wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">       
-                    <template is="wxParse7" data="{{item}}"/>                 
-                </block>
-            </view>
+            <block wx:if="{{item.classStr == 'video_ctn'}}">
+                <template is="wxParseVideoNews" data="{{item}}"/>
+            </block>
+            <block wx:else>
+                <view class="{{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
+                    <block  wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+                        <template is="wxParse7" data="{{item}}"/>
+                    </block>
+                </view>
+            </block>
         </block>
 
         <!--内联标签-->
@@ -611,11 +654,16 @@
         
         <!--其他块级标签-->
         <block wx:elif="{{item.tagType == 'block'}}">
-            <view class="{{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
-                <block  wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">       
-                    <template is="wxParse8" data="{{item}}"/>                 
-                </block>
-            </view>
+            <block wx:if="{{item.classStr == 'video_ctn'}}">
+                <template is="wxParseVideoNews" data="{{item}}"/>
+            </block>
+            <block wx:else>
+                <view class="{{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
+                    <block  wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+                        <template is="wxParse8" data="{{item}}"/>
+                    </block>
+                </view>
+            </block>
         </block>
 
         <!--内联标签-->
@@ -684,11 +732,16 @@
         
         <!--其他块级标签-->
         <block wx:elif="{{item.tagType == 'block'}}">
-            <view class="{{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
-                <block  wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">       
-                    <template is="wxParse9" data="{{item}}"/>                 
-                </block>
-            </view>
+            <block wx:if="{{item.classStr == 'video_ctn'}}">
+                <template is="wxParseVideoNews" data="{{item}}"/>
+            </block>
+            <block wx:else>
+                <view class="{{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
+                    <block  wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+                        <template is="wxParse9" data="{{item}}"/>
+                    </block>
+                </view>
+            </block>
         </block>
 
         <!--内联标签-->
@@ -757,11 +810,16 @@
         
         <!--其他块级标签-->
         <block wx:elif="{{item.tagType == 'block'}}">
-            <view class="{{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
-                <block  wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">       
-                    <template is="wxParse10" data="{{item}}"/>                 
-                </block>
-            </view>
+            <block wx:if="{{item.classStr == 'video_ctn'}}">
+                <template is="wxParseVideoNews" data="{{item}}"/>
+            </block>
+            <block wx:else>
+                <view class="{{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
+                    <block  wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+                        <template is="wxParse10" data="{{item}}"/>
+                    </block>
+                </view>
+            </block>
         </block>
 
         <!--内联标签-->
@@ -830,11 +888,16 @@
         
         <!--其他块级标签-->
         <block wx:elif="{{item.tagType == 'block'}}">
-            <view class="{{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
-                <block  wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">       
-                    <template is="wxParse11" data="{{item}}"/>                 
-                </block>
-            </view>
+            <block wx:if="{{item.classStr == 'video_ctn'}}">
+                <template is="wxParseVideoNews" data="{{item}}"/>
+            </block>
+            <block wx:else>
+                <view class="{{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
+                    <block  wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+                        <template is="wxParse11" data="{{item}}"/>
+                    </block>
+                </view>
+            </block>
         </block>
 
         <!--内联标签-->
@@ -903,11 +966,16 @@
         
         <!--其他块级标签-->
         <block wx:elif="{{item.tagType == 'block'}}">
-            <view class="{{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
-                <block  wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">       
-                    <template is="wxParse12" data="{{item}}"/>                 
-                </block>
-            </view>
+            <block wx:if="{{item.classStr == 'video_ctn'}}">
+                <template is="wxParseVideoNews" data="{{item}}"/>
+            </block>
+            <block wx:else>
+                <view class="{{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
+                    <block  wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+                        <template is="wxParse12" data="{{item}}"/>
+                    </block>
+                </view>
+            </block>
         </block>
 
         <!--内联标签-->
@@ -924,5 +992,84 @@
         <!--如果是，直接进行-->
         <template is="WxEmojiView" data="{{item}}"/>
     </block>
+
+</template>
+<template name="wxParse12">
+    <!--<template is="wxParse12" data="{{item}}" />-->
+    <!--判断是否是标签节点-->
+    <block wx:if="{{item.node == 'element'}}">
+        <block wx:if="{{item.tag == 'button'}}">
+            <button type="default" size="mini" >
+                <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+                    <template is="wxParse13" data="{{item}}"/>
+                </block>
+            </button>
+        </block>
+        <!--li类型-->
+        <block wx:elif="{{item.tag == 'li'}}">
+            <view class="{{item.classStr}} wxParse-li">
+                <view class="{{item.classStr}} wxParse-li-inner">
+                    <view class="{{item.classStr}} wxParse-li-text">
+                        <view class="{{item.classStr}} wxParse-li-circle"></view>
+                    </view>
+                    <view class="{{item.classStr}} wxParse-li-text">
+                        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+                            <template is="wxParse13" data="{{item}}"/>
+                        </block>
+                    </view>
+                </view>
+            </view>
+        </block>
+
+        <!--video类型-->
+        <block wx:elif="{{item.tag == 'video'}}">
+            <template is="wxParseVideo" data="{{item}}"/>
+        </block>
+
+        <!--img类型-->
+        <block wx:elif="{{item.tag == 'img'}}">
+            <template is="wxParseImg" data="{{item}}"/>
+        </block>
+
+        <!--a类型-->
+        <block wx:elif="{{item.tag == 'a'}}">
+            <view bindtap="wxParseTagATap" class="wxParse-inline {{item.classStr}} wxParse-{{item.tag}}" data-src="{{item.attr.href}}"  style="{{item.styleStr}}">
+                <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+                    <template is="wxParse13" data="{{item}}"/>
+                </block>
+            </view>
+        </block>
+
+        <!--其他块级标签-->
+        <block wx:elif="{{item.tagType == 'block'}}">
+            <block wx:if="{{item.classStr == 'video_ctn'}}">
+                <template is="wxParseVideoNews" data="{{item}}"/>
+            </block>
+            <block wx:else>
+                <view class="{{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
+                    <block  wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+                        <template is="wxParse13" data="{{item}}"/>
+                    </block>
+                </view>
+            </block>
+        </block>
+
+        <!--内联标签-->
+        <view wx:else class="{{item.classStr}} wxParse-{{item.tag}} wxParse-{{item.tagType}}" style="{{item.styleStr}}">
+            <block  wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+                <template is="wxParse13" data="{{item}}"/>
+            </block>
+        </view>
+
+    </block>
+
+    <!--判断是否是文本节点-->
+    <block wx:elif="{{item.node == 'text'}}">
+        <!--如果是，直接进行-->
+        <template is="WxEmojiView" data="{{item}}"/>
+    </block>
+
+</template>
+<template name="wxParse13">
 
 </template>

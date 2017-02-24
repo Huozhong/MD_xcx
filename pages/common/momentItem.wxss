@@ -3,7 +3,7 @@
 .moment-item {
   padding: 20rpx 40rpx 2rpx;
   position: relative;
-  overflow: hidden;
+  /*overflow: hidden;*/
   border-bottom: 2rpx solid #bbb;
 }
 
@@ -36,6 +36,7 @@
 .bottom .commentIcoWrap,.bottom .likeIcoWrap{
     height: 100%;
     line-height: 40rpx;
+    overflow: hidden;
 }
 
 .bottom .commentIcoWrap{
@@ -45,7 +46,6 @@
 .bottom .momentLikeIco{
     width: 34rpx;
     height: 28rpx;
-    margin-top: -14rpx;
     margin-left: 5rpx;
     background-position: -92rpx -416rpx;
 }
@@ -53,7 +53,6 @@
 .bottom .momentCommIco{
     width: 46rpx;
     height: 29rpx;
-    margin-top: -14.5rpx;
     margin-left: 5rpx;
     background-position: -92rpx -372rpx;
 }
@@ -83,15 +82,78 @@
 .moment-item .momentMore {
   width: 40rpx;
   height: 45rpx;
-  margin-top: -22.5rpx;
   background-position: -169rpx -298rpx;
+}
+
+.moment-item .momentMoreWrap {
+    position: absolute;
+    top: 60rpx;
+    font-size: 24rpx;
+    right: 50rpx;
+    color: #fff;
+    width: 220rpx;
+    z-index: 100;
+}
+
+.moment-item .momentMoreWrap .triangle_border_up {
+    float: right;
+    width: 0;
+    border-width: 0 10rpx 10rpx;
+    border-style: solid;
+    border-color: transparent transparent #85a9d6;
+    box-sizing: content-box;
+    display: block;
+}
+
+.moment-item .momentMoreWrap ul {
+    border-radius: 0 0 5rpx 5rpx;
+}
+
+.moment-item .momentMoreWrap li:first-child {
+    border-radius: 5rpx 0 0;
+}
+
+.moment-item .momentMoreWrap li:last-child {
+    border-radius: 0 0 5rpx 5rpx;
+}
+
+.moment-item .momentMoreWrap li {
+    display: block;
+    clear: both;
+    /*background: #85a9d6;*/
+    list-style: square inside ;
+    border-bottom: 2rpx solid #97b6dc;
+    background: #85a9d6 url(../../images/li.png) 10rpx center no-repeat;
+    background-size: 11rpx 10rpx;
+}
+
+/*.moment-item .momentMoreWrap li .momMoreListStyle{
+    background: url(../../images/li.png) no-repeat;
+    background-size: 100%;
+    width: 11rpx;
+    height: 10rpx;
+}*/
+
+.moment-item .momentMoreWrap li div {
+    display: block;
+    text-indent: 0.7em;
+    margin-left: 16rpx;
+    height: 54rpx;
+    line-height: 54rpx;
+    vertical-align: middle;
 }
 
 .momentTxt {
   width: 100%;
-  font-size: 30rpx;
-  color: #1f1f1f;
+  font-size: 30rpx!important;
+  color: #1f1f1f!important;
+  font-weight: normal!important;
   word-wrap: break-word;
+}
+.wxParse-inline{
+  font-size: 30rpx!important;
+  color: #1f1f1f!important;
+  font-weight: normal!important;
 }
 
 .momentImgs {
@@ -110,10 +172,89 @@
 .momentImgs image {
   width: 100%;
   height: 100%;
+  display: block;
+  margin: 0;
 }
 
 .wxParse-img {
-  background-color: #fff;
-  max-width: 120rpx;
-  max-height: 120rpx;
+  background-color: transparent;
+  max-width: 80rpx;
+  max-height: 80rpx;
 }
+
+.moment-item .zanComWrap{
+  width: 100%;
+  margin-top: 20rpx;
+  background: #e7e7e7;
+  padding-top: 20rpx;
+}
+
+.moment-item .zanWrap{
+  padding: 0 20rpx;
+  font-size: 28rpx;
+  color: #85a9d6;
+  word-wrap: break-word;
+  font-weight: 500;
+  line-height: 40rpx;
+}
+
+.moment-item .inputWrap{
+  display: flex;
+  padding: 30rpx 15rpx;
+  box-sizing: border-box;
+}
+
+.moment-item .inputWrap input{
+  width: 100%;
+  height: 58rpx;
+  line-height: 58rpx;
+  outline: 0;
+  border: 1rpx solid #85a9d6;
+  font-size: 28rpx;
+  word-wrap: normal;
+  border-radius: 5rpx 0 0 5rpx;
+  background-color: #fff;
+  padding-left: .5em;
+}
+
+.moment-item .inputWrap .submitComm{
+  height: 62rpx;
+  line-height: 62rpx;
+  background: #85a9d6;
+  font-size: 26rpx;
+  color: #fff;
+  vertical-align: middle;
+  text-align: center;
+  padding: 0;
+  width: 138rpx;
+  border-radius: 0 5rpx 5rpx 0;
+}
+
+.moment-item .inputWrap .submitComm::after{
+  border: none;
+}
+
+.moment-item .comment-item{
+  box-sizing: border-box;
+  border-top: 1rpx solid #bbb;
+  padding: 10rpx 20rpx;
+}
+
+.moment-item .comment-item .commUser{
+  display: block;
+  font-size: 28rpx;
+  color: #85a9d6;
+  height: 40rpx;
+  line-height: 40rpx;
+  font-weight: bold;
+}
+.moment-item .comment-item .commentTxt{
+  font-size: 28rpx;
+  color: #000;
+  word-wrap: break-word;
+  word-break: break-all;
+  margin-bottom: 5rpx;
+}
+
+
+

@@ -28,6 +28,9 @@
   margin-top: 8px;
   background-color: #ddd;
 }
+.container{
+  padding-top: 140rpx;
+}
 
 .top-nav-item.current {
   color: #85a9d6;
@@ -70,13 +73,8 @@
   display: block;
 }
 .pullDownRefresh-tip{
-    padding-top: 140rpx;
-    height: 0;
-    overflow: hidden;
-}
-.pullDownRefresh-tip.show{
-  height: 40rpx;
-  line-height: 40rpx;
+    height: 40rpx;
+    line-height: 40rpx;
 }
 .moments-wrap {
   width: 100%;
