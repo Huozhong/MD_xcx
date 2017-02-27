@@ -1,0 +1,52 @@
+<!-- message_temp.wxml -->
+<import src="../../wxParse/wxParse.wxml" />
+<template name="message_temp">
+    <block wx:for="{{messages}}" wx:key="msg" wx:for-index="msgx" wx:for-item="messageItem" data-ID="{{ID}}">
+        <view class="moment-item clearFix">
+            <view class="fl">
+                <image class="avatar" src="{{messageItem.userInfo.Avatar?messageItem.userInfo.Avatar:'../../images/defaultAvatar.jpg'}}"></image>
+            </view>
+            <view class="momentFr">
+                <view class="top">
+                    <p class="name fl">{{messageItem.userInfo.NickName}}</p>
+                </view>
+                <view class="momentTxt" wx:if="{{messageItem.Text}}">
+                    <template is="wxParse" data="{{wxParseData:messageItem.Html.nodes}}" />
+                </view>
+                <view class="bottom">
+                    <text>{{messageItem.PublishTime}}</text>
+                    <view class="commentIcoWrap fr" bindtap="bindAddComm" data-mom_id="{{messageItem.ID}}">
+                        <text wx:if="{{messageItem.comsNum}}">{{messageItem.comsNum}}</text>
+                        <text wx:if="{{messageItem.commlist.comsNum}}">{{messageItem.commlist.comsNum}}</text>
+                        <view class="momentCommIco icon"></view>
+                    </view>
+                    <view class="likeIcoWrap fr" bindtap="bindLike" data-mom_id="{{messageItem.ID}}">
+                        <text class="delTxt">删除</text>
+                    </view>
+                </view>
+                <view class="zanComWrap" wx:if="{{messageItem.showCommList}}">
+                    <view class="inputWrap">
+                        <input placeholder="{{messageItem.inputTxt}}" bindinput="bindInput" class="placeholder" maxlength='163' focus="{{messageItem.inputFocus}}"/>
+                        <button class="submitComm">回复</button>
+                    </view>
+                    <view class="comWrap">
+                        <block wx:for="{{messageItem.commlist.commlist}}" wx:key="comm" wx:for-index="commx" wx:for-item="commItem">
+                            <view class="comment-item">
+                                <text class="commUser">{{commItem.userInfo.NickName}}</text>
+                                <view class="commentTxt">
+                                    <template is="wxParse" data="{{wxParseData:commItem.Html.nodes}}" />
+                                </view>
+                                <view class="bottom">
+                                    <text>{{commItem.PublishTime}}</text>
+                                    <view class="commentIcoWrap fr" bindtap="bindAnsComm" data-comm_index="{{commx}}">
+                                        <view class="momentCommIco icon"></view>
+                                    </view>
+                                </view>
+                            </view>
+                        </block>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </block>
+</template>

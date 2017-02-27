@@ -1,0 +1,75 @@
+<!--index.wxml-->
+<import src="../../wxParse/wxParse.wxml" />
+<view class="container">
+	<view class="nav-wrap">
+		<view class="top-nav flex-wrap flex-tab">
+		    <view class="{{'top-nav-item flex-item ' + (currentType == 'friinforms' ? 'current':'')}}" bindtap="bindNavChange" data-curswx="friinforms">加好友</view>
+		    <view class="line-h"></view>
+		    <view class="{{'top-nav-item flex-item ' + (currentType == 'informs' ? 'current':'')}}" bindtap="bindNavChange" data-curswx="informs">通知</view>
+		    <view class="line-h"></view>
+		    <view class="{{'top-nav-item flex-item ' + (currentType == 'msginforms' ? 'current':'')}}" bindtap="bindNavChange" data-curswx="msginforms">留言</view>
+		</view>
+	</view>
+    <view class="messagesWrap" wx:if="{{currentType=='friinforms'}}">
+    	<block wx:for="{{friinforms}}" wx:key="friinform" wx:for-index="friinformx" wx:for-item="friinformItem">
+	    	<view class="followMsgWrap">
+	    		<view class="fl"><text>{{friinformItem.userInfo.NickName}}</text> 已经关注了你</view>
+	    		<view class="fr"><text>关注</text></view>
+	    	</view>
+    	</block>
+    	<view class="tip" wx:if="{{friinformsNoMore}}">暂无更多数据</view>
+    </view>
+	<view class="messagesWrap" wx:elif="{{currentType=='informs'}}">
+		
+		<block wx:for="{{informs}}" wx:key="inform" wx:for-index="informx" wx:for-item="informItem">
+	    	<view class="informWrap clearFix">
+	    		<view class="avatarWrap fl">
+	    			<image class="informUserAvatar" src="../../images/systemInform.png" wx:if="{{informItem.Type == 7 || informItem.Type == 12}}"></image>
+	    			<image class="informUserAvatar" src="{{informItem.userInfo.Avatar?informItem.userInfo.Avatar:'../../images/defaultAvatar.jpg'}}" wx:else></image>
+	    		</view>
+	    		<view class="informConWrap fr">
+	    			<view>
+	    				<text class="userName" wx:if="{{informItem.Type != 7 && informItem.Type != 12}}">{{informItem.userInfo.NickName}}</text>
+	    				<text class="userName" wx:else>系统通知</text>
+	    				<text wx:if="{{informItem.Type == 1}}">评论了你的新鲜事：</text>
+	    				<text wx:elif="{{informItem.Type == 2}}">回复了你的新鲜事：</text>
+	    				<text wx:elif="{{informItem.Type == 4}}">赞了你的新鲜事</text>
+	    				<text wx:elif="{{informItem.Type == 6}}">赞了你的图片</text>
+	    				<text wx:elif="{{informItem.Type == 9}}">赞了你的真人秀</text>
+	    				<text wx:elif="{{informItem.Type == 8}}">赞了你的炫耀帖</text>
+	    				<text wx:elif="{{informItem.Type == 10}}">评论了你的同人作品：</text>
+	    				<text wx:elif="{{informItem.Type == 11}}">回复了你的同人作品：</text>
+	    			</view>
+	    			<view wx:if="{{informItem.Type != 7 && informItem.Type != 12 && informItem.Type != 4}}">
+	    				<template is="wxParse" data="{{wxParseData:informItem.TextHtml.nodes}}" />
+	    			</view>
+	    			<view wx:else>
+	    				<template is="wxParse" data="{{wxParseData:informItem.MessageHtml.nodes}}" />
+	    			</view>
+	    		</view>
+	    	</view>
+    	</block>
+    	<view class="tip" wx:if="{{informsNoMore}}">暂无更多数据</view>
+	</view>
+	<view class="messagesWrap" wx:else>
+		<block wx:for="{{msginforms}}" wx:key="msginform" wx:for-index="msginformx" wx:for-item="msginformItem">
+			<view class="informWrap clearFix">
+				<view class="avatarWrap fl">
+					<image class="informUserAvatar" src="{{msginformItem.userInfo.Avatar?msginformItem.userInfo.Avatar:'../../images/defaultAvatar.jpg'}}"></image>
+				</view>
+				<view class="informConWrap fr">
+					<view>
+						<text class="userName">{{msginformItem.userInfo.NickName}}</text>
+						<text wx:if="{{msginformItem.Type == 3}}">给你留言了：</text>
+						<text wx:if="{{msginformItem.Type == 5}}">回复了你的留言：</text>
+					</view>
+					<view>
+						<template is="wxParse" data="{{wxParseData:msginformItem.TextHtml.nodes}}" />
+					</view>
+				</view>
+			</view>
+		</block>
+		<view class="tip" wx:if="{{msginformsNoMore}}">暂无更多数据</view>
+	</view>
+	
+</view>

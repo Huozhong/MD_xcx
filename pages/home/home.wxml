@@ -1,73 +1,78 @@
-
 <!--home.wxml-->
-<view class="container more">
-  <view class="user flex-wrap">
-    <view class="avatar flex-item">
-      <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+<import src="../template/moment_temp.wxml" />
+<import src="../template/message_temp.wxml" />
+<view class="container">
+    <view class="nav-wrap">
+        <view class="top-nav flex-wrap flex-tab">
+            <view class="{{'top-nav-item flex-item ' + (currentNav == 'home' ? 'current':'')}}" bindtap="bindNavChange" data-curnav="home">主页</view>
+            <view class="line-h"></view>
+            <view class="{{'top-nav-item flex-item ' + (currentNav == 'role' ? 'current':'')}}" bindtap="bindNavChange" data-curnav="role">角色</view>
+            <view class="line-h"></view>
+            <view class="{{'top-nav-item flex-item ' + (currentNav == 'msgboard' ? 'current':'')}}" bindtap="bindNavChange" data-curnav="msgboard">留言板</view>
+            <view class="line-h"></view>
+            <view class="{{'top-nav-item flex-item ' + (currentNav == 'album' ? 'current':'')}}" bindtap="bindNavChange" data-curnav="album">相册</view>
+        </view>
+        <view class="homeInfoWrap" wx:if="{{currentNav == 'home'}}">
+            <view class="detail-box">
+                <image class="avatar" src="{{homeData.Avatar?homeData.Avatar:'../../images/defaultAvatar.jpg'}}" />
+                <view class="text-box fr clearFix">
+                    <text class="nickname fl">{{homeData.NickName}}</text>
+                    <view class="share-cont fr">
+                        <view class="icon icon-card"></view>
+                        <text class="share">分享名片</text>
+                    </view>
+                    <view class="follow status1" wx:if="{{homeData.isgz}}">已关注</view>
+                    <view class="follow status0" wx:else>＋ 关注</view>
+                    <view class="clear"></view>
+                    <view class="address">
+                        <text class="province">{{homeData.Province}}</text>
+                        <text class="city">{{homeData.City}}</text>
+                    </view>
+                    <text class="signature">{{homeData.Signature}}</text>
+                </view>
+            </view>
+            <view class="visitor-box">
+                <view>
+                    <text>最近访客：</text>
+                    <text wx:if="{{homeData.VisitList.length==0}}">无</text>
+                </view>
+                <scroll-view class="visitor-list" scroll-x="true">
+                    <block wx:for="{{homeData.VisitList}}" wx:key="visitor" wx:for-index="visitorx" wx:for-item="visitorItem">
+                        <view class="visitorWrap">
+                            <image src="{{visitorItem.Avatar?visitorItem.Avatar:'../../images/defaultAvatar.jpg'}}"></image>
+                        </view>
+                    </block>
+                </scroll-view>
+            </view>
+        </view>
+        <view class="second-nav flex-wrap flex-tab" wx:if="{{currentNav == 'home'}}">
+            <view class="{{category == ''? 'second-nav-item flex-item current':'second-nav-item flex-item'}}" bindtap="bindChangeMomentCategory" data-category="">
+                <text>全部</text>
+                <view class="curIco gray"></view>
+            </view>
+            <view class="{{category == 'qnm'? 'second-nav-item flex-item current':'second-nav-item flex-item'}}" bindtap="bindChangeMomentCategory" data-category="qnm">
+                <text>《倩女幽魂》手游</text>
+                <view class="curIco gray"></view>
+            </view>
+            <view class="{{category == 'qn'? 'second-nav-item flex-item current':'second-nav-item flex-item'}}" bindtap="bindChangeMomentCategory" data-category="qn">
+                <text>《新倩女幽魂》端游</text>
+                <view class="curIco gray"></view>
+            </view>
+        </view>
     </view>
-    <view class="user-info flex-item">
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-
-      <!--<text class="edit">查看或编辑个人主页</text>-->
+    <view class="homeWrap" wx:if="{{currentNav == 'home'}}">
+        <scroll-view class="moment-list" scroll-y="true" bindscrolltolower="scrollToLower">
+            <template is="moment_temp" data="{{moments}}"></template>
+        </scroll-view>
     </view>
-  </view>
-  <view class="my">
-    <view class="my-item flex-wrap">
-      <view class="myitem-icon flex-item">
-        <image src="../../images/eye.png"></image>
-      </view>
-      <view class="myitem-name flex-item">
-        <text>我的关注</text>
-      </view>
+    <view class="roleWrap" wx:if="{{currentNav == 'role'}}"></view>
+    <view class="msgboardWrap" wx:if="{{currentNav == 'msgboard'}}">
+        <view class="msgsNumWrap">
+            <text>留言（<text class="msgsNum">{{msgCount}}</text>条）</text>
+        </view>
+        <view class="msgsWrap">
+            <template is="message_temp" data="{{messages}}"></template>
+        </view>
     </view>
-    <view class="my-item flex-wrap">
-      <view class="myitem-icon flex-item">
-        <image src="../../images/star.png"></image>
-      </view>
-      <view class="myitem-name flex-item">
-        <text>我的收藏</text>
-      </view>
-    </view>
-    <view class="my-item flex-wrap">
-      <view class="myitem-icon flex-item">
-        <image src="../../images/draft.png"></image>
-      </view>
-      <view class="myitem-name flex-item">
-        <text>我的草稿</text>
-      </view>
-    </view>
-
-    <!-- <view class="my-item flex-wrap">
-      <view class="myitem-icon flex-item" >
-        <image src="../../images/recent.png"></image>
-      </view>
-      <view class="myitem-name flex-item">
-        <text>最近浏览</text>
-      </view>
-    </view>-->
-    <view class="my-item flex-wrap">
-      <view class="myitem-icon flex-item">
-        <image src="../../images/book.png"></image>
-      </view>
-      <view class="myitem-name flex-item">
-        <text>我的树洞</text>
-      </view>
-    </view>
-    <view class="my-item flex-wrap">
-      <view class="myitem-icon flex-item">
-        <image src="../../images/live.png"></image>
-      </view>
-      <view class="myitem-name flex-item">
-        <text>我的 Live</text>
-      </view>
-    </view>
-    <view class="my-item flex-wrap">
-      <view class="myitem-icon flex-item">
-        <image src="../../images/zhi.png"></image>
-      </view>
-      <view class="myitem-name flex-item">
-        <text>积分签到</text>
-      </view>
-    </view>
-  </view>
+    <view class="albumWrap" wx:if="{{currentNav == 'album'}}"></view>
 </view>

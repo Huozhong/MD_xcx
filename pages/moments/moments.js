@@ -2,36 +2,46 @@
 let app = getApp(),
     util = require('../../utils/util.js'),
     WxParse = require('../../wxParse/wxParse.js'),
-    page = 0;
+    page = 0,
+    lastid = null;
 Page({
     data: {
         hasMore: true,
         moments: [],
         scrollTop: 10,
         pullDown: false,
+        isHot: true,
         category: '',
         isLogin: false,
-        showMore: false
+        showMore: false,
+        momentsNoMore: false,
+        isMomentList: true
     },
-    // 点击单条新鲜事时调用
-    bindViewTap: function() {
-        let link = e.currentTarget.dataset.link;
-        app.news = link;
-        wx.navigateTo({
-            url: '../news/news'
-        })
+    // 点击单条新鲜事的评论调用
+    bindAddComm: function(e) {
+        let mom_index = e.currentTarget.dataset.mom_index;
+        let mom_id = e.currentTarget.dataset.mom_id;
+        this.data.moments[mom_index].showCommList = !this.data.moments[mom_index].showCommList;
+        if(this.data.moments[mom_index].showCommList){
+            this.getCommOfMon(mom_id,mom_index);
+        }
+    },
+    // 切换好友新鲜事和热门新鲜事
+    bindChangeTopNav: function(e) {
+        let ishot = e.currentTarget.dataset.ishot == 1 ? true : false;
+        this.setData({
+            isHot: ishot,
+            category: ''
+        });
+        this.refreshData();
     },
     // 切换新鲜事分类
     bindChangeMomentCategory: function(e) {
         let category = e.currentTarget.dataset.category;
-        if (this.data.category != category) {
-            this.setData({
-                category: category
-            });
-            this.refreshData();
-        } else {
-            return;
-        }
+        this.setData({
+            category: category
+        });
+        this.refreshData();
     },
     // 点击新鲜事评论时调用
     bindShowComment: function(e) {
@@ -86,12 +96,21 @@ Page({
     },
     // 显示新鲜事详情时调用
     bindShowMomentDetail: function(e) {
-        let showMomentId = e.currentTarget.dataset.mom_id,
-            showMomentIndex = e.currentTarget.dataset.mom_index;
+        let showMomentId = e.currentTarget.dataset.mom_id;
         this.bindHideMore(e);
-        wx.setStorageSync('showMomentId',showMomentId);
         wx.navigateTo({
-            url: '../moment/moment'
+            url: '../moment/moment?id='+showMomentId
+        });
+    },
+    // 点击回复评论时调用
+    bindAnsComm: function(e){
+        let comm_index = e.currentTarget.dataset.comm_index;
+        let momx = e.currentTarget.dataset.mom_index;
+        this.data.moments[momx].inputFocus = true;
+        let inputTxt = '回复'+this.data.moments[momx].commlist.commlist[comm_index].userInfo.NickName;
+        this.data.moments[momx].inputTxt = inputTxt;
+        this.setData({
+            moments: this.data.moments
         });
     },
     // 页面加载完成时调用
@@ -102,8 +121,10 @@ Page({
     //重新获取数据时调用
     refreshData: function() {
         page = 0;
+        lastid = null;
         this.setData({
-            moments: []
+            moments: [],
+            hasMore: true
         });
         this.getMoments();
     },
@@ -119,28 +140,30 @@ Page({
     },
     // 获取新鲜事时调用
     getMoments: function() {
-        let that = this;
+        let that = this,
+            _url = this.data.isHot ? 'qnm/gethotmoments' : 'qnm/getmoments',
+            data = { 'userid': 64 };
         if (that.data.hasMore) {
-            if (page == 0) {
-                wx.showToast({
-                    title: '加载中',
-                    icon: 'loading',
-                    duration: 500
-                });
+            if (this.data.isHot) {
+                data['page'] = page++;
+            } else if (lastid) {
+                data['lastid'] = lastid;
             }
-            let data = { 'page': page++ };
             if (that.data.category != '') {
                 data['category'] = that.data.category;
             }
-            util.requestData(util.HOST + 'qnm/gethotmoments', data, function(result) {
+            util.requestData(util.HOST + _url, data, function(result) {
                 let resultData = result.data;
-                if (resultData.code == 0 && resultData.data && resultData.data.list) {
-                    let resData = resultData.data.list;
-                    for (let i = 0; i < resData.length; i++) {
-                        resData[i].Text = util.parseFace(resData[i].Text);
-                        resData[i].Html = WxParse.wxParse('html', 'html', resData[i].Text, that, 0);
-                        resData[i].PublishTime = util.getPublishTime(resData[i].duration, resData[i].CreatTime);
-                        resData[i].showMore = false;
+                if (resultData.code == 0 && resultData.data) {
+                    let resData = that.data.isHot ? resultData.data.list : resultData.data;
+                    resData = util.initMomentsData(resData, that);
+                    if (!that.data.isHot) {
+                        lastid = resData[resData.length - 1].ID;
+                    }
+                    if (resData.length < 10) {
+                        that.setData({
+                            hasMore: false
+                        });
                     }
                     that.setData({
                         moments: that.data.moments.concat(resData)
@@ -163,8 +186,42 @@ Page({
             })
         }
     },
-    wxParseImgLoad: function(e) {
-        var that = this;
-        WxParse.wxParseImgLoad(e, that);
+    // 获取新鲜事的评论
+    getCommOfMon: function(id,index){
+        let that = this,
+            _url = 'qnm/getcomosfmom',
+            data = { 'userid': 64 };
+        if (id) {
+            data['targetid'] = id;
+            util.requestData(util.HOST + _url, data, function(result) {
+                let resultData = result.data;
+                if (resultData.code == 0 && resultData.data) {
+                    let commData = resultData.data.commlist;
+                    let zanUsersArr = [], zanlist = that.data.moments[index].zanlist;
+                    if(zanlist[0]){
+                        for (var i = 0; i < zanlist.length; i++) {
+                            zanUsersArr.push(zanlist[i].userInfo.NickName);
+                        }
+                    }
+                    let momentData = that.data.moments[index];
+                    if(commData[0]){
+                        for (var i = 0; i < commData.length; i++) {
+                            commData[i].Text = util.parseFace(commData[i].Text);
+                            commData[i].Html = WxParse.wxParse('html','html',commData[i].Text,that,0);
+                            commData[i].PublishTime = util.getPublishTime(commData[i].Duration, commData[i].CreatTime);
+                        }
+                    }
+                    momentData.zanUsers = zanUsersArr.join(', ');
+                    momentData.commlist = resultData.data;
+                    that.setData({
+                        moments: that.data.moments
+                    });
+                } else {
+                    util.errorTip();
+                }
+            }, function(result) {
+
+            });
+        }
     }
 })

@@ -4,7 +4,7 @@
     <block wx:for="{{moments}}" wx:key="mom" wx:for-index="momx" wx:for-item="momentItem" data-ID="{{ID}}">
         <view class="moment-item clearFix">
             <view class="fl">
-                <image class="avatar" src="{{momentItem.userInfo.Avatar}}"></image>
+                <image class="avatar" src="{{momentItem.userInfo.Avatar?momentItem.userInfo.Avatar:'../../images/defaultAvatar.jpg'}}"></image>
             </view>
             <view class="momentFr">
                 <view class="top">
@@ -24,7 +24,7 @@
                     </view>
                 </view>
                 <view class="momentTxt" wx:if="{{momentItem.Text}}">
-                    <template is="wxParse" data="{{wxParseData:item.Html.nodes}}" />
+                    <template is="wxParse" data="{{wxParseData:momentItem.Html.nodes}}" />
                 </view>
                 <view class="momentImgs">
                     <block wx:for="{{momentItem.ImgList}}" wx:key="img" wx:for-index="imgx" wx:for-item="imgItem" wx:if="{{momentItem.ImgList}}">
@@ -35,9 +35,9 @@
                 </view>
                 <view class="bottom">
                     <text>{{momentItem.PublishTime}}</text>
-                    <view class="commentIcoWrap fr" bindtap="bindAddComm" data-mom_id="{{momentItem.ID}}">
-                        <text wx:wx:if="{{momentItem.comsNum}}">{{momentItem.comsNum}}</text>
-                        <text wx:wx:if="{{momentItem.commlist.comsNum}}">{{momentItem.commlist.comsNum}}</text>
+                    <view class="commentIcoWrap fr" bindtap="bindAddComm" data-mom_index="{{momx}}" data-mom_id="{{momentItem.ID}}">
+                        <text wx:if="{{momentItem.comsNum}}">{{momentItem.comsNum}}</text>
+                        <text wx:elif="{{momentItem.commlist.comsNum}}">{{momentItem.commlist.comsNum}}</text>
                         <view class="momentCommIco icon"></view>
                     </view>
                     <view class="likeIcoWrap fr" bindtap="bindLike" data-mom_id="{{momentItem.ID}}">
@@ -46,7 +46,7 @@
                     </view>
                 </view>
                 <view class="zanComWrap" wx:if="{{momentItem.showCommList}}">
-                    <view class="zanWrap" wx:if="{{momentItem.showZanUsers}}">
+                    <view class="zanWrap">
                         <text class="zanUser">{{momentItem.zanUsers}}</text>
                         <!-- <block wx:for="{{momentItem.zanlist}}" wx:key="zan" wx:for-index="zanx" wx:for-item="zanitem">
                         </block> -->
@@ -56,7 +56,7 @@
                         <button class="submitComm">评论</button>
                     </view>
                     <view class="comWrap">
-                        <block wx:for="{{momentItem.commlist.commlist}}" wx:key="comm" wx:for-index="commx" wx:for-item="commItem">
+                        <block wx:for="{{momentItem.commlist.commlist}}" wx:key="comm" wx:for-index="commx" wx:for-item="commItem" data-id="{{momx}}">
                             <view class="comment-item">
                                 <text class="commUser">{{commItem.userInfo.NickName}}</text>
                                 <view class="commentTxt">
@@ -64,12 +64,13 @@
                                 </view>
                                 <view class="bottom">
                                     <text>{{commItem.PublishTime}}</text>
-                                    <view class="commentIcoWrap fr" bindtap="bindAnsComm" data-comm_index="{{commx}}">
+                                    <view class="commentIcoWrap fr" bindtap="bindAnsComm" data-comm_index="{{commx}}" data-mom_index="{{momx}}">
                                         <view class="momentCommIco icon"></view>
                                     </view>
                                 </view>
                             </view>
                         </block>
+                        <text class="detailTip" bindtap="bindShowMomentDetail" wx:if="isMomentList" data-mom_id="{{momentItem.ID}}">查看详情</text>
                     </view>
                 </view>
             </view>

@@ -7,11 +7,6 @@ Page({
     data: {
         moments: null
     },
-    bindInput: function(e){
-        this.setData({
-            inputTxt: '111'
-        })
-    },
     // 点击新鲜事评论时调用
     bindAddComm: function(e) {
         this.data.moments[0].inputFocus = true;
@@ -66,22 +61,15 @@ Page({
         })
     },
     // 页面加载完成时调用
-    onLoad: function() {
+    onLoad: function(options) {
         util.chargeMDUserInfo();
-        let showMomentId = wx.getStorageSync('showMomentId');
-        this.getMoment(showMomentId);
+        this.getMoment(options.id);
     },
     // 获取新鲜事时调用
     getMoment: function(id) {
-        wx.showToast({
-            title: '加载中',
-            icon: 'loading',
-            duration: 10000
-        });
         let that = this,
             data = { 'targetid': id };
         util.requestData(util.HOST + 'qnm/getmoment', data, function(result) {
-            wx.hideToast();
             let resultData = result.data;
             if (resultData.code == 0 && resultData.data[0]) {
                 let resData = resultData.data[0];
@@ -92,7 +80,6 @@ Page({
                 resData.inputTxt = "输入评论内容";
                 resData.isMomentDetail = true;
                 resData.showCommList = true;
-                resData.showZanUsers = true;
                 let zanUsersArr = [], zanlist = resData.zanlist;
                 if(zanlist[0]){
                     for (var i = 0; i < zanlist.length; i++) {

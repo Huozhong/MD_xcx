@@ -1,76 +1,126 @@
 /**home.wxss**/
-
-.user {
-  width: 725rpx;
-  background: #fff;
-  padding: 30rpx 25rpx 30rpx 0;
-  margin: 15rpx 0 0 0;
-  border-top: 1px solid #eee;
-  border-bottom: 1px solid #dcdcdc;
-  box-shadow: 0 2px 5px #eee;
+@import "../common/common.wxss";
+@import "../common/momentItem.wxss";
+.homeInfoWrap{
+    position: relative;
+    border-bottom: 2rpx solid #bbb;
+    overflow: hidden;
+    padding: 20rpx 40rpx 15rpx;
+    font-size: 30rpx;
+    background-color: #fff;
 }
 
-.user .userinfo-avatar {
-  flex: 1;
-  display: inline-block;
-  width: 100rpx;
-  height: 100rpx;
-  border-radius: 80rpx;
+.detail-box{
+    overflow: hidden;
 }
 
-.user .user-info {
-  flex: 5;
-  text-align: left;
+.visitor-box{
+    margin-top: 30rpx;
+    font-size: 24rpx;
 }
 
-.user .user-info text {
-  display: block;
+.detail-box .avatar{
+    width: 120rpx;
+    height: 120rpx;
 }
 
-.user .user-info .userinfo-nickname {
-  padding: 8rpx 0 10rpx 0;
-  font-size: 30rpx;
-  color: #818a8f;
+.detail-box .text-box{
+    width: 500rpx;
 }
 
-.user .user-info .edit {
-  font-size: 30rpx;
-  color: #bababa;
-  line-height: 34rpx;
+.detail-box .share-cont{
+    height: 55rpx;
+    margin-left: 20rpx;
 }
 
-.my {
-  margin: 15rpx 0 0 0;
-  border-top: solid 1px #ebebeb;
-  border-bottom: solid 2px #ebebeb;
+.detail-box .icon-card{
+    width: 36rpx;
+    height: 28rpx;
+    background-position: -93rpx -56rpx;
+    transform: translateY(-60%);
 }
 
-.my .my-item {
-  width: 750rpx;
-  background: #fff;
-  padding: 0;
+.detail-box .share{
+    margin-left: 10rpx;
+    height: 55rpx;
+    line-height: 55rpx;
+    color: #85a9d6;
+    display: inline-block;
 }
 
-.my .my-item .myitem-icon {
-  flex: 1;
+.detail-box .clear{
+    clear: both;
 }
 
-.my .my-item .myitem-icon image {
-  width: 45rpx;
-  height: 45rpx;
-  padding: 37.5rpx 0;
+.detail-box .follow {
+    float: right;
+    height: 50rpx;
+    line-height: 50rpx;
 }
 
-.my .my-item .myitem-name {
-  flex: 5;
-  text-align: left;
-  font-size: 34rpx;
-  color: #6d6d6d;
-  line-height: 60rpx;
-  padding: 30rpx 0;
-  border-bottom: solid 1px #ebebeb;
+.detail-box .follow.status0{
+    color: #85a9d6;
 }
 
-.my .my-item:last-child .myitem-name {
-  border-bottom: none;
+.detail-box .follow.status1{
+    color: #ccc;
+}
+
+.detail-box .address {
+    font-size: 24rpx;
+    color: #85a9d6;
+}
+
+.detail-box .province{
+    margin-right: 10rpx;
+}
+
+.visitor-box .visitor-list{
+    overflow-x: scroll;
+    white-space: nowrap;
+    margin-top: 18rpx;
+}
+
+.visitor-box .visitor-list .visitorWrap{
+    display: inline-block;
+    margin-right: 5rpx;
+}
+
+.visitor-box .visitor-list image{
+    width: 85rpx;
+    height: 85rpx;
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+
+.homeWrap{
+    width: 100%;
+    position: absolute;
+    top: 466rpx;
+    bottom: 0;
+    background-color: #e7e7e7;
+}
+
+.homeWrap .moment-list{
+    width: 100%;
+    height: 100%;
+}
+
+.msgboardWrap{
+    width: 100%;
+    padding-top: 136rpx;
+}
+
+.msgboardWrap .msgsNumWrap{
+    position: fixed;
+    top: 68rpx;
+    width: 100%;
+    height: 80rpx;
+    line-height: 80rpx;
+    text-indent: 40rpx;
+    font-weight: bold;
+    font-size: 30rpx;
+    background-color: #fff;
+    z-index: 3;
 }

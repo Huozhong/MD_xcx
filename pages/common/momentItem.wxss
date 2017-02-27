@@ -35,8 +35,12 @@
 
 .bottom .commentIcoWrap,.bottom .likeIcoWrap{
     height: 100%;
-    line-height: 40rpx;
+    line-height: 36rpx;
     overflow: hidden;
+}
+
+.delTxt{
+      color: #85a9d6;
 }
 
 .bottom .commentIcoWrap{
@@ -149,6 +153,7 @@
   color: #1f1f1f!important;
   font-weight: normal!important;
   word-wrap: break-word;
+  margin-bottom: 20rpx;
 }
 .wxParse-inline{
   font-size: 30rpx!important;
@@ -174,12 +179,6 @@
   height: 100%;
   display: block;
   margin: 0;
-}
-
-.wxParse-img {
-  background-color: transparent;
-  max-width: 80rpx;
-  max-height: 80rpx;
 }
 
 .moment-item .zanComWrap{
@@ -254,6 +253,15 @@
   word-wrap: break-word;
   word-break: break-all;
   margin-bottom: 5rpx;
+}
+
+.detailTip{
+  display: block;
+  font-size: 28rpx;
+  text-align: right;
+  color: #85a9d6;
+  height: 50rpx;
+  line-height: 50rpx;
 }
 
 

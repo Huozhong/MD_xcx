@@ -1,5 +1,4 @@
 <!--moments.wxml-->
-<import src="../../wxParse/wxParse.wxml" />
 <import src="../template/moment_temp.wxml" />
 <view class="container" style="height: 100%" bindtap="bindHideMore">
     <view class="moments-wrap moment-wrap">
