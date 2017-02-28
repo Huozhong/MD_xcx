@@ -21,10 +21,20 @@ Page({
     bindAddComm: function(e) {
         let mom_index = e.currentTarget.dataset.mom_index;
         let mom_id = e.currentTarget.dataset.mom_id;
-        this.data.moments[mom_index].showCommList = !this.data.moments[mom_index].showCommList;
-        if(this.data.moments[mom_index].showCommList){
+        if(!this.data.moments[mom_index].showCommList){
             this.getCommOfMon(mom_id,mom_index);
+        }else{
+            this.data.moments[mom_index].showCommList = false;
+            this.setData({
+                moments: this.data.moments
+            })
         }
+    },
+    // 点击进入主页时调用
+    bindToHome: function(e){
+        let uid = e.currentTarget.dataset.userid;
+        // todo   判断是不是自己
+        util.toHome(uid);
     },
     // 切换好友新鲜事和热门新鲜事
     bindChangeTopNav: function(e) {
@@ -54,12 +64,7 @@ Page({
     },
     // 点击新鲜事点赞时调用
     bindLike: function(e) {
-        if (this.data.isLogin) {
-            let mom_id = e.currentTarget.dataset.mom_id;
-            util.requestData(util.HOST + '');
-        } else {
-            util.showLoginTip();
-        }
+        
     },
     // 点击非更多按钮处时调用
     bindHideMore: function(e) {
@@ -99,7 +104,7 @@ Page({
         let showMomentId = e.currentTarget.dataset.mom_id;
         this.bindHideMore(e);
         wx.navigateTo({
-            url: '../moment/moment?id='+showMomentId
+            url: '../moment/moment?momentid='+showMomentId
         });
     },
     // 点击回复评论时调用
@@ -156,7 +161,7 @@ Page({
                 let resultData = result.data;
                 if (resultData.code == 0 && resultData.data) {
                     let resData = that.data.isHot ? resultData.data.list : resultData.data;
-                    resData = util.initMomentsData(resData, that);
+                    resData = util.initMomentsOrMsgsData(resData, that, 'moment');
                     if (!that.data.isHot) {
                         lastid = resData[resData.length - 1].ID;
                     }
@@ -188,40 +193,6 @@ Page({
     },
     // 获取新鲜事的评论
     getCommOfMon: function(id,index){
-        let that = this,
-            _url = 'qnm/getcomosfmom',
-            data = { 'userid': 64 };
-        if (id) {
-            data['targetid'] = id;
-            util.requestData(util.HOST + _url, data, function(result) {
-                let resultData = result.data;
-                if (resultData.code == 0 && resultData.data) {
-                    let commData = resultData.data.commlist;
-                    let zanUsersArr = [], zanlist = that.data.moments[index].zanlist;
-                    if(zanlist[0]){
-                        for (var i = 0; i < zanlist.length; i++) {
-                            zanUsersArr.push(zanlist[i].userInfo.NickName);
-                        }
-                    }
-                    let momentData = that.data.moments[index];
-                    if(commData[0]){
-                        for (var i = 0; i < commData.length; i++) {
-                            commData[i].Text = util.parseFace(commData[i].Text);
-                            commData[i].Html = WxParse.wxParse('html','html',commData[i].Text,that,0);
-                            commData[i].PublishTime = util.getPublishTime(commData[i].Duration, commData[i].CreatTime);
-                        }
-                    }
-                    momentData.zanUsers = zanUsersArr.join(', ');
-                    momentData.commlist = resultData.data;
-                    that.setData({
-                        moments: that.data.moments
-                    });
-                } else {
-                    util.errorTip();
-                }
-            }, function(result) {
-
-            });
-        }
+        util.getCommOfMon(id,index,this);
     }
 })

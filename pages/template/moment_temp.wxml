@@ -4,11 +4,11 @@
     <block wx:for="{{moments}}" wx:key="mom" wx:for-index="momx" wx:for-item="momentItem" data-ID="{{ID}}">
         <view class="moment-item clearFix">
             <view class="fl">
-                <image class="avatar" src="{{momentItem.userInfo.Avatar?momentItem.userInfo.Avatar:'../../images/defaultAvatar.jpg'}}"></image>
+                <image class="avatar" src="{{momentItem.userInfo.Avatar?momentItem.userInfo.Avatar:'../../images/defaultAvatar.jpg'}}" bindtap="bindToHome" data-userid="{{momentItem.userInfo.ID}}"></image>
             </view>
             <view class="momentFr">
                 <view class="top">
-                    <p class="name fl">{{momentItem.userInfo.NickName}}</p>
+                    <p class="name fl" bindtap="bindToHome" data-userid="{{momentItem.userInfo.ID}}">{{momentItem.userInfo.NickName}}</p>
                     <view class="{{momentItem.IsTop >= 1? 'moemntTag hot fl':'moemntTag fl'}}"></view>
                     <view class="momentMore icon fr" catchtap="bindShowMore" data-mom_index="{{momx}}"></view>
                     <view class="momentMoreWrap" wx:if="{{momentItem.showMore}}" catchtap="bindShowMore" data-mom_index="{{momx}}">
@@ -16,7 +16,7 @@
                         <ul>
                             <li id="pop-detail" catchtap="bindShowMomentDetail" data-mom_id="{{momentItem.ID}}" data-mom_index="{{momx}}" wx:if="{{!item.isMomentDetail}}"><div>查看详情</div></li>
                             <li id="pop-add"><div>加关注</div></li>
-                            <li id="pop-page"><div>查看Ta的主页</div></li>
+                            <li id="pop-page" bindtap="bindToHome" data-userid="{{momentItem.userInfo.ID}}"><div>查看Ta的主页</div></li>
                             <li id="pop-message"><div>发送留言</div></li>
                             <li id="pop-share"><div>分享新鲜事</div></li>
                             <li id="pop-delete"><div>删除新鲜事</div></li>
@@ -36,8 +36,8 @@
                 <view class="bottom">
                     <text>{{momentItem.PublishTime}}</text>
                     <view class="commentIcoWrap fr" bindtap="bindAddComm" data-mom_index="{{momx}}" data-mom_id="{{momentItem.ID}}">
-                        <text wx:if="{{momentItem.comsNum}}">{{momentItem.comsNum}}</text>
-                        <text wx:elif="{{momentItem.commlist.comsNum}}">{{momentItem.commlist.comsNum}}</text>
+                        <text wx:if="{{momentItem.comsNum!=null}}">{{momentItem.comsNum}}</text>
+                        <text wx:else>{{momentItem.commlist.comsNum}}</text>
                         <view class="momentCommIco icon"></view>
                     </view>
                     <view class="likeIcoWrap fr" bindtap="bindLike" data-mom_id="{{momentItem.ID}}">
@@ -70,7 +70,7 @@
                                 </view>
                             </view>
                         </block>
-                        <text class="detailTip" bindtap="bindShowMomentDetail" wx:if="isMomentList" data-mom_id="{{momentItem.ID}}">查看详情</text>
+                        <text class="detailTip" bindtap="bindShowMomentDetail" wx:if="{{!momentItem.isMomentDetail}}" data-mom_id="{{momentItem.ID}}">查看更多</text>
                     </view>
                 </view>
             </view>

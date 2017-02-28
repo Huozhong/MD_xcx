@@ -1,0 +1,4 @@
+/**messages.wxss**/
+@import "../common/common.wxss";
+@import "../common/momentItem.wxss";
+

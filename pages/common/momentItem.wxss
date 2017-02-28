@@ -124,19 +124,11 @@
 .moment-item .momentMoreWrap li {
     display: block;
     clear: both;
-    /*background: #85a9d6;*/
     list-style: square inside ;
     border-bottom: 2rpx solid #97b6dc;
     background: #85a9d6 url(../../images/li.png) 10rpx center no-repeat;
     background-size: 11rpx 10rpx;
 }
-
-/*.moment-item .momentMoreWrap li .momMoreListStyle{
-    background: url(../../images/li.png) no-repeat;
-    background-size: 100%;
-    width: 11rpx;
-    height: 10rpx;
-}*/
 
 .moment-item .momentMoreWrap li div {
     display: block;
@@ -157,7 +149,7 @@
 }
 .wxParse-inline{
   font-size: 30rpx!important;
-  color: #1f1f1f!important;
+  /*color: #1f1f1f!important;*/
   font-weight: normal!important;
 }
 
@@ -262,6 +254,7 @@
   color: #85a9d6;
   height: 50rpx;
   line-height: 50rpx;
+  margin-right: 10rpx;
 }
 
 

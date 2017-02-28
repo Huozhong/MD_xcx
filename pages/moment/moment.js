@@ -63,7 +63,13 @@ Page({
     // 页面加载完成时调用
     onLoad: function(options) {
         util.chargeMDUserInfo();
-        this.getMoment(options.id);
+        if(options.momentid){
+            this.getMoment(options.momentid);    
+        }else{
+            util.showTip('错误', '无新鲜事id。', false, '确定', function(){
+                wx.navigateBack();
+            });
+        }
     },
     // 获取新鲜事时调用
     getMoment: function(id) {
@@ -72,12 +78,7 @@ Page({
         util.requestData(util.HOST + 'qnm/getmoment', data, function(result) {
             let resultData = result.data;
             if (resultData.code == 0 && resultData.data[0]) {
-                let resData = resultData.data[0];
-                resData.Text = util.parseFace(resData.Text);
-                resData.Html = WxParse.wxParse('html', 'html', resData.Text, that, 0);
-                resData.PublishTime = util.getPublishTime(resData.duration, resData.CreatTime);
-                resData.showMore = false;
-                resData.inputTxt = "输入评论内容";
+                let resData = util.initMomentsOrMsgsData(resultData.data, that, 'moment')[0];
                 resData.isMomentDetail = true;
                 resData.showCommList = true;
                 let zanUsersArr = [], zanlist = resData.zanlist;
@@ -99,14 +100,10 @@ Page({
                     moments: [resData]
                 })
             } else {
-                
+                util.errorTip(resultData.msg);
             }
         }, function(result) {
 
         });
-    },
-    wxParseImgLoad: function(e) {
-        var that = this;
-        WxParse.wxParseImgLoad(e, that);
     }
 })

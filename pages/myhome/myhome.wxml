@@ -2,7 +2,7 @@
 <import src="../template/moment_temp.wxml" />
 <import src="../template/message_temp.wxml" />
 <import src="../template/home_temp.wxml" />
-<view class="container" bindtap="bindHideMore">
+<view class="container">
     <view class="nav-wrap">
         <template is="home_top_nav_temp" data="{{currentNav}}"></template>
         <view class="homeInfoWrap" wx:if="{{currentNav == 'home'}}">
@@ -25,7 +25,6 @@
         </view>
         <view class="msgsWrap">
             <template is="message_temp" data="{{messages}}"></template>
-            <view class="tip" wx:if="{{!hasMoreMessages}}">暂无更多数据</view>
         </view>
     </view>
     <view class="albumWrap" wx:if="{{currentNav == 'album'}}"></view>

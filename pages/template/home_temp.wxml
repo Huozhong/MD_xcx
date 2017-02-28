@@ -1,0 +1,62 @@
+<!-- home_temp.wxml -->
+
+<template name="home_top_nav_temp">
+	<view class="top-nav flex-wrap flex-tab">
+	    <view class="{{'top-nav-item flex-item ' + (currentNav == 'home' ? 'current':'')}}" bindtap="bindNavChange" data-curnav="home">主页</view>
+	    <view class="line-h"></view>
+	    <view class="{{'top-nav-item flex-item ' + (currentNav == 'role' ? 'current':'')}}" bindtap="bindNavChange" data-curnav="role">角色</view>
+	    <view class="line-h"></view>
+	    <view class="{{'top-nav-item flex-item ' + (currentNav == 'msgboard' ? 'current':'')}}" bindtap="bindNavChange" data-curnav="msgboard">留言板</view>
+	    <view class="line-h"></view>
+	    <view class="{{'top-nav-item flex-item ' + (currentNav == 'album' ? 'current':'')}}" bindtap="bindNavChange" data-curnav="album">相册</view>
+	</view>
+</template>
+
+<template name="home_info_temp">
+	<view class="detail-box">
+	    <image class="avatar" src="{{homeData.Avatar?homeData.Avatar:'../../images/defaultAvatar.jpg'}}" />
+	    <view class="text-box fr clearFix">
+	        <text class="nickname fl">{{homeData.NickName}}</text>
+	        <view class="share-cont fr">
+	            <view class="icon icon-card"></view>
+	            <text class="share">分享名片</text>
+	        </view>
+	        <view class="follow status1" wx:if="{{homeData.isgz}}">已关注</view>
+	        <view class="follow status0" wx:else>＋ 关注</view>
+	        <view class="clear"></view>
+	        <view class="address" wx:if="{{province}}">
+	            <text class="province">{{homeData.Province}}</text>
+	            <text class="city">{{homeData.City}}</text>
+	        </view>
+	        <text class="signature" wx:if="{{homeData.Signature}}">{{homeData.Signature}}</text>
+	    </view>
+	</view>
+	<view class="visitor-box">
+	    <view>
+	        <text>最近访客：</text>
+	        <text wx:if="{{homeData.VisitList.length==0}}">无</text>
+	    </view>
+	    <scroll-view class="visitor-list" scroll-x="true">
+	        <block wx:for="{{homeData.VisitList}}" wx:key="visitor" wx:for-index="visitorx" wx:for-item="visitorItem">
+	            <view class="visitorWrap">
+	                <image src="{{visitorItem.Avatar?visitorItem.Avatar:'../../images/defaultAvatar.jpg'}}" bindtap="bindToHome" data-userid="{{visitorItem.UserId}}"></image>
+	            </view>
+	        </block>
+	    </scroll-view>
+	</view>
+</template>
+
+<template name="home_mom_category_temp">
+	<view class="{{category == ''? 'second-nav-item flex-item current':'second-nav-item flex-item'}}" bindtap="bindChangeMomentCategory" data-category="">
+	    <text>全部</text>
+	    <view class="curIco gray"></view>
+	</view>
+	<view class="{{category == 'qnm'? 'second-nav-item flex-item current':'second-nav-item flex-item'}}" bindtap="bindChangeMomentCategory" data-category="qnm">
+	    <text>《倩女幽魂》手游</text>
+	    <view class="curIco gray"></view>
+	</view>
+	<view class="{{category == 'qn'? 'second-nav-item flex-item current':'second-nav-item flex-item'}}" bindtap="bindChangeMomentCategory" data-category="qn">
+	    <text>《新倩女幽魂》端游</text>
+	    <view class="curIco gray"></view>
+	</view>
+</template>

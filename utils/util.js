@@ -1,6 +1,8 @@
 let face_json = require('face.js').face_json;
-// const HOST = "http://10.241.24.146:4000/md/";
-const HOST = "http://api.hi.163.com/md/";
+let WxParse = require('../wxParse/wxParse.js');
+const HOST = "http://10.240.162.199:4000/md/";
+// const HOST = "https://api.zhenhua.me/md/";
+// const HOST = "http://api.hi.163.com/md/";
 
 function formatTime(date) {
     let year = date.getFullYear()
@@ -19,6 +21,11 @@ function formatNumber(n) {
 }
 
 function requestData(url, data, successFun, failFun) {
+    wx.showToast({
+        title: '加载中',
+        icon: 'loading',
+        duration: 10000
+    });
     wx.request({
         url: url,
         method: "GET",
@@ -27,18 +34,37 @@ function requestData(url, data, successFun, failFun) {
             'Content-Type': 'application/json',
         },
         success: function(result) {
+            wx.hideToast();
             successFun(result);
         },
         fail: function(result) {
+            wx.hideToast();
+            errorTip();
             failFun(result);
         }
     })
+}
+
+function initMomentsOrMsgsData(datas, that, type) {
+    for (let i = 0; i < datas.length; i++) {
+        datas[i].Text = parseFace(datas[i].Text);
+        datas[i].Html = WxParse.wxParse('html', 'html', datas[i].Text, that, 0);
+        datas[i].PublishTime = getPublishTime(datas[i].duration, datas[i].CreatTime);
+        if(type == 'moment'){
+            datas[i].showMore = false;
+            datas[i].inputTxt = "输入评论内容";
+        }else{
+            datas[i].inputTxt = "输入回复内容";
+        }
+    }
+    return datas;
 }
 
 // 表情解析
 function preg_quote(str) {
     return (str + '').replace(/([\\\.\+\*\?\[\^\]\$\(\)\{\}\=\!<>\|\:])/g, "\\$1");
 }
+
 function parseFace(str) {
     if (typeof('face_json') == 'undefined' || !str) {
         return str;
@@ -92,10 +118,11 @@ function chargeMDUserInfo(that, userinfo) {
 }
 
 // 提示
-function showTip(title, content, confirmText, cb) {
+function showTip(title, content, hasCancel, confirmText, cb) {
     wx.showModal({
         title: title,
         content: content,
+        showCancel: hasCancel,
         confirmText: confirmText,
         success: function(res) {
             typeof cb == 'function' && cb(res);
@@ -103,9 +130,15 @@ function showTip(title, content, confirmText, cb) {
     });
 }
 
+// 数据出错时的提示
+function errorTip(txt) {
+    let _txt = txt || '系统错误，稍后再试！';
+    showTip('错误', _txt, false, '确定');
+}
+
 // 未绑定账号时的提示
 function showLoginTip() {
-    showTip('提示', '检测到您还未绑定梦岛账号，请绑定', '去绑定', function(res) {
+    showTip('提示', '检测到您还未绑定梦岛账号，请绑定', true, '去绑定', function(res) {
         if (res.confirm) {
             wx.navigateTo({
                 url: '../bindMd/bindMd'
@@ -116,7 +149,103 @@ function showLoginTip() {
             })
         }
     });
+}
 
+function toHome(userid) {
+    wx.navigateTo({
+        url: '../home/home?userid=' + userid
+    });
+}
+
+function toMyHome() {
+    wx.switchTab({
+        url: '/pages/home/home'
+    })
+}
+
+function getCommOfMon(id, index, that) {
+    let _url = 'qnm/getcomosfmom',
+        data = { 'userid': 64 };
+    if(that.data.moments[index].comsNum == 0 && !that.data.moments[index].zanlist[0]){
+        that.data.moments[index].showCommList = true;
+        that.setData({
+            moments: that.data.moments
+        });
+        return;
+    }
+    if (id) {
+        data['targetid'] = id;
+        requestData(HOST + _url, data, function(result) {
+            let resultData = result.data;
+            if (resultData.code == 0 && resultData.data) {
+                that.data.moments[index].showCommList = true;
+                let commData = resultData.data.commlist;
+                let zanUsersArr = [],
+                    zanlist = that.data.moments[index].zanlist;
+                if (zanlist[0]) {
+                    for (var i = 0; i < zanlist.length; i++) {
+                        if(zanlist[i].userInfo && zanlist[i].userInfo.NickName)
+                            zanUsersArr.push(zanlist[i].userInfo.NickName);
+                    }
+                }
+                let momentData = that.data.moments[index];
+                if (commData[0]) {
+                    for (var i = 0; i < commData.length; i++) {
+                        commData[i].Text = parseFace(commData[i].Text);
+                        commData[i].Html = WxParse.wxParse('html', 'html', commData[i].Text, that, 0);
+                        commData[i].PublishTime = getPublishTime(commData[i].Duration, commData[i].CreatTime);
+                    }
+                }
+                momentData.zanUsers = zanUsersArr.join(', ');
+                momentData.commlist = resultData.data;
+                that.setData({
+                    moments: that.data.moments
+                });
+            } else {
+                errorTip();
+            }
+        }, function(result) {
+
+        });
+    }
+}
+
+function getCommOfMsg(id, index, that) {
+    let _url = 'qnm/getansofmsg',
+        data = { 'userid': 64 };
+    if(that.data.messages[index].answerNum == 0){
+        that.data.messages[index].showCommList = true;
+        that.setData({
+            messages: that.data.messages
+        });
+        return;
+    }
+    if (id) {
+        data['messageid'] = id;
+        requestData(HOST + _url, data, function(result) {
+            let resultData = result.data;
+            if (resultData.code == 0 && resultData.data) {
+                that.data.messages[index].showCommList = true;
+                let commData = resultData.data.anslist;
+                let messageData = that.data.messages[index];
+                if (commData[0]) {
+                    for (var i = 0; i < commData.length; i++) {
+                        commData[i].Text = parseFace(commData[i].Text);
+                        commData[i].Html = WxParse.wxParse('html', 'html', commData[i].Text, that, 0);
+                        commData[i].PublishTime = getPublishTime(commData[i].Duration, commData[i].CreatTime);
+                    }
+                }
+                messageData.anslist = resultData.data;
+                that.setData({
+                    messages: that.data.messages
+                });
+            } else {
+                errorTip();
+            }
+        }, function(result) {
+
+        });
+    }
 }
 
 module.exports = {
@@ -127,5 +256,11 @@ module.exports = {
     getPublishTime: getPublishTime,
     chargeMDUserInfo: chargeMDUserInfo,
     showTip: showTip,
-    showLoginTip: showLoginTip
+    showLoginTip: showLoginTip,
+    errorTip: errorTip,
+    initMomentsOrMsgsData: initMomentsOrMsgsData,
+    toHome: toHome,
+    toMyHome: toMyHome,
+    getCommOfMon: getCommOfMon,
+    getCommOfMsg: getCommOfMsg
 }

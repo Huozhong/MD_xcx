@@ -12,9 +12,9 @@ Page({
         currentNav: 'home',
         msgCount: 0,
         messages: [],
-        hasMoreMessages: true,
-        curUserid: 63
+        hasMoreMessages: true
     },
+    //事件处理函数
     // 切换好友新鲜事和热门新鲜事
     bindNavChange: function(e) {
         let curnav = e.currentTarget.dataset.curnav;
@@ -61,7 +61,7 @@ Page({
         let showMomentId = e.currentTarget.dataset.mom_id;
         this.bindHideMore(e);
         wx.navigateTo({
-            url: '../moment/moment?momentid=' + showMomentId
+            url: '../moment/moment?momentid='+showMomentId
         });
     },
     // 显示留言详情时调用
@@ -94,12 +94,10 @@ Page({
         })
     },
     // 点击进入主页时调用
-    bindToHome: function(e) {
+    bindToHome: function(e){
         let uid = e.currentTarget.dataset.userid;
         // todo   判断是不是自己
-        if(uid){
-            util.toHome(uid);
-        }
+        util.toHome(uid);
     },
     // 添加评论
     bindAddComm: function(e) {
@@ -157,12 +155,7 @@ Page({
     getCommOfMsg: function(id, index) {
         util.getCommOfMsg(id, index, this);
     },
-    onLoad: function(options) {
-        if (options.userid) {
-            this.setData({
-                curUserid: options.userid
-            });
-        }
+    onLoad: function() {
         this.refreshData();
     },
     // 页面下拉时调用
@@ -198,7 +191,7 @@ Page({
     gethomeData: function() {
         let that = this;
         let data = {};
-        data['targetid'] = this.data.curUserid;
+        data['userid'] = 64;
         util.requestData(util.HOST + 'home', data, function(result) {
             let resData = result.data;
             if (resData.code == 0 && resData.data) {
@@ -234,7 +227,7 @@ Page({
         getDataIng = true;
         let that = this,
             _url = 'qnm/getownmoments',
-            data = { 'targetid': this.data.curUserid };
+            data = { 'userid': 64 };
         if (lastid) {
             data['lastid'] = lastid;
         }
@@ -274,17 +267,17 @@ Page({
     getmsgboardData: function() {
         let that = this,
             _data = {
-                'targetid': this.data.curUserid,
+                'targetid': 64,
                 'type': 1
             };
         getDataIng = true;
-        if (lastid) _data['lastid'] = lastid;
+        if(lastid) _data['lastid'] = lastid;
         util.requestData(util.HOST + 'qnm/getmsgs', _data, function(result) {
             getDataIng = false;
             let _resData = result.data;
             if (_resData.code == 0 && _resData.data) {
                 let msgsData = util.initMomentsOrMsgsData(_resData.data, that, 'msg');
-                if(msgsData[0]) lastid = msgsData[msgsData.length - 1].ID;
+                lastid = msgsData[msgsData.length - 1].ID;
                 if (msgsData.length < 10) {
                     that.setData({
                         hasMoreMessages: false
@@ -293,7 +286,7 @@ Page({
                 that.setData({
                     messages: that.data.messages.concat(msgsData)
                 });
-            } else {
+            }else{
                 util.errorTip();
             }
         }, function(result) {})
@@ -301,7 +294,7 @@ Page({
     getmsgNum: function() {
         let that = this;
         let data = {};
-        data['targetid'] = this.data.curUserid;
+        data['targetid'] = 63;
         util.requestData(util.HOST + 'qnm/getmsgsnum', data, function(result) {
             let resData = result.data;
             if (resData.code == 0) {
@@ -310,11 +303,9 @@ Page({
                 });
                 if (that.data.msgCount > 0) {
                     that.getmsgboardData();
-                }else{
-                    that.setData({
-                        hasMoreMessages: false
-                    });
                 }
+            }else{
+                util.errorTip();
             }
         }, function(result) {
 

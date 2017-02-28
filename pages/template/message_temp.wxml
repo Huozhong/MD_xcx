@@ -4,20 +4,19 @@
     <block wx:for="{{messages}}" wx:key="msg" wx:for-index="msgx" wx:for-item="messageItem" data-ID="{{ID}}">
         <view class="moment-item clearFix">
             <view class="fl">
-                <image class="avatar" src="{{messageItem.userInfo.Avatar?messageItem.userInfo.Avatar:'../../images/defaultAvatar.jpg'}}"></image>
+                <image class="avatar" src="{{messageItem.userInfo.Avatar?messageItem.userInfo.Avatar:'../../images/defaultAvatar.jpg'}}"  bindtap="bindToHome" data-userid="{{messageItem.userInfo.ID}}"></image>
             </view>
             <view class="momentFr">
                 <view class="top">
-                    <p class="name fl">{{messageItem.userInfo.NickName}}</p>
+                    <p class="name fl" bindtap="bindToHome" data-userid="{{messageItem.userInfo.ID}}">{{messageItem.userInfo.NickName}}</p>
                 </view>
-                <view class="momentTxt" wx:if="{{messageItem.Text}}">
+                <view class="momentTxt" wx:if="{{messageItem.Text}}" bindtap="bindShowMessageDetail" data-msg_id="{{messageItem.ID}}">
                     <template is="wxParse" data="{{wxParseData:messageItem.Html.nodes}}" />
                 </view>
                 <view class="bottom">
                     <text>{{messageItem.PublishTime}}</text>
-                    <view class="commentIcoWrap fr" bindtap="bindAddComm" data-mom_id="{{messageItem.ID}}">
-                        <text wx:if="{{messageItem.comsNum}}">{{messageItem.comsNum}}</text>
-                        <text wx:if="{{messageItem.commlist.comsNum}}">{{messageItem.commlist.comsNum}}</text>
+                    <view class="commentIcoWrap fr" bindtap="bindAddAns" data-mom_id="{{messageItem.ID}}" data-mom_index="{{msgx}}">
+                        <text>{{messageItem.answerNum}}</text>
                         <view class="momentCommIco icon"></view>
                     </view>
                     <view class="likeIcoWrap fr" bindtap="bindLike" data-mom_id="{{messageItem.ID}}">
@@ -30,20 +29,21 @@
                         <button class="submitComm">回复</button>
                     </view>
                     <view class="comWrap">
-                        <block wx:for="{{messageItem.commlist.commlist}}" wx:key="comm" wx:for-index="commx" wx:for-item="commItem">
+                        <block wx:for="{{messageItem.anslist.anslist}}" wx:key="ans" wx:for-index="ansx" wx:for-item="ansItem">
                             <view class="comment-item">
-                                <text class="commUser">{{commItem.userInfo.NickName}}</text>
+                                <text class="commUser">{{ansItem.userInfo.NickName}}</text>
                                 <view class="commentTxt">
-                                    <template is="wxParse" data="{{wxParseData:commItem.Html.nodes}}" />
+                                    <template is="wxParse" data="{{wxParseData:ansItem.Html.nodes}}" />
                                 </view>
                                 <view class="bottom">
-                                    <text>{{commItem.PublishTime}}</text>
-                                    <view class="commentIcoWrap fr" bindtap="bindAnsComm" data-comm_index="{{commx}}">
+                                    <text>{{ansItem.PublishTime}}</text>
+                                    <view class="commentIcoWrap fr" bindtap="bindAnsAnswer" data-comm_index="{{ansx}}" data-mom_index="{{msgx}}">
                                         <view class="momentCommIco icon"></view>
                                     </view>
                                 </view>
                             </view>
                         </block>
+                        <text class="detailTip" bindtap="bindShowMessageDetail" wx:if="{{!messageItem.isMessageDetail}}" data-msg_id="{{messageItem.ID}}">查看更多</text>
                     </view>
                 </view>
             </view>

@@ -7,11 +7,12 @@ App({
         this.getWxUserInfo(function(result) {
             that.mdLogin(result);
         });
-        setTimeout(function() {
-            wx.navigateTo({
-                url: '../moment/moment'
-            });
-        }, 1500);
+        // setTimeout(function() {
+        //     wx.switchTab({
+        //         url: '/pages/home/home'
+        //     })
+        // }, 1500);
+
         // wx.clearStorage();
     },
     wxLogin: function(cb) {
@@ -36,8 +37,11 @@ App({
     getWxUserInfo: function(cb) {
         let that = this
         this.wxLogin(function(result) {
+            console.log("result:::::");
+            console.log(result);
             wx.getUserInfo({
                 success: function(res) {
+                    console.log(res);
                     that.globalData.userInfo = res.userInfo;
                     typeof cb == "function" && cb(result);
 

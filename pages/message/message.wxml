@@ -1,0 +1,8 @@
+<!--index.wxml-->
+<import src="../../wxParse/wxParse.wxml" />
+<import src="../template/message_temp.wxml" />
+<view class="container">
+	<view class="messageWrap" >
+		<template is="message_temp" data="{{messages}}"></template>
+	</view>
+</view>

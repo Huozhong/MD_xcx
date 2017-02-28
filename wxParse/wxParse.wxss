@@ -94,7 +94,7 @@ view{
 }
 
 .wxParse-img{
-    background-color: #efefef;
+    background-color: transparent;
     overflow: hidden;
 }
 

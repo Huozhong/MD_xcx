@@ -109,7 +109,7 @@
 
 .msgboardWrap{
     width: 100%;
-    padding-top: 136rpx;
+    padding-top: 146rpx;
 }
 
 .msgboardWrap .msgsNumWrap{
