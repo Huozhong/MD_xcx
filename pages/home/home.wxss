@@ -1,6 +1,7 @@
 /**home.wxss**/
 @import "../common/common.wxss";
 @import "../common/momentItem.wxss";
+@import "../common/role.wxss";
 .homeInfoWrap{
     position: relative;
     border-bottom: 2rpx solid #bbb;
@@ -8,6 +9,19 @@
     padding: 20rpx 40rpx 15rpx;
     font-size: 30rpx;
     background-color: #fff;
+    height: 334rpx;
+    box-sizing: border-box;
+}
+
+.homeInfoWrap .settingBtn{
+    position: absolute;
+    bottom: 130rpx;
+    right: 40rpx;
+    height: 40rpx;
+    line-height: 40rpx;
+    font-size: 30rpx;
+    font-weight: bold;
+    color: #85a9d6;
 }
 
 .detail-box{
@@ -123,4 +137,32 @@
     font-size: 30rpx;
     background-color: #fff;
     z-index: 3;
+}
+
+.roleWrap{
+    width: 100%;
+    min-height: 100%;
+    padding: 0 20rpx;
+    padding-top: 88rpx;
+    box-sizing: border-box;
+    background-color: #e7e7e7;
+}
+
+.mainRoleInfoWrap{
+    width: 100%;
+    padding: 20rpx 0;
+}
+
+.mainRoleInfoWrap .avatar{
+    width: 192rpx;
+    height: 192rpx;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+
+
+page{
+    height: 100%;
 }

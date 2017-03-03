@@ -1,0 +1,140 @@
+@import "../settings/settings.wxss";
+.infoSetWrap{
+	width: 100%;
+}
+.avatarSet{
+	height: 160rpx;
+	line-height: 160rpx;
+}
+
+.avatarSet image{
+	width: 120rpx;
+	height: 120rpx;
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.avatarSet .avatarWrap{
+	width: 180rpx;
+	height: 100%;
+	display: inline-block;
+}
+
+.avatarSet .avatarWrap text{
+	float: right;
+}
+
+.set_item text text{
+	margin-left: 15rpx;
+}
+
+.set_item input{
+	height: 100%;
+	line-height: 80rpx;
+	color: #000;
+	padding-left: 15rpx;
+	text-indent: 0;
+}
+
+.btnsWrap .save{
+	color: #227d51;
+}
+
+.btnsWrap .cancle{
+	color: #DC143C;
+}
+
+.btnsWrap .save.active{
+	color: #0cf384;
+}
+
+.set_items.setAddress{
+	padding-top: 0;
+	font-size: 30rpx;
+}
+
+.set_items_container {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #f8f8f8;
+} 
+
+.citypickers{
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  min-height: 100%;
+}
+
+.citybody {
+  position: fixed;
+  bottom: 0px;
+}
+
+.cityheader {
+  position: absolute;
+  top:0px;
+  width: 100%;
+  z-index: 4;
+}
+
+.city-cancel {
+  float: right;
+  margin: 20rpx;
+  color: #DC143C;
+}
+
+.city-true {
+  float: left;
+  margin: 20rpx;
+  color: #0cf384;
+}
+
+.section .picker {
+  background-color: #fff;
+  border-bottom: 1px #d9d9d9 solid;
+  border-top: 1px #d9d9d9 solid;
+  padding: 20rpx;
+}
+
+.input {
+  padding-top: 300rpx;
+  width: 100%;
+}
+
+.input input {
+  width: 100%;
+  background-color: #fff;
+  border-bottom: 1px #d9d9d9 solid;
+  border-top: 1px #d9d9d9 solid;
+  padding: 20rpx 0;
+  text-align: center;
+}
+
+.section {
+  padding-top: 20rpx;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+}
+
+.usermotto {
+  margin-top: 200px;
+}

@@ -8,12 +8,39 @@ App({
             that.mdLogin(result);
         });
         // setTimeout(function() {
+        //     // wx.navigateTo({
+        //     //     url: '../bindRole/bindRole'
+        //     // });
         //     wx.switchTab({
-        //         url: '/pages/home/home'
-        //     })
+        //         url: '../contact/contact'
+        //     });
         // }, 1500);
 
         // wx.clearStorage();
+    },
+    getWxUserInfo: function(cb) {
+        let that = this
+        this.wxLogin(function(result) {
+            console.log(result);
+            util.requestData(util.HOST+'wx/login',{'code':result.code},function(result){
+                let resData = result.data;
+                if(resData.code == 0 && resData.data && resData.data.skey){
+                    let skey = resData.data.skey,
+                        isBindMd = resData.data.isBindMd;
+                    that.globalData.isBindMd = isBindMd;
+                    wx.setStorageSync('skey', skey);
+                }else{
+                    util.errorTip("微信授权失败，请稍后再试。");
+                }
+            },function(result){});
+            wx.getUserInfo({
+                success: function(res) {
+                    that.globalData.userInfo = res.userInfo;
+                    typeof cb == "function" && cb(result);
+
+                }
+            })
+        })
     },
     wxLogin: function(cb) {
         //调用微信登录接口
@@ -31,23 +58,8 @@ App({
                 that.globalData.MDUserInfo = result;
             }, function(result) {
 
-            });
+            }, true);
         }
-    },
-    getWxUserInfo: function(cb) {
-        let that = this
-        this.wxLogin(function(result) {
-            console.log("result:::::");
-            console.log(result);
-            wx.getUserInfo({
-                success: function(res) {
-                    console.log(res);
-                    that.globalData.userInfo = res.userInfo;
-                    typeof cb == "function" && cb(result);
-
-                }
-            })
-        })
     },
     // 从后台获取梦岛用户信息
     getMdUserDataFromServer: function(code) {

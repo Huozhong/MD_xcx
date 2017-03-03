@@ -6,13 +6,17 @@
     "pages/messages/messages",
     "pages/message/message",
     "pages/home/home",
-    "pages/myhome/myhome"
+    "pages/myhome/myhome",
+    "pages/contact/contact",
+    "pages/settings/settings",
+    "pages/infoSetting/infoSetting",
+    "pages/bindRole/bindRole"
   ],
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#2c3550",
-    "navigationBarTitleText": "梦岛社区",
     "navigationBarTextStyle":"light",
+    "navigationBarTitleText": "梦岛社区",
     "enablePullDownRefresh": true
   },
   "tabBar": {
@@ -25,7 +29,7 @@
       "selectedIconPath": "images/tab_moment_s.png",
       "text": "新鲜事"
     }, {
-      "pagePath": "pages/contacts/contacts",
+      "pagePath": "pages/contact/contact",
       "iconPath":"images/tab_contact.png",
       "selectedIconPath": "images/tab_contact_s.png",
       "text": "通讯录"

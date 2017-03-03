@@ -1,0 +1,68 @@
+<view class="container">
+	<view class="set_items" wx:if="{{!settingNickName&&!settingSignatrue&&!settingAddress}}">
+		<view class="set_item avatarSet" bindtap="bindChangeAvatar">
+			<text>更换头像</text>
+			<view class="avatarWrap fr">
+				<image src="{{userInfo.Avatar?userInfo.Avatar:'../../images/defaultAvatar.jpg'}}" catchtap="bindShowAvatar" data-url="{{userInfo.Avatar}}"></image>
+				<text>›</text>
+			</view>
+		</view>
+		<view class="set_item" bindtap="bindChangeNickName">
+			<text>修改梦岛昵称</text>
+			<text class="fr">{{userInfo.NickName}}<text>›</text></text>
+		</view>
+		<view class="set_item" bindtap="bindChangeSignatrue">
+			<text>修改梦岛签名</text>
+			<text class="fr"><text wx:if="{{userInfo.Signature}}">{{userInfo.Signature}}</text><text wx:else>未填写</text><text>›</text></text>
+		</view>
+		<view class="set_item noBoder" bindtap="bindChangeAddress">
+			<text>修改所在地</text>
+			<text class="fr"><text wx:if="{{userInfo.City}}">{{userInfo.Address}}</text><text wx:else>未设置</text><text>›</text></text>
+		</view>
+	</view>
+
+	<view class="set_items" wx:if="{{settingNickName}}">
+		<view class="set_item noBoder">
+			<input focus="true" type="text" placeholder="此处输入梦岛昵称" value="{{userInfo.NickName}}" bindinput="bindNameInput"/>
+			<view class="btnsWrap">
+				<text class="{{'fl save' + (nameChanged? ' active':'')}}" bindtap="saveNickName">保存</text>
+				<text class="fr cancle" bindtap="backToInfoSet">取消</text>
+			</view>
+		</view>
+	</view>
+
+	<view class="set_items" wx:if="{{settingSignatrue}}">
+		<view class="set_item noBoder">
+			<input focus="true" type="text" placeholder="此处输入签名" value="{{userInfo.Signature}}" bindinput="bindSignatrueInput"/>
+			<view class="btnsWrap">
+				<text class="{{'fl save' + (signatureChanged? ' active':'')}}" bindtap="saveSignature">保存</text>
+				<text class="fr cancle" bindtap="backToInfoSet">取消</text>
+			</view>
+		</view>
+	</view>
+
+	<view class="set_items setAddress" wx:if="{{settingAddress}}">
+		<view class="set_items_container">
+			<view class="input">
+				<input placeholder="选择" value="{{province}}-{{city}}" disabled="true"/>
+			</view>
+		</view>
+		<view class="citypicker">
+			<picker-view indicator-style="height: 50px;" style="width: 100%; height: 300px;" value="{{value}}" bindchange="bindChange" class="citybody">
+				<view class="cityheader">
+					<view bindtap="backToInfoSet" class="city-cancel">取消</view>
+					<view bindtap="setAddress" class="city-true">保存</view>
+				</view>
+				<picker-view-column>
+					<view wx:for="{{provinces}}" wx:key="item" style="line-height: 50px;padding-left:10px;text-align: center;">{{item}}</view>
+				</picker-view-column>
+				<picker-view-column>
+					<view wx:for="{{citys}}" wx:key="item" style="line-height: 50px;padding-left:10px;text-align: center;">{{item}}</view>
+				</picker-view-column>
+				<!-- <picker-view-column>
+					<view wx:for="{{countys}}" wx:key="item" style="line-height: 50px;padding-left:10px;">{{item}}</view>
+				</picker-view-column> -->
+			</picker-view>
+		</view>
+	</view>
+</view>

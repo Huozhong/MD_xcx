@@ -1,10 +1,61 @@
-<!--index.wxml-->
+<!--contact.wxml-->
 <view class="container">
-  <view  bindtap="bindViewTap" class="userinfo">
-    <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-    <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-  </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
-  </view>
+	<view class="conentWrap">
+		<view class="wrap_item">
+			<view class="wrap clearFix noboder searchWrap">
+				<view class="icon search_icon fl"></view>
+				<input type="text" bindfocus="searchFocus" bindinput="searchInput" placeholder="快速查找我的好友" value="{{searchVal}}" />
+				<view class="cancleSearch" wx:if="{{searchFocus}}" catchtap="cancleSearch">取消</view>
+			</view>
+		</view>
+		<view class="wrap_item blueBg" wx:if="{{!searchFocus}}">
+			<view class="wrap clearFix blueBg" bindtap="gotoFriInform">
+				<view class="icon newFriend_icon fl"></view>
+				<text class="btnTitle">新朋友</text>
+			</view>
+			<view class="wrap clearFix noboder blueBg">
+				<view class="icon recFriend_icon fl"></view>
+				<text class="btnTitle">游戏中好友</text>
+			</view>
+		</view>
+		<view class="wrap_item" wx:if="{{!searchFocus}}">
+			<block wx:for="{{friends}}" wx:key="friend" wx:for-index="friendx" wx:for-item="friendItem" data-ID="{{ID}}">
+				<view class="wrap clearFix friendWrap">
+					<view class="tap-box fl" bindtap="gotoHome" data-id="{{friendItem.ID}}">
+						<image class="fl" src="{{friendItem.Avatar?friendItem.Avatar:'../../images/defaultAvatar.jpg'}}" />
+						<view class="friend-detail fl">
+							<text class="nickname">{{friendItem.NickName}}</text>
+						</view>
+					</view>
+					<view class="status fr" wx:if="{{friendItem.type == 0}}">
+						<text>+ 关注</text>
+					</view>
+					<view class="status status0 fr" wx:else>
+						<text>已关注</text>
+					</view>
+				</view>
+			</block>
+			<view class="noData tip" wx:if="{{noFriendData}}">什么？你还没有关注任何人？</view>
+		</view>
+		<view class="wrap_item" wx:if="{{searchFocus}}">
+			<block wx:for="{{searchFriends}}" wx:key="friend" wx:for-index="friendx" wx:for-item="friendItem" data-ID="{{ID}}">
+				<view class="wrap clearFix friendWrap">
+					<view class="tap-box fl" bindtap="gotoHome" data-id="{{friendItem.ID}}">
+						<image class="fl" src="{{friendItem.Avatar?friendItem.Avatar:'../../images/defaultAvatar.jpg'}}" />
+						<view class="friend-detail fl">
+							<text class="nickname">{{friendItem.NickName}}</text>
+						</view>
+					</view>
+					<view class="status fr" wx:if="{{friendItem.type == 0}}">
+						<text>+ 关注</text>
+					</view>
+					<view class="status status0 fr" wx:else>
+						<text>已关注</text>
+					</view>
+				</view>
+			</block>
+			<view class="noData tip" wx:if="{{noSearchFriendData}}">未搜索到任何结果</view>
+		</view>
+		<view class="friendsWrap"></view>
+	</view>
 </view>

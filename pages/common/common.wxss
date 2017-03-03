@@ -7,3 +7,45 @@
     background: url(../../images/icon.png) no-repeat;
     background-size: 450rpx 570rpx;
 }
+
+.gameNavWrap{
+    width: 100%;
+}
+
+.gameNav{
+    display: inline-block;
+    padding: 15rpx;
+    box-sizing: border-box;
+    width: 50%;
+    font-size: 30rpx;
+    background: url(../../images/game-icon.png) no-repeat;
+    background-size: 84.8rpx 201.6rpx;
+    background-color: #fff;
+    overflow: hidden;
+
+}
+
+.gameNav.active{
+    background-color: #85a9d6;
+}
+
+.gameNav.qnm{
+    background-position: 15rpx 13rpx;
+    border-radius: 5px 0 0 5px;
+}
+
+.gameNav.qn{
+    background-position: 15rpx -104rpx;
+    border-radius: 0 5px 5px 0;
+}
+
+.game_name{
+    float: right;
+    margin-right: 30rpx;
+    width: 170rpx;
+    text-align: center;
+}
+
+.game_name text{
+    display: block;
+}

@@ -1,0 +1,19 @@
+<view class="container">
+	<view class="set_items">
+		<view class="set_item infoSet noBoder" bindtap="bindSetInfo">
+			<text>个人信息设置</text>
+			<text class="fr">›</text>
+		</view>
+		<view class="set_item bindRoleSet">
+			<text>绑定游戏角色</text>
+			<text class="fr">›</text>
+		</view>
+		<view class="set_item showRoleSet noBoder">
+			<text>修改展示角色</text>
+			<text class="fr">›</text>
+		</view>
+		<view class="set_item logOut noBoder">
+			<text>退出帐号</text>
+		</view>
+	</view>
+</view>

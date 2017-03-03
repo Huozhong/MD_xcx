@@ -1,45 +1,32 @@
 let face_json = require('face.js').face_json;
 let WxParse = require('../wxParse/wxParse.js');
-const HOST = "http://10.240.162.199:4000/md/";
-// const HOST = "https://api.zhenhua.me/md/";
+// const HOST = "http://10.241.24.146:4000/md/";
+const HOST = "https://ssl.hi.163.com/md/";
 // const HOST = "http://api.hi.163.com/md/";
 
-function formatTime(date) {
-    let year = date.getFullYear()
-    let month = date.getMonth() + 1
-    let day = date.getDate()
-
-    let hour = date.getHours()
-    let minute = date.getMinutes()
-    let second = date.getSeconds()
-    return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
-}
-
-function formatNumber(n) {
-    n = n.toString()
-    return n[1] ? n : '0' + n
-}
-
-function requestData(url, data, successFun, failFun) {
+function requestData(url, data, successFun, failFun, nokey) {
     wx.showToast({
         title: '加载中',
         icon: 'loading',
         duration: 10000
     });
+    if(!data) data = {};
+    if(!nokey) data['skey'] = wx.getStorageSync('skey');
     wx.request({
         url: url,
         method: "GET",
         data: data,
         header: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json'
         },
         success: function(result) {
             wx.hideToast();
             successFun(result);
         },
         fail: function(result) {
+            console.log(result)
             wx.hideToast();
-            errorTip();
+            // errorTip();
             failFun(result);
         }
     })

@@ -7,6 +7,7 @@
         <template is="home_top_nav_temp" data="{{currentNav}}"></template>
         <view class="homeInfoWrap" wx:if="{{currentNav == 'home'}}">
             <template is="home_info_temp" data="{{homeData}}"></template>
+            <view class="settingBtn" bindtap="bindToSetting">个人设置</view>
         </view>
         <view class="second-nav flex-wrap flex-tab" wx:if="{{currentNav == 'home'}}">
             <template is="home_mom_category_temp" data="{{category}}"></template>
@@ -18,13 +19,16 @@
             <view class="tip" wx:if="{{!hasMoreMoments}}">暂无更多数据</view>
         </scroll-view>
     </view>
-    <view class="roleWrap" wx:if="{{currentNav == 'role'}}"></view>
+    <view class="roleWrap" wx:if="{{currentNav == 'role'}}">
+        <template is="role_temp" data="{{roleData}}"></template>
+    </view>
     <view class="msgboardWrap" wx:if="{{currentNav == 'msgboard'}}">
         <view class="msgsNumWrap">
             <text>留言（<text class="msgsNum">{{msgCount}}</text>条）</text>
         </view>
         <view class="msgsWrap">
             <template is="message_temp" data="{{messages}}"></template>
+            <view class="tip" wx:if="{{!hasMoreMessages}}">暂无更多数据</view>
         </view>
     </view>
     <view class="albumWrap" wx:if="{{currentNav == 'album'}}"></view>

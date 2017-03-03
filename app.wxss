@@ -1,7 +1,7 @@
 /**app.wxss**/
 @import "/wxParse/wxParse.wxss";
 
-page{
+page, input{
     font-family: "Microsoft YaHei";
 }
 .container {

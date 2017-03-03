@@ -18,7 +18,9 @@
             <view class="tip" wx:if="{{!hasMoreMoments}}">暂无更多数据</view>
         </scroll-view>
     </view>
-    <view class="roleWrap" wx:if="{{currentNav == 'role'}}"></view>
+    <view class="roleWrap" wx:if="{{currentNav == 'role'}}">
+        <template is="role_temp" data="{{roleData}}"></template>
+    </view>
     <view class="msgboardWrap" wx:if="{{currentNav == 'msgboard'}}">
         <view class="msgsNumWrap">
             <text>留言（<text class="msgsNum">{{msgCount}}</text>条）</text>

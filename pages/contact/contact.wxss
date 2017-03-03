@@ -1,1 +1,126 @@
 /**contact.wxss**/
+@import "../common/common.wxss";
+page{
+	height: 100%;
+}
+.container{
+	padding: 20rpx 0;
+	height: auto;
+	min-height: 100%;
+	background-color:  #efefef;
+}
+
+.conentWrap{
+	width: 100%;
+}
+
+.wrap_item{
+	width: 100%;
+	background-color: #fff;
+	padding: 0 20rpx;
+	box-sizing: border-box;
+	margin-bottom: 20rpx;
+}
+
+.wrap_item.blueBg{
+	background-color: #2c3550;
+}
+
+.wrap{
+	height: 80rpx;
+	line-height: 80rpx;
+	border-bottom: 1px solid #cfcfcf;
+	font-size: 30rpx;
+}
+
+.wrap.noboder{
+	border-bottom: none;
+}
+
+.search_icon{
+	width: 38rpx;
+	height: 38rpx;
+	margin-left: 10rpx;
+	background-position: -93rpx 0rpx;
+}
+
+.newFriend_icon{
+	width: 42rpx;
+	height: 40rpx;
+	background-position: -285rpx 0rpx;
+}
+
+.recFriend_icon{
+	width: 40rpx;
+	height: 40rpx;
+	background-position: -165rpx 0rpx;
+}
+
+.wrap input{
+	margin-left: 58rpx;
+	height: 100%;
+	line-height: 80rpx;
+}
+
+.wrap .btnTitle{
+	display: block;
+	margin-left: 58rpx;
+}
+
+.wrap.blueBg{
+	color: #fff;
+}
+
+.friendWrap{
+	height: 100rpx;
+	padding: 20rpx 10rpx;
+}
+
+.friendWrap .tap-box{
+	width: 460rpx;
+	height: 100%;
+}
+
+.friendWrap .tap-box image{
+	width: 100rpx;
+	height: 100rpx;
+}
+
+.friendWrap .tap-box .friend-detail{
+	font-weight: bold;
+	font-size: 36rpx;
+	margin-left: 20rpx;
+	height: 100%;
+	line-height: 100rpx;
+}
+
+.friendWrap .status{
+	width: 100rpx;
+	height: 100%;
+	line-height: 100rpx;
+	color: #85a9d6;
+	font-size: 30rpx;
+	text-align: center;
+}
+
+.friendWrap .status.status0{
+	color: #ccc;
+}
+
+.friendWrap:last-child{
+	border-bottom: none;
+}
+
+.searchWrap{
+	position: relative;
+}
+
+.searchWrap .cancleSearch{
+	position: absolute;
+	height: 100%;
+	top: 0;
+	right: 20rpx;
+	line-height: 80rpx;
+	color: #0cf384;
+	z-index: 3;
+}

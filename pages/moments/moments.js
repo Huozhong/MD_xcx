@@ -120,6 +120,7 @@ Page({
     },
     // 页面加载完成时调用
     onLoad: function() {
+        console.log(app.globalData);
         this.refreshData();
         util.chargeMDUserInfo();
     },

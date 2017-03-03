@@ -1,26 +1,92 @@
 //index.js
 //获取应用实例
-var app = getApp()
+let app = getApp(),
+	util = require('../../utils/util.js');
 Page({
     data: {
-        motto: 'Hello World',
-        userInfo: {}
-    },
-    //事件处理函数
-    bindViewTap: function() {
-        wx.navigateTo({
-            url: '../logs/logs'
-        })
+        friends: [],
+        noFriendData: false,
+        searchFocus: false,
+        searchFriends: [],
+        noSearchFriendData: false,
+        searchVal: ''
     },
     onLoad: function() {
-        console.log('onLoad')
-        var that = this
-            //调用应用实例的方法获取全局数据
-        app.getUserInfo(function(userInfo) {
-            //更新数据
-            that.setData({
-                userInfo: userInfo
-            })
-        })
+        this.getDate();
+    },
+    getDate: function(){
+    	let that = this,
+    		url = util.HOST + 'qnm/getcontacts',
+    		data = {'userid': 64};
+    	util.requestData(url, data, function(result){
+    		let resData = result.data;
+    		if(resData.code == 0&& resData.data){
+				if(resData.data[0]){
+					that.setData({
+						friends: resData.data
+					});
+				}else{
+					that.setData({
+						noFriendData: true
+					});
+				}
+    		}else{
+    			util.errorTip();
+    		}
+    	}, function(result){});
+    },
+    searchFocus: function(){
+    	this.setData({
+    		searchFocus: true
+    	});
+    },
+    cancleSearch: function(){
+    	this.setData({
+    		noSearchFriendData: false,
+    		searchFocus: false,
+    		searchVal: '',
+    		searchFriends: []
+    	});	
+    },
+    searchInput: function(e){
+    	this.setData({
+    		noSearchFriendData: false,
+    		searchFriends: []
+    	});
+    	let val = e.detail.value;
+    	let myFris = this.data.friends;
+    	if(val){
+    		for (var i = 0; i < myFris.length; i++) {
+    			if(myFris[i].NickName.indexOf(val)>=0){
+    				this.data.searchFriends.push(myFris[i]);
+    			}
+    		}
+    		if(this.data.searchFriends[0]){
+    			this.setData({
+    				noSearchFriendData: false,
+    				searchFriends: this.data.searchFriends
+    			});	
+    		}else{
+    			this.setData({
+    				noSearchFriendData: true
+    			})
+    		}
+    	}else{
+    		this.setData({
+    			noSearchFriendData: false,
+    			searchFriends: []
+    		});
+    	}
+    },
+    gotoFriInform: function(){
+    	wx.switchTab({
+    		url: '../messages/messages'
+    	})
+    },
+    gotoHome: function(e){
+    	let userid = e.currentTarget.dataset.id;
+    	wx.navigateTo({
+    		url: '../home/home?userid='+userid
+    	})
     }
 })

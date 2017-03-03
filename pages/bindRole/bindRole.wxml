@@ -1,0 +1,59 @@
+<!--bindRole.wxml-->
+<view class="container">
+	<view class="contentWrap">
+		<view class="tip codeTip">请选择游戏并输入验证码</view>
+		<view class="gameNavWrap">
+			<view class="{{'gameNav qnm' + (curGame == 'qnm'? ' active':'')}}" data-game="qnm" bindtap="changeGame">
+	            <view class="game_name">
+	            	<text>倩女幽魂</text>
+	            	<text>手游</text>
+	            </view>
+	        </view>
+	        <view class="{{'gameNav qn' + (curGame == 'qn'? ' active':'')}}" data-game="qn" bindtap="changeGame">
+		        <view class="game_name">
+		        	<text>新倩女幽魂</text>
+		        	<text>Online</text>
+		        </view>
+	        </view>
+		</view>
+		<view class="content" wx:if="{{showRoles}}">
+			<scroll-view scroll-y="true" class="rolesWrap">
+				<view class="role-boxs" wx:if="{{!noRoleData}}">
+					<block wx:for="{{roles}}" wx:key="role" wx:for-index="rolex" wx:for-item="roleItem" data-ID="{{ID}}">
+						<view class="scroll_item clearFix">
+							<view class="fl role-box">
+								<view class="p">
+									<text class="server em">区<text class="fu" style="margin-left:1em">服</text></text>
+									<text class="server-name">{{roleItem.Server}}</text>
+								</view>
+								<view class="p">
+									<text class="name em">角色名</text>
+									<text class="user-name">{{roleItem.RoleName}}</text>
+								</view>
+							</view>
+							<view class="fr select-box">
+								<view class="check-button" bindtap="checkRole" data-roleid="{{roleItem.RoleId}}" data-roleindex="{{rolex}}">
+									<text class="{{'icon icon-check-l '+(roleItem.BindType?'active':'')}}"></text>
+								</view>
+							</view>
+						</view>
+					</block>
+				</view>
+				<view class="noData tip" wx:if="{{noRoleData}}">暂无角色数据</view>
+			</scroll-view>
+			<view class="saveBtn">
+				<button>保存</button>
+			</view>
+		</view>
+		<view class="codeWrap clearFix" wx:if="{{!showRoles}}">
+			<view class="codeImg fl">
+				<image class="code" src="{{baseUrl}}"></image>
+			</view>
+			<view class="refreshCode fr">刷新</view>
+			<view class="codeInput fl">
+				<input type="text" placeholder="输入验证码"/>
+			</view>
+			<view class="subBtn fl">提交</view>
+		</view>
+	</view>
+</view>
