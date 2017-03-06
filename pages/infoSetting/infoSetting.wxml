@@ -3,7 +3,7 @@
 		<view class="set_item avatarSet" bindtap="bindChangeAvatar">
 			<text>更换头像</text>
 			<view class="avatarWrap fr">
-				<image src="{{userInfo.Avatar?userInfo.Avatar:'../../images/defaultAvatar.jpg'}}" catchtap="bindShowAvatar" data-url="{{userInfo.Avatar}}"></image>
+				<image src="{{userInfo.Avatar?userInfo.Avatar:'http://10.240.163.56/md_xcx/images/defaultAvatar.jpg'}}" catchtap="bindShowAvatar" data-url="{{userInfo.Avatar}}"></image>
 				<text>›</text>
 			</view>
 		</view>

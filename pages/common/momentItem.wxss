@@ -80,7 +80,7 @@
 }
 
 .moment-item .moemntTag.hot {
-  background-image: url(../../images/hot.png);
+  background-image: url(http://10.240.163.56/md_xcx/images/hot.png);
 }
 
 .moment-item .momentMore {
@@ -126,7 +126,7 @@
     clear: both;
     list-style: square inside ;
     border-bottom: 2rpx solid #97b6dc;
-    background: #85a9d6 url(../../images/li.png) 10rpx center no-repeat;
+    background: #85a9d6 url(http://10.240.163.56/md_xcx/images/li.png) 10rpx center no-repeat;
     background-size: 11rpx 10rpx;
 }
 

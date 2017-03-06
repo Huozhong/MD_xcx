@@ -4,7 +4,7 @@
     transform: translateY(-50%);
     display: inline-block;
     vertical-align: top;
-    background: url(../../images/icon.png) no-repeat;
+    background: url(http://10.240.163.56/md_xcx/images/icon.png) no-repeat;
     background-size: 450rpx 570rpx;
 }
 
@@ -18,7 +18,7 @@
     box-sizing: border-box;
     width: 50%;
     font-size: 30rpx;
-    background: url(../../images/game-icon.png) no-repeat;
+    background: url(http://10.240.163.56/md_xcx/images/game-icon.png) no-repeat;
     background-size: 84.8rpx 201.6rpx;
     background-color: #fff;
     overflow: hidden;
@@ -48,4 +48,14 @@
 
 .game_name text{
     display: block;
+}
+
+.sameBtn{
+    line-height: 80rpx;
+    height: 80rpx;
+    background-color: #2c3550;
+    font-size: 30rpx;
+    text-align: center;
+    color: #fff;
+    border-radius: 10rpx;
 }

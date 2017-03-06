@@ -38,6 +38,7 @@ page{
 	font-size: 30rpx;
 	text-align: center;
 	color: #fff;
+	border-radius: 10rpx;
 }
 
 .role-boxs{

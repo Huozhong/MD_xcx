@@ -50,6 +50,9 @@ Page({
                 that.setData({
                     settingNickName: true
                 });
+                wx.setNavigationBarTitle({
+                    title: '设置昵称'
+                })
             }
         });
     },
@@ -68,6 +71,9 @@ Page({
         this.setData({
             settingSignatrue: true
         });
+        wx.setNavigationBarTitle({
+            title: '设置签名'
+        });
     },
     bindSignatrueInput: function(e){
         let nowV = e.detail.value;
@@ -84,7 +90,9 @@ Page({
         this.setData({
             settingAddress: true
         });
-        this.initCityData(this.data.userInfo.Province,this.data.userInfo.City);
+        wx.setNavigationBarTitle({
+            title: '设置地区'
+        });
     },
     bindShowAvatar: function(e) {
         let url = e.currentTarget.dataset.url;
@@ -101,7 +109,10 @@ Page({
             settingAddress: false,
             nameChanged: false,
             signatureChanged: false
-        })
+        });
+        wx.setNavigationBarTitle({
+            title: '个人信息设置'
+        });
     },
     bindChange: function(e) {
         let val = e.detail.value
@@ -170,14 +181,17 @@ Page({
         }, 10);
     },
     onShow: function() {
+        wx.showNavigationBarLoading();
         let that = this;
         util.requestData(util.HOST + 'getuserinfo', { userid: that.data.curUserid }, function(result) {
+            wx.hideNavigationBarLoading();
             let resData = result.data;
             if (resData.code == 0 && resData.data) {
                 if(resData.data.Province&&resData.data.City){
                     resData.data.Address = resData.data.Province +' '+ resData.data.City;
                     if(resData.data.Address.length>15)
                         resData.data.Address = resData.data.Address.substr(0,15)+'...';
+                    that.initCityData(resData.data.Province,resData.data.City);
                 }
                 that.setData({
                     userInfo: resData.data

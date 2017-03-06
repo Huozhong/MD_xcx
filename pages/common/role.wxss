@@ -1,131 +1,131 @@
 .mainRoleInfoWrap .avatar.qnm-job-2-0 {
-    background-image: url(../../images/head-icon/js.jpg);
+    background-image: url(http://10.240.163.56/md_xcx/images/head-icon/js.jpg);
 }
 .mainRoleInfoWrap .avatar.qnm-job-5-0 {
-    background-image: url(../../images/head-icon/nanfs.jpg);
+    background-image: url(http://10.240.163.56/md_xcx/images/head-icon/nanfs.jpg);
 }
 .mainRoleInfoWrap .avatar.qnm-job-7-0 {
-    background-image: url(../../images/head-icon/nanmz.jpg);
+    background-image: url(http://10.240.163.56/md_xcx/images/head-icon/nanmz.jpg);
 }
 .mainRoleInfoWrap .avatar.qnm-job-1-0 {
-    background-image: url(../../images/head-icon/nanss.jpg);
+    background-image: url(http://10.240.163.56/md_xcx/images/head-icon/nanss.jpg);
 }
 .mainRoleInfoWrap .avatar.qnm-job-8-0 {
-    background-image: url(../../images/head-icon/nanyr.jpg);
+    background-image: url(http://10.240.163.56/md_xcx/images/head-icon/nanyr.jpg);
 }
 .mainRoleInfoWrap .avatar.qnm-job-3-1 {
-    background-image: url(../../images/head-icon/nvdk.jpg);
+    background-image: url(http://10.240.163.56/md_xcx/images/head-icon/nvdk.jpg);
 }
 .mainRoleInfoWrap .avatar.qnm-job-5-1 {
-    background-image: url(../../images/head-icon/nvfs.jpg);
+    background-image: url(http://10.240.163.56/md_xcx/images/head-icon/nvfs.jpg);
 }
 .mainRoleInfoWrap .avatar.qnm-job-7-1 {
-    background-image: url(../../images/head-icon/nvmz.jpg);
+    background-image: url(http://10.240.163.56/md_xcx/images/head-icon/nvmz.jpg);
 }
 .mainRoleInfoWrap .avatar.qnm-job-1-1 {
-    background-image: url(../../images/head-icon/nvss.jpg);
+    background-image: url(http://10.240.163.56/md_xcx/images/head-icon/nvss.jpg);
 }
 .mainRoleInfoWrap .avatar.qnm-job-8-1 {
-    background-image: url(../../images/head-icon/nvyr.jpg);
+    background-image: url(http://10.240.163.56/md_xcx/images/head-icon/nvyr.jpg);
 }
 .mainRoleInfoWrap .avatar.qnm-job-6-1 {
-    background-image: url(../../images/head-icon/ys.jpg);
+    background-image: url(http://10.240.163.56/md_xcx/images/head-icon/ys.jpg);
 }
 
 .qnMainRoleInfoWrap .avatar.job-1-0 {
-    background-image: url(../../images/head-icon-qn/job-1-1.png);
+    background-image: url(http://10.240.163.56/md_xcx/images/head-icon-qn/job-1-1.png);
 }
 
 .qnMainRoleInfoWrap .avatar.job-1-1 {
-    background-image: url(../../images/head-icon-qn/job-1-0.png);
+    background-image: url(http://10.240.163.56/md_xcx/images/head-icon-qn/job-1-0.png);
 }
 
 .qnMainRoleInfoWrap .avatar.job-2-0 {
-    background-image: url(../../images/head-icon-qn/job-2-1.png);
+    background-image: url(http://10.240.163.56/md_xcx/images/head-icon-qn/job-2-1.png);
 }
 
 .qnMainRoleInfoWrap .avatar.job-2-1 {
-    background-image: url(../../images/head-icon-qn/job-2-0.png);
+    background-image: url(http://10.240.163.56/md_xcx/images/head-icon-qn/job-2-0.png);
 }
 
 .qnMainRoleInfoWrap .avatar.job-3-0 {
-    background-image: url(../../images/head-icon-qn/job-3-1.png);
+    background-image: url(http://10.240.163.56/md_xcx/images/head-icon-qn/job-3-1.png);
 }
 
 .qnMainRoleInfoWrap .avatar.job-3-1 {
-    background-image: url(../../images/head-icon-qn/job-3-0.png);
+    background-image: url(http://10.240.163.56/md_xcx/images/head-icon-qn/job-3-0.png);
 }
 
 .qnMainRoleInfoWrap .avatar.job-4-0 {
-    background-image: url(../../images/head-icon-qn/job-4-1.png);
+    background-image: url(http://10.240.163.56/md_xcx/images/head-icon-qn/job-4-1.png);
 }
 
 .qnMainRoleInfoWrap .avatar.job-4-1 {
-    background-image: url(../../images/head-icon-qn/job-4-0.png);
+    background-image: url(http://10.240.163.56/md_xcx/images/head-icon-qn/job-4-0.png);
 }
 
 .qnMainRoleInfoWrap .avatar.job-5-0 {
-    background-image: url(../../images/head-icon-qn/job-5-1.png);
+    background-image: url(http://10.240.163.56/md_xcx/images/head-icon-qn/job-5-1.png);
 }
 
 .qnMainRoleInfoWrap .avatar.job-5-1 {
-    background-image: url(../../images/head-icon-qn/job-5-0.png);
+    background-image: url(http://10.240.163.56/md_xcx/images/head-icon-qn/job-5-0.png);
 }
 
 .qnMainRoleInfoWrap .avatar.job-6-0 {
-    background-image: url(../../images/head-icon-qn/job-6-1.png);
+    background-image: url(http://10.240.163.56/md_xcx/images/head-icon-qn/job-6-1.png);
 }
 
 .qnMainRoleInfoWrap .avatar.job-6-1 {
-    background-image: url(../../images/head-icon-qn/job-6-0.png);
+    background-image: url(http://10.240.163.56/md_xcx/images/head-icon-qn/job-6-0.png);
 }
 
 .qnMainRoleInfoWrap .avatar.job-7-0 {
-    background-image: url(../../images/head-icon-qn/job-7-1.png);
+    background-image: url(http://10.240.163.56/md_xcx/images/head-icon-qn/job-7-1.png);
 }
 
 .qnMainRoleInfoWrap .avatar.job-7-1 {
-    background-image: url(../../images/head-icon-qn/job-7-0.png);
+    background-image: url(http://10.240.163.56/md_xcx/images/head-icon-qn/job-7-0.png);
 }
 
 .qnMainRoleInfoWrap .avatar.job-8-0 {
-    background-image: url(../../images/head-icon-qn/job-8-1.png);
+    background-image: url(http://10.240.163.56/md_xcx/images/head-icon-qn/job-8-1.png);
 }
 
 .qnMainRoleInfoWrap .avatar.job-8-1 {
-    background-image: url(../../images/head-icon-qn/job-8-0.png);
+    background-image: url(http://10.240.163.56/md_xcx/images/head-icon-qn/job-8-0.png);
 }
 
 .qnMainRoleInfoWrap .avatar.job-9-0 {
-    background-image: url(../../images/head-icon-qn/job-9-1.png);
+    background-image: url(http://10.240.163.56/md_xcx/images/head-icon-qn/job-9-1.png);
 }
 
 .qnMainRoleInfoWrap .avatar.job-9-1 {
-    background-image: url(../../images/head-icon-qn/job-9-0.png);
+    background-image: url(http://10.240.163.56/md_xcx/images/head-icon-qn/job-9-0.png);
 }
 
 .qnMainRoleInfoWrap .avatar.job-10-0 {
-    background-image: url(../../images/head-icon-qn/job-10-1.png);
+    background-image: url(http://10.240.163.56/md_xcx/images/head-icon-qn/job-10-1.png);
 }
 
 .qnMainRoleInfoWrap .avatar.job-10-1 {
-    background-image: url(../../images/head-icon-qn/job-10-0.png);
+    background-image: url(http://10.240.163.56/md_xcx/images/head-icon-qn/job-10-0.png);
 }
 
 .qnMainRoleInfoWrap .avatar.job-102-0 {
-    background-image: url(../../images/head-icon-qn/job-102-1.png);
+    background-image: url(http://10.240.163.56/md_xcx/images/head-icon-qn/job-102-1.png);
 }
 
 .qnMainRoleInfoWrap .avatar.job-102-1 {
-    background-image: url(../../images/head-icon-qn/job-102-0.png);
+    background-image: url(http://10.240.163.56/md_xcx/images/head-icon-qn/job-102-0.png);
 }
 
 .qnMainRoleInfoWrap .avatar.job-103-0 {
-    background-image: url(../../images/head-icon-qn/job-103-1.png);
+    background-image: url(http://10.240.163.56/md_xcx/images/head-icon-qn/job-103-1.png);
 }
 
 .qnMainRoleInfoWrap .avatar.job-103-1 {
-    background-image: url(../../images/head-icon-qn/job-103-0.png);
+    background-image: url(http://10.240.163.56/md_xcx/images/head-icon-qn/job-103-0.png);
 }
 
 
@@ -143,7 +143,7 @@
 .equipWrap{
     width: 100%;
     height: 740rpx;
-    background: #1e3250 url(../../images/equip-bg.png) center top no-repeat;
+    background: #1e3250 url(http://10.240.163.56/md_xcx/images/equip-bg.png) center top no-repeat;
     background-size: 710rpx 740rpx;
 }
 
@@ -201,27 +201,27 @@
 }
 
 .equip-cont .eq-table.eq-blue {
-    background-image: url(../../images/role/blue-square.png);
+    background-image: url(http://10.240.163.56/md_xcx/images/role/blue-square.png);
 }
 
 .equip-cont .eq-table.eq-red {
-    background-image: url(../../images/role/red-square.png);
+    background-image: url(http://10.240.163.56/md_xcx/images/role/red-square.png);
 }
 
 .equip-cont .eq-table.eq-purple {
-    background-image: url(../../images/role/purple-square.png);
+    background-image: url(http://10.240.163.56/md_xcx/images/role/purple-square.png);
 }
 
 .equip-cont .eq-table.eq-b-blue {
-    background-image: url(../../images/role/blue-rectangle.png);
+    background-image: url(http://10.240.163.56/md_xcx/images/role/blue-rectangle.png);
 }
 
 .equip-cont .eq-table.eq-b-red {
-    background-image: url(../../images/role/red-rectangle.png);
+    background-image: url(http://10.240.163.56/md_xcx/images/role/red-rectangle.png);
 }
 
 .equip-cont .eq-table.eq-b-purple {
-    background-image: url(../../images/role/purple-rectangle.png);
+    background-image: url(http://10.240.163.56/md_xcx/images/role/purple-rectangle.png);
 }
 
 .equip-cont .reserve1{

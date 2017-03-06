@@ -4,7 +4,7 @@
     <block wx:for="{{moments}}" wx:key="mom" wx:for-index="momx" wx:for-item="momentItem" data-ID="{{ID}}">
         <view class="moment-item clearFix">
             <view class="fl">
-                <image class="avatar" src="{{momentItem.userInfo.Avatar?momentItem.userInfo.Avatar:'../../images/defaultAvatar.jpg'}}" bindtap="bindToHome" data-userid="{{momentItem.userInfo.ID}}"></image>
+                <image class="avatar" src="{{momentItem.userInfo.Avatar?momentItem.userInfo.Avatar:'http://10.240.163.56/md_xcx/images/defaultAvatar.jpg'}}" bindtap="bindToHome" data-userid="{{momentItem.userInfo.ID}}"></image>
             </view>
             <view class="momentFr">
                 <view class="top">

@@ -31,5 +31,9 @@
             <view class="tip" wx:if="{{!hasMoreMessages}}">暂无更多数据</view>
         </view>
     </view>
-    <view class="albumWrap" wx:if="{{currentNav == 'album'}}"></view>
+    <view class="albumWrap" wx:if="{{currentNav == 'album'}}">
+        <view class="albumsWrap">
+            <template is="album_temp" data="{{albumData}}"></template>
+        </view>
+    </view>
 </view>

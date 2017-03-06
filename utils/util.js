@@ -4,6 +4,23 @@ let WxParse = require('../wxParse/wxParse.js');
 const HOST = "https://ssl.hi.163.com/md/";
 // const HOST = "http://api.hi.163.com/md/";
 
+function formatTime(date) {
+    let year = date.getFullYear();
+    let month = date.getMonth() + 1;
+    let day = date.getDate();
+
+    let hour = date.getHours();
+    let minute = date.getMinutes();
+    let second = date.getSeconds();
+    return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':');
+}
+
+function formatNumber(n) {
+    n = n.toString();
+    return n[1] ? n : '0' + n;
+}
+
+
 function requestData(url, data, successFun, failFun, nokey) {
     wx.showToast({
         title: '加载中',
@@ -249,5 +266,7 @@ module.exports = {
     toHome: toHome,
     toMyHome: toMyHome,
     getCommOfMon: getCommOfMon,
-    getCommOfMsg: getCommOfMsg
+    getCommOfMsg: getCommOfMsg,
+    AUTHINGMARK: '%7Cwatermark&type=1&gravity=center&image=Y29tbW9uL3dhdGVybWFyay1hdWRpdC5wbmc=',
+    NOPASSEDMARK: '%7Cwatermark&type=1&gravity=center&image=dXBsb2FkLzIwMTcwMS8xOC9hNzFlYWEwMGRkNDcxMWU2ODZlZWE1YTA5OTlhMzE3MQ=='
 }

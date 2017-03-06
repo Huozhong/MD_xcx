@@ -1,7 +1,7 @@
 
 <view>
     <view>
-        <image src="../../images/logo.png" class="mdLogo" />
+        <image src="http://10.240.163.56/md_xcx/images/logo.png" class="mdLogo" />
     </view>
     <form class="auth-form" bindsubmit="savePersonInfo" catchreset="formReset">
         <view class="form-list">

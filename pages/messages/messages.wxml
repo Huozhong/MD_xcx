@@ -24,8 +24,8 @@
 		<block wx:for="{{informs}}" wx:key="inform" wx:for-index="informx" wx:for-item="informItem">
 	    	<view class="informWrap clearFix">
 	    		<view class="avatarWrap fl">
-	    			<image class="informUserAvatar" src="../../images/systemInform.png" wx:if="{{informItem.Type == 7 || informItem.Type == 12}}"></image>
-	    			<image class="informUserAvatar" src="{{informItem.userInfo.Avatar?informItem.userInfo.Avatar:'../../images/defaultAvatar.jpg'}}" wx:else bindtap="bindToHome" data-userid="{{informItem.userInfo.ID}}"></image>
+	    			<image class="informUserAvatar" src="http://10.240.163.56/md_xcx/images/systemInform.png" wx:if="{{informItem.Type == 7 || informItem.Type == 12}}"></image>
+	    			<image class="informUserAvatar" src="{{informItem.userInfo.Avatar?informItem.userInfo.Avatar:'http://10.240.163.56/md_xcx/images/defaultAvatar.jpg'}}" wx:else bindtap="bindToHome" data-userid="{{informItem.userInfo.ID}}"></image>
 	    		</view>
 	    		<view class="informConWrap fr" bindtap="bindToInformDetail" data-data="{{informItem}}">
 	    			<view>
@@ -55,7 +55,7 @@
 		<block wx:for="{{msginforms}}" wx:key="msginform" wx:for-index="msginformx" wx:for-item="msginformItem">
 			<view class="informWrap clearFix">
 				<view class="avatarWrap fl">
-					<image class="informUserAvatar" src="{{msginformItem.userInfo.Avatar?msginformItem.userInfo.Avatar:'../../images/defaultAvatar.jpg'}}" bindtap="bindToHome" data-userid="{{msginformItem.userInfo.ID}}"></image>
+					<image class="informUserAvatar" src="{{msginformItem.userInfo.Avatar?msginformItem.userInfo.Avatar:'http://10.240.163.56/md_xcx/images/defaultAvatar.jpg'}}" bindtap="bindToHome" data-userid="{{msginformItem.userInfo.ID}}"></image>
 				</view>
 				<view class="informConWrap fr"  bindtap="bindShowMessageDetail" data-msg_id="{{msginformItem.refer.ID}}">
 					<view>

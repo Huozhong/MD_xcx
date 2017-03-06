@@ -10,11 +10,11 @@ Page({
         moments: [],
         hasMoreMoments: true,
         category: '',
-        currentNav: 'home',
+        currentNav: 'album',
         msgCount: 0,
         messages: [],
         hasMoreMessages: true,
-        curUserid: 63,
+        curUserid: 64,
         roleData: {
             curGame: 'qnm',
             hasQnmRole: false,
@@ -36,14 +36,14 @@ Page({
             currentNav: curnav,
             category: ''
         });
-        if(curnav == 'role'){
-            this.refreshData();
-        }else if(!this.data['got_'+curnav+'Data']){
-            this.refreshData();
-            let obj = {};
-            obj['got_'+curnav+'Data'] = true;
-            this.setData(obj);
-        }
+        this.refreshData();
+        // if (curnav == 'role') {
+        // } else if (!this.data['got_' + curnav + 'Data']) {
+        //     this.refreshData();
+        //     let obj = {};
+        //     obj['got_' + curnav + 'Data'] = true;
+        //     this.setData(obj);
+        // }
     },
     bindChangeMomentCategory: function(e) {
         let category = e.currentTarget.dataset.category;
@@ -133,12 +133,12 @@ Page({
     // 点击进入主页时调用
     bindToHome: function(e) {
         let uid = e.currentTarget.dataset.userid;
-        if(uid == this.data.curUserid) return;
+        if (uid == this.data.curUserid) return;
         // todo   判断是不是自己
         util.toHome(uid);
     },
     // 进入设置
-    bindToSetting: function(){
+    bindToSetting: function() {
         wx.navigateTo({
             url: '../settings/settings'
         });
@@ -168,25 +168,25 @@ Page({
         });
     },
     // 显示端游装备信息
-    showQnEqInfo: function(e){
+    showQnEqInfo: function(e) {
         let eqId = e.currentTarget.dataset.eq;
-        this.data.roleData.qnRoleData.showEq = WxParse.wxParse('html','html',this.data.roleData.qnRoleData.RoleInfo.EquipInfo['equip'+eqId].info,this,0);
+        this.data.roleData.qnRoleData.showEq = WxParse.wxParse('html', 'html', this.data.roleData.qnRoleData.RoleInfo.EquipInfo['equip' + eqId].info, this, 0);
         this.data.roleData.showQnEq = true;
         this.setData({
             roleData: this.data.roleData
         });
     },
     // 显示手游装备信息
-    showQnmEqInfo: function(e){
+    showQnmEqInfo: function(e) {
         let eqId = e.currentTarget.dataset.eq;
-        this.data.roleData.qnmRoleData.showEq = WxParse.wxParse('html','html',this.data.roleData.qnmRoleData.EquipInfo['equip'+eqId].info,this,0);
+        this.data.roleData.qnmRoleData.showEq = WxParse.wxParse('html', 'html', this.data.roleData.qnmRoleData.EquipInfo['equip' + eqId].info, this, 0);
         this.data.roleData.showQnmEq = true;
         this.setData({
             roleData: this.data.roleData
         });
     },
     // 关闭装备信息
-    hideEqInfo: function(){
+    hideEqInfo: function() {
         this.data.roleData.qnmRoleData.showEq = null;
         this.data.roleData.qnRoleData.showEq = null;
         this.data.roleData.showQnmEq = false;
@@ -196,7 +196,7 @@ Page({
         });
     },
     // 切换游戏
-    changeGame: function(e){
+    changeGame: function(e) {
         let game = e.currentTarget.dataset.game;
         this.data.roleData.curGame = game;
         this.setData({
@@ -246,8 +246,8 @@ Page({
     onShow: function() {
         this.refreshData();
     },
-    onHide: function(){
-        this.initData();
+    onHide: function() {
+        // this.initData();
     },
     // 页面下拉时调用
     onPullDownRefresh: function() {
@@ -360,7 +360,7 @@ Page({
         }
     },
     getQnmRoleData: function() {
-        if(this.data.roleData.gotQnmData){
+        if (this.data.roleData.gotQnmData) {
             return;
         }
         let that = this,
@@ -374,14 +374,14 @@ Page({
                 that.setData({
                     roleData: that.data.roleData
                 });
-                if(_resData.data.RoleId){
+                if (_resData.data.RoleId) {
                     let data = _resData.data;
                     if (!data.Gang) data.Gang = '无';
                     that.data.roleData.qnmRoleData = data;
                     that.setData({
                         roleData: that.data.roleData
                     });
-                }else{
+                } else {
                     that.data.roleData.hasQnmRole = false;
                     that.setData({
                         roleData: that.data.roleData
@@ -393,7 +393,7 @@ Page({
         }, function(result) {});
     },
     getQnRoleData: function() {
-        if(this.data.roleData.gotQnData){
+        if (this.data.roleData.gotQnData) {
             return;
         }
         let that = this;
@@ -427,7 +427,7 @@ Page({
                             util.errorTip();
                         }
                     }, function(result) {});
-                }else{
+                } else {
                     that.data.roleData.gotQnData = true;
                     that.data.roleData.hasQnRole = false;
                     that.setData({
@@ -452,7 +452,7 @@ Page({
             let _resData = result.data;
             if (_resData.code == 0 && _resData.data) {
                 let msgsData = util.initMomentsOrMsgsData(_resData.data, that, 'msg');
-                if(msgsData[0]) lastid = msgsData[msgsData.length - 1].ID;
+                if (msgsData[0]) lastid = msgsData[msgsData.length - 1].ID;
                 if (msgsData.length < 10) {
                     that.setData({
                         hasMoreMessages: false
@@ -487,6 +487,29 @@ Page({
         })
     },
     getalbumData: function() {
-
+        let that = this,
+            data = { 'album_user_id': this.data.curUserid },
+            url = util.HOST + 'photo_albums';
+        util.requestData(url, data, function(result) {
+            let resData = result.data;
+            if(resData.code == 0 && resData.data){
+                that.setData({
+                    albumData: resData.data
+                });
+            }else{
+                util.errorTip();
+            }
+        }, function(result) {})
+    },
+    addAlbum: function(){
+        wx.navigateTo({
+            url: '../newAlbum/newAlbum'
+        })
+    },
+    toAlbum: function(e){
+        let albumid = e.currentTarget.dataset.id;
+        wx.navigateTo({
+            url: '../album/album?albumid='+albumid
+        });
     }
 });

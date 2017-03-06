@@ -1,0 +1,17 @@
+<!--contact.wxml-->
+<view class="container">
+	<view class="conentWrap">
+		<view class="addImgBtn sameBtn">
+			<view class="icon icon-upload"></view><text>上传照片</text>
+		</view>
+		<view class="photosWrap">
+			<block wx:for="{{albumData.photos}}" wx:key="photo" wx:for-index="photox" wx:for-item="photoItem" data-ID="{{ID}}">
+				<view class="photo" data-id="{{photoItem.ID}}">
+					<span class="vertical"></span>
+					<image src="{{photoItem.Url}}" mode="aspectFill" />
+				</view>
+			</block>
+			<view class="noData tip" wx:if="{{noData}}">该相册还没有图片<text>？赶紧上传你的靓图吧</text></view>
+		</view>
+	</view>
+</view>

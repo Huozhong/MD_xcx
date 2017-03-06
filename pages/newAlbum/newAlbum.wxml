@@ -1,0 +1,38 @@
+<!--contact.wxml-->
+<view class="container">
+	<view class="conentWrap">
+		<view class="section">
+			<text class="name">相册名称：</text>
+			<input type="text" focus="true" placeholder="1-7个字符" class="{{'nameInput' + (inputError? ' error':'')}}" maxlength="7" bindinput="bindNameInput" />
+		</view>
+		<view class="section">
+			<text class="name">相册所属游戏：<text class="smallTip">（默认为倩女幽魂手游）</text></text>
+			<view class="gameNavWrap">
+				<view class="{{'gameNav qnm' + (curGame == 'qnm'? ' active':'')}}" data-game="qnm" bindtap="changeGame">
+		            <view class="game_name">
+		            	<text>倩女幽魂</text>
+		            	<text>手游</text>
+		            </view>
+		        </view>
+		        <view class="{{'gameNav qn' + (curGame == 'qn'? ' active':'')}}" data-game="qn" bindtap="changeGame">
+			        <view class="game_name">
+			        	<text>新倩女幽魂</text>
+			        	<text>Online</text>
+			        </view>
+		        </view>
+			</view>
+		</view>
+		<view class="section">
+			<text class="name">相册类型：<text class="smallTip">（默认为牛图）</text></text>
+			<view class="tags">
+				<view class="{{'tag '+(curChannel == 1? 'active':'')}}" bindtap="changeChannel" data-channel="1">牛图</view>
+				<view class="{{'tag '+(curChannel == 2? 'active':'')}}" bindtap="changeChannel" data-channel="2">壁纸</view>
+				<view class="{{'tag '+(curChannel == 0? 'active':'')}}" bindtap="changeChannel" data-channel="0">真人秀</view>
+				<view class="{{'tag '+(curChannel == 3? 'active':'')}}" bindtap="changeChannel" data-channel="3">精彩同人</view>
+			</view>
+		</view>
+		<view class="section">
+			<view class="addBtn" bindtap="addAlbum">添加</view>
+		</view>
+	</view>
+</view>

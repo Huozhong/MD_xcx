@@ -4,7 +4,7 @@
     <block wx:for="{{messages}}" wx:key="msg" wx:for-index="msgx" wx:for-item="messageItem" data-ID="{{ID}}">
         <view class="moment-item clearFix">
             <view class="fl">
-                <image class="avatar" src="{{messageItem.userInfo.Avatar?messageItem.userInfo.Avatar:'../../images/defaultAvatar.jpg'}}"  bindtap="bindToHome" data-userid="{{messageItem.userInfo.ID}}"></image>
+                <image class="avatar" src="{{messageItem.userInfo.Avatar?messageItem.userInfo.Avatar:'http://10.240.163.56/md_xcx/images/defaultAvatar.jpg'}}"  bindtap="bindToHome" data-userid="{{messageItem.userInfo.ID}}"></image>
             </view>
             <view class="momentFr">
                 <view class="top">

@@ -14,7 +14,7 @@
 
 <template name="home_info_temp">
 	<view class="detail-box">
-	    <image class="avatar" src="{{homeData.Avatar?homeData.Avatar:'../../images/defaultAvatar.jpg'}}" />
+	    <image class="avatar" src="{{homeData.Avatar?homeData.Avatar:'http://10.240.163.56/md_xcx/images/defaultAvatar.jpg'}}" />
 	    <view class="text-box fr clearFix">
 	        <text class="nickname fl">{{homeData.NickName}}</text>
 	        <view class="share-cont fr">
@@ -39,7 +39,7 @@
 	    <scroll-view class="visitor-list" scroll-x="true">
 	        <block wx:for="{{homeData.VisitList}}" wx:key="visitor" wx:for-index="visitorx" wx:for-item="visitorItem">
 	            <view class="visitorWrap">
-	                <image src="{{visitorItem.Avatar?visitorItem.Avatar:'../../images/defaultAvatar.jpg'}}" bindtap="bindToHome" data-userid="{{visitorItem.UserId}}"></image>
+	                <image src="{{visitorItem.Avatar?visitorItem.Avatar:'http://10.240.163.56/md_xcx/images/defaultAvatar.jpg'}}" bindtap="bindToHome" data-userid="{{visitorItem.UserId}}"></image>
 	            </view>
 	        </block>
 	    </scroll-view>
@@ -145,7 +145,7 @@
 	        </view>
 	        <view class="mask" wx:if="{{roleData.showQnmEq}}">
 	            <view class="close-mask" bindtap="hideEqInfo">
-	                <image src="../../images/closemask.png"/>
+	                <image src="http://10.240.163.56/md_xcx/images/closemask.png"/>
 	            </view>
 	            <scroll-view scroll-y="true" class="mask-inside">
 					<template is="wxParse" data="{{wxParseData:roleData.qnmRoleData.showEq.nodes}}" />
@@ -241,7 +241,7 @@
 	        </view>
 	        <view class="mask" wx:if="{{roleData.showQnEq}}">
 	            <view class="close-mask" bindtap="hideEqInfo">
-	                <image src="../../images/closemask.png" />
+	                <image src="http://10.240.163.56/md_xcx/images/closemask.png" />
 	            </view>
 	            <scroll-view scroll-y="true" class="mask-inside">
 					<template is="wxParse" data="{{wxParseData:roleData.qnRoleData.showEq.nodes}}" />
@@ -250,4 +250,36 @@
 		</view>
 	</view>
 	<view class="tip" wx:if="{{!roleData.hasQnmRole||!roleData.hasQnRole}}">暂无角色数据</view>
+</template>
+
+<template name="album_temp">
+	<view class="gallery-box">
+		<view class="add-album single-gallery" bindtap="addAlbum"></view>
+		<view data-type="{{albumItem.Type}}" data-id="albumData.avatarAlbum.ID" class="single-gallery" bindtap="toAlbum">
+			<text class="channel-tip channelnull"></text>
+			<text class="empty-vertical"></text>
+			<image src="{{albumData.avatarAlbum.CoverUrl?albumData.avatarAlbum.CoverUrl:'http://10.240.163.56/md_xcx/images/default.jpg'}}" mode="aspectFill"/>
+			<view class="gallery-detail">
+				<text class="name">头像相册</text>(<text class="count">{{albumData.avatarAlbum.Count}}</text>)
+			</view>
+		</view>
+		<view data-type="{{albumData.momentAlbum.Type}}" data-id="{{albumData.momentAlbum.ID}}" class="single-gallery" bindtap="toAlbum">
+			<text class="channel-tip channelnull"></text>
+			<text class="empty-vertical"></text>
+			<image src="{{albumData.momentAlbum.CoverUrl?albumData.momentAlbum.CoverUrl:'http://10.240.163.56/md_xcx/images/default.jpg'}}" />
+			<view class="gallery-detail">
+				<text class="name">新鲜事相册</text>(<text class="count">{{albumData.momentAlbum.Count}}</text>)
+			</view>
+		</view>
+		<block wx:for="{{albumData.normalAlbums.albums}}" wx:key="album" wx:for-index="albumx" wx:for-item="albumItem" data-ID="{{ID}}">
+			<view data-type="{{albumItem.Type}}" data-id="{{albumItem.ID}}" class="single-gallery" bindtap="toAlbum">
+				<text class="{{'channel-tip channel'+albumItem.ChannelId}}"></text>
+				<text class="empty-vertical"></text>
+				<image src="{{albumItem.CoverUrl?albumItem.CoverUrl:'http://10.240.163.56/md_xcx/images/default.jpg'}}" mode="aspectFill" />
+				<view class="gallery-detail">
+					<text class="name">{{albumItem.Name}}</text>(<text class="count">{{albumItem.Count}}</text>)
+				</view>
+			</view>
+		</block>
+	</view>
 </template>

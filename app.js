@@ -7,14 +7,14 @@ App({
         this.getWxUserInfo(function(result) {
             that.mdLogin(result);
         });
-        // setTimeout(function() {
-        //     // wx.navigateTo({
-        //     //     url: '../bindRole/bindRole'
-        //     // });
-        //     wx.switchTab({
-        //         url: '../contact/contact'
-        //     });
-        // }, 1500);
+        setTimeout(function() {
+            wx.navigateTo({
+                url: '../photos/photos?photoid=24191'
+            });
+            // wx.switchTab({
+            //     url: '../myhome/myhome'
+            // });
+        }, 2000);
 
         // wx.clearStorage();
     },

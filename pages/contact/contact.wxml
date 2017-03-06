@@ -22,7 +22,7 @@
 			<block wx:for="{{friends}}" wx:key="friend" wx:for-index="friendx" wx:for-item="friendItem" data-ID="{{ID}}">
 				<view class="wrap clearFix friendWrap">
 					<view class="tap-box fl" bindtap="gotoHome" data-id="{{friendItem.ID}}">
-						<image class="fl" src="{{friendItem.Avatar?friendItem.Avatar:'../../images/defaultAvatar.jpg'}}" />
+						<image class="fl" src="{{friendItem.Avatar?friendItem.Avatar:'http://10.240.163.56/md_xcx/images/defaultAvatar.jpg'}}" />
 						<view class="friend-detail fl">
 							<text class="nickname">{{friendItem.NickName}}</text>
 						</view>
@@ -41,7 +41,7 @@
 			<block wx:for="{{searchFriends}}" wx:key="friend" wx:for-index="friendx" wx:for-item="friendItem" data-ID="{{ID}}">
 				<view class="wrap clearFix friendWrap">
 					<view class="tap-box fl" bindtap="gotoHome" data-id="{{friendItem.ID}}">
-						<image class="fl" src="{{friendItem.Avatar?friendItem.Avatar:'../../images/defaultAvatar.jpg'}}" />
+						<image class="fl" src="{{friendItem.Avatar?friendItem.Avatar:'http://10.240.163.56/md_xcx/images/defaultAvatar.jpg'}}" />
 						<view class="friend-detail fl">
 							<text class="nickname">{{friendItem.NickName}}</text>
 						</view>

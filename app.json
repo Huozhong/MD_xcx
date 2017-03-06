@@ -10,7 +10,10 @@
     "pages/contact/contact",
     "pages/settings/settings",
     "pages/infoSetting/infoSetting",
-    "pages/bindRole/bindRole"
+    "pages/bindRole/bindRole",
+    "pages/newAlbum/newAlbum",
+    "pages/album/album",
+    "pages/photos/photos"
   ],
   "window":{
     "backgroundTextStyle":"light",
@@ -23,6 +26,7 @@
     "borderStyle":"white",
     "backgroundColor": "#2c3550",
     "color": "#fff",
+    "selectedColor": "#e0c977",
     "list": [{
       "pagePath": "pages/moments/moments",
       "iconPath":"images/tab_moment.png",

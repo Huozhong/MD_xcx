@@ -66,7 +66,7 @@ page, input{
 
 .top-nav-item.current {
     color: #85a9d6;
-    background: url(../../images/nav_s.png) center bottom no-repeat;
+    background: url(http://10.240.163.56/md_xcx/images/nav_s.png) center bottom no-repeat;
     background-size: 100rpx 8rpx;
 }
 

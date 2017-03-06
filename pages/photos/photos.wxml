@@ -1,0 +1,12 @@
+<!--contact.wxml-->
+<view class="container">
+	<view class="conentWrap">
+		<swiper-view class="photos" duration="300" autoplay="true" interval="1000" current="0">
+			<block wx:for="{{photos}}" wx:key="photo" wx:for-index="photox" wx:for-item="photoItem" data-ID="{{ID}}">
+				<swiper-item class="photo">
+					<image src="{{photoItem}}" mode="aspectFit"></image>
+				</swiper-item>
+			</block>
+		</swiper-view>
+	</view>
+</view>

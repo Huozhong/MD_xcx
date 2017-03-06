@@ -1,0 +1,46 @@
+/**contact.wxss**/
+@import "../common/common.wxss";
+page{
+	height: 100%;
+}
+.container{
+	padding: 20rpx 0;
+	height: auto;
+	min-height: 100%;
+	background-color: #efefef;
+}
+
+.conentWrap{
+	width: 100%;
+	font-size: 30rpx;
+	padding: 0 20rpx;
+	box-sizing: border-box;
+}
+
+.icon-upload{
+    width: 40rpx;
+    height: 40rpx;
+    transform: translateY(-40%);
+    background-position: -169rpx -354rpx;
+    margin-right: 10rpx;
+}
+
+.photosWrap{
+	margin: 0 auto;
+	width: 90%;
+	padding-top: 50rpx;
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-between;
+}
+
+.photo{
+	width: 300rpx;
+	height: 300rpx;
+	margin-bottom: 20rpx;
+}
+
+.photo image{
+	width: 100%;
+	height: 100%;
+}
