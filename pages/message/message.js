@@ -14,10 +14,10 @@ Page({
     },
     onLoad: function(options) {
         util.chargeMDUserInfo();
-        if(options.messageid){
-            this.getMessage(options.messageid);    
-        }else{
-            util.showTip('错误', '无留言id。', false, '确定', function(){
+        if (options.messageid) {
+            this.getMessage(options.messageid);
+        } else {
+            util.showTip('错误', '无留言id。', false, '确定', function() {
                 wx.navigateBack();
             });
         }
@@ -31,7 +31,7 @@ Page({
                 let resData = util.initMomentsOrMsgsData(resultData.data, that, 'msg')[0];
                 resData.isMessageDetail = true;
                 resData.showCommList = true;
-                if (resData.anslist.anslist[0]) {
+                if (resData.anslist && resData.anslist.anslist && resData.anslist.anslist[0]) {
                     let _anslist = resData.anslist.anslist;
                     for (var i = 0; i < _anslist.length; i++) {
                         _anslist[i].Text = util.parseFace(_anslist[i].Text);

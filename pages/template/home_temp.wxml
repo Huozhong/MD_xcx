@@ -21,10 +21,10 @@
 	            <view class="icon icon-card"></view>
 	            <text class="share">分享名片</text>
 	        </view>
-	        <view class="follow status1" wx:if="{{homeData.isgz}}">已关注</view>
-	        <view class="follow status0" wx:else>＋ 关注</view>
+	        <view class="follow status1" wx:if="{{homeData.isgz&&!homeData.isMySelf}}">已关注</view>
+	        <view class="follow status0" wx:if="{{!homeData.isgz&&!homeData.isMySelf}}" bindtap="addFriend">＋ 关注</view>
 	        <view class="clear"></view>
-	        <view class="address" wx:if="{{province}}">
+	        <view class="address" wx:if="{{homeData.Province}}">
 	            <text class="province">{{homeData.Province}}</text>
 	            <text class="city">{{homeData.City}}</text>
 	        </view>
@@ -94,56 +94,56 @@
 	        <view id="equip-cont" class="equip-cont">
 	            <!-- 竖排从左至右依次为：保留1、9、8、保留2、1、6、3、4、5、10、2、7、保留3、12、11 -->
 	            <view class="eq-1 eq">
-	                <view class="s eq-table reserve1" bindtap="showQnmEqInfo" data-eq="16"></view>
-	                <view class="{{'s eq-table eq9 eq-'+roleData.qnmRoleData.EquipInfo.equip9.color}}"  bindtap="showQnmEqInfo" data-eq="9">
+	                <view class="s eq-table reserve1" bindtap="showGameEqInfo" data-game="qnm" data-eq="16"></view>
+	                <view class="{{'s eq-table eq9 eq-'+roleData.qnmRoleData.EquipInfo.equip9.color}}"  bindtap="showGameEqInfo" data-game="qnm" data-eq="9">
 	                	<image src="{{roleData.qnmRoleData.EquipInfo.equip9.img}}" wx:if="{{roleData.qnmRoleData.EquipInfo.equip9}}"></image>
 	                </view>
-	                <view class="{{'s eq-table eq8 eq-'+roleData.qnmRoleData.EquipInfo.equip8.color}}"  bindtap="showQnmEqInfo" data-eq="8">
+	                <view class="{{'s eq-table eq8 eq-'+roleData.qnmRoleData.EquipInfo.equip8.color}}"  bindtap="showGameEqInfo" data-game="qnm" data-eq="8">
 	                	<image src="{{roleData.qnmRoleData.EquipInfo.equip8.img}}" wx:if="{{roleData.qnmRoleData.EquipInfo.equip8}}"></image>
 	                </view>
 	            </view>
 	            <view class="eq-2 eq">
-	                <view class="s eq-table reserve2" bindtap="showQnmEqInfo" data-eq="16"></view>
-	                <view class="{{'l eq-table eq1 eq-b-'+roleData.qnmRoleData.EquipInfo.equip1.color}}"  bindtap="showQnmEqInfo" data-eq="1">
+	                <view class="s eq-table reserve2" bindtap="showGameEqInfo" data-game="qnm" data-eq="16"></view>
+	                <view class="{{'l eq-table eq1 eq-b-'+roleData.qnmRoleData.EquipInfo.equip1.color}}"  bindtap="showGameEqInfo" data-game="qnm" data-eq="1">
 	                	<image src="{{roleData.qnmRoleData.EquipInfo.equip1.img}}" wx:if="{{roleData.qnmRoleData.EquipInfo.equip1}}"></image>
 	                </view>
-	                <view class="{{'m eq-table eq6 eq-'+roleData.qnmRoleData.EquipInfo.equip6.color}}"  bindtap="showQnmEqInfo" data-eq="6">
+	                <view class="{{'m eq-table eq6 eq-'+roleData.qnmRoleData.EquipInfo.equip6.color}}"  bindtap="showGameEqInfo" data-game="qnm" data-eq="6">
 	                	<image src="{{roleData.qnmRoleData.EquipInfo.equip6.img}}" wx:if="{{roleData.qnmRoleData.EquipInfo.equip6}}"></image>
 	                </view>
 	            </view>
 	            <view class="eq-3 eq">
-	                <view class="{{'m eq-table eq3 eq-'+roleData.qnmRoleData.EquipInfo.equip3.color}}"  bindtap="showQnmEqInfo" data-eq="3">
+	                <view class="{{'m eq-table eq3 eq-'+roleData.qnmRoleData.EquipInfo.equip3.color}}"  bindtap="showGameEqInfo" data-game="qnm" data-eq="3">
 	                	<image src="{{roleData.qnmRoleData.EquipInfo.equip3.img}}" wx:if="{{roleData.qnmRoleData.EquipInfo.equip3}}"></image>
 	                </view>
-	                <view class="{{'l eq-table eq4 eq-b-'+roleData.qnmRoleData.EquipInfo.equip4.color}}"  bindtap="showQnmEqInfo" data-eq="4">
+	                <view class="{{'l eq-table eq4 eq-b-'+roleData.qnmRoleData.EquipInfo.equip4.color}}"  bindtap="showGameEqInfo" data-game="qnm" data-eq="4">
 	                	<image src="{{roleData.qnmRoleData.EquipInfo.equip4.img}}" wx:if="{{roleData.qnmRoleData.EquipInfo.equip4}}"></image>
 	                </view>
-	                <view class="{{'s eq-table eq5 eq-'+roleData.qnmRoleData.EquipInfo.equip5.color}}"  bindtap="showQnmEqInfo" data-eq="5">
+	                <view class="{{'s eq-table eq5 eq-'+roleData.qnmRoleData.EquipInfo.equip5.color}}"  bindtap="showGameEqInfo" data-game="qnm" data-eq="5">
 	                	<image src="{{roleData.qnmRoleData.EquipInfo.equip5.img}}" wx:if="{{roleData.qnmRoleData.EquipInfo.equip5}}"></image>
 	                </view>
 	            </view>
 	            <view class="eq-4 eq">
-	                <view class="{{'s eq-table eq10 eq-'+roleData.qnmRoleData.EquipInfo.equip10.color}}"  bindtap="showQnmEqInfo" data-eq="10">
+	                <view class="{{'s eq-table eq10 eq-'+roleData.qnmRoleData.EquipInfo.equip10.color}}"  bindtap="showGameEqInfo" data-game="qnm" data-eq="10">
 	                	<image src="{{roleData.qnmRoleData.EquipInfo.equip10.img}}" wx:if="{{roleData.qnmRoleData.EquipInfo.equip10}}"></image>
 	                </view>
-	                <view class="{{'l eq-table eq2 eq-'+roleData.qnmRoleData.EquipInfo.equip2.color}}"  bindtap="showQnmEqInfo" data-eq="2">
+	                <view class="{{'l eq-table eq2 eq-'+roleData.qnmRoleData.EquipInfo.equip2.color}}"  bindtap="showGameEqInfo" data-game="qnm" data-eq="2">
 	                	<image src="{{roleData.qnmRoleData.EquipInfo.equip2.img}}" wx:if="{{roleData.qnmRoleData.EquipInfo.equip2}}"></image>
 	                </view>
-	                <view class="{{'m eq-table eq7 eq-'+roleData.qnmRoleData.EquipInfo.equip7.color}}"  bindtap="showQnmEqInfo" data-eq="7">
+	                <view class="{{'m eq-table eq7 eq-'+roleData.qnmRoleData.EquipInfo.equip7.color}}"  bindtap="showGameEqInfo" data-game="qnm" data-eq="7">
 	                	<image src="{{roleData.qnmRoleData.EquipInfo.equip7.img}}" wx:if="{{roleData.qnmRoleData.EquipInfo.equip7}}"></image>
 	                </view>
 	            </view>
 	            <view class="eq-5 eq">
-	                <view class="s eq-table reserve3" bindtap="showQnmEqInfo" data-eq="16"></view>
-	                <view class="{{'s eq-table eq12 eq-'+roleData.qnmRoleData.EquipInfo.equip12.color}}"  bindtap="showQnmEqInfo" data-eq="12">
+	                <view class="s eq-table reserve3" bindtap="showGameEqInfo" data-game="qnm" data-eq="16"></view>
+	                <view class="{{'s eq-table eq12 eq-'+roleData.qnmRoleData.EquipInfo.equip12.color}}"  bindtap="showGameEqInfo" data-game="qnm" data-eq="12">
 	                	<image src="{{roleData.qnmRoleData.EquipInfo.equip12.img}}" wx:if="{{roleData.qnmRoleData.EquipInfo.equip12}}"></image>
 	                </view>
-	                <view class="{{'s eq-table eq11 eq-'+roleData.qnmRoleData.EquipInfo.equip11.color}}"  bindtap="showQnmEqInfo" data-eq="11">
+	                <view class="{{'s eq-table eq11 eq-'+roleData.qnmRoleData.EquipInfo.equip11.color}}"  bindtap="showGameEqInfo" data-game="qnm" data-eq="11">
 	                	<image src="{{roleData.qnmRoleData.EquipInfo.equip11.img}}" wx:if="{{roleData.qnmRoleData.EquipInfo.equip11}}"></image>
 	                </view>
 	            </view>
 	        </view>
-	        <view class="mask" wx:if="{{roleData.showQnmEq}}">
+	        <view class="mask" wx:if="{{roleData.showqnmEq}}">
 	            <view class="close-mask" bindtap="hideEqInfo">
 	                <image src="http://10.240.163.56/md_xcx/images/closemask.png"/>
 	            </view>
@@ -172,74 +172,74 @@
 	        <view id="equip-cont" class="equip-cont">
 	            <!-- 竖排从左至右依次为：保留1、9、8、保留2、1、6、3、4、5、10、2、7、保留3、12、11 -->
 	            <view class="eq-1 eq">
-	                <view class="s eq-table eq16" bindtap="showQnEqInfo" data-eq="16">
+	                <view class="s eq-table eq16" bindtap="showGameEqInfo" data-game="qn" data-eq="16">
 	                	<image src="{{roleData.qnRoleData.RoleInfo.EquipInfo.equip16.img}}" wx:if="{{roleData.qnRoleData.RoleInfo.EquipInfo.equip16}}"></image>
 	                </view>
-	                <view class="s eq-table eq17" bindtap="showQnEqInfo" data-eq="17">
+	                <view class="s eq-table eq17" bindtap="showGameEqInfo" data-game="qn" data-eq="17">
 	                	<image src="{{roleData.qnRoleData.RoleInfo.EquipInfo.equip17.img}}" wx:if="{{roleData.qnRoleData.RoleInfo.EquipInfo.equip17}}"></image>
 	                </view>
-	                <view class="s eq-table eq18" bindtap="showQnEqInfo" data-eq="18">
+	                <view class="s eq-table eq18" bindtap="showGameEqInfo" data-game="qn" data-eq="18">
 	                	<image src="{{roleData.qnRoleData.RoleInfo.EquipInfo.equip18.img}}" wx:if="{{roleData.qnRoleData.RoleInfo.EquipInfo.equip18}}"></image>
 	                </view>
-	                <view class="s eq-table eq6" bindtap="showQnEqInfo" data-eq="6">
+	                <view class="s eq-table eq6" bindtap="showGameEqInfo" data-game="qn" data-eq="6">
 	                	<image src="{{roleData.qnRoleData.RoleInfo.EquipInfo.equip6.img}}" wx:if="{{roleData.qnRoleData.RoleInfo.EquipInfo.equip6}}"></image>
 	                </view>
-	                <view class="s eq-table eq9" bindtap="showQnEqInfo" data-eq="9">
+	                <view class="s eq-table eq9" bindtap="showGameEqInfo" data-game="qn" data-eq="9">
 	                	<image src="{{roleData.qnRoleData.RoleInfo.EquipInfo.equip9.img}}" wx:if="{{roleData.qnRoleData.RoleInfo.EquipInfo.equip9}}"></image>
 	                </view>
 	            </view>
 	            <view class="eq-2 eq">
-	                <view class="s eq-table eq1" bindtap="showQnEqInfo" data-eq="1">
+	                <view class="s eq-table eq1" bindtap="showGameEqInfo" data-game="qn" data-eq="1">
 	                	<image src="{{roleData.qnRoleData.RoleInfo.EquipInfo.equip1.img}}" wx:if="{{roleData.qnRoleData.RoleInfo.EquipInfo.equip1}}"></image>
 	                </view>
-	                <view class="l eq-table eq3" bindtap="showQnEqInfo" data-eq="3">
+	                <view class="l eq-table eq3" bindtap="showGameEqInfo" data-game="qn" data-eq="3">
 	                	<image src="{{roleData.qnRoleData.RoleInfo.EquipInfo.equip3.img}}" wx:if="{{roleData.qnRoleData.RoleInfo.EquipInfo.equip3}}"></image>
 	                </view>
-	                <view class="m eq-table eq10" bindtap="showQnEqInfo" data-eq="10">
+	                <view class="m eq-table eq10" bindtap="showGameEqInfo" data-game="qn" data-eq="10">
 	                	<image src="{{roleData.qnRoleData.RoleInfo.EquipInfo.equip10.img}}" wx:if="{{roleData.qnRoleData.RoleInfo.EquipInfo.equip10}}"></image>
 	                </view>
 	            </view>
 	            <view class="eq-3 eq">
-	                <view class="m eq-table eq2" bindtap="showQnEqInfo" data-eq="2">
+	                <view class="m eq-table eq2" bindtap="showGameEqInfo" data-game="qn" data-eq="2">
 	                	<image src="{{roleData.qnRoleData.RoleInfo.EquipInfo.equip2.img}}" wx:if="{{roleData.qnRoleData.RoleInfo.EquipInfo.equip2}}"></image>
 	                </view>
-	                <view class="l eq-table eq4" bindtap="showQnEqInfo" data-eq="4">
+	                <view class="l eq-table eq4" bindtap="showGameEqInfo" data-game="qn" data-eq="4">
 	                	<image src="{{roleData.qnRoleData.RoleInfo.EquipInfo.equip4.img}}" wx:if="{{roleData.qnRoleData.RoleInfo.EquipInfo.equip4}}"></image>
 	                </view>
-	                <view class="s eq-table eq7" bindtap="showQnEqInfo" data-eq="7">
+	                <view class="s eq-table eq7" bindtap="showGameEqInfo" data-game="qn" data-eq="7">
 	                	<image src="{{roleData.qnRoleData.RoleInfo.EquipInfo.equip7.img}}" wx:if="{{roleData.qnRoleData.RoleInfo.EquipInfo.equip7}}"></image>
 	                </view>
 	            </view>
 	            <view class="eq-4 eq">
-	                <view class="s eq-table eq13" bindtap="showQnEqInfo" data-eq="13">
+	                <view class="s eq-table eq13" bindtap="showGameEqInfo" data-game="qn" data-eq="13">
 	                	<image src="{{roleData.qnRoleData.RoleInfo.EquipInfo.equip13.img}}" wx:if="{{roleData.qnRoleData.RoleInfo.EquipInfo.equip13}}"></image>
 	                </view>
-	                <view class="l eq-table eq5" bindtap="showQnEqInfo" data-eq="5">
+	                <view class="l eq-table eq5" bindtap="showGameEqInfo" data-game="qn" data-eq="5">
 	                	<image src="{{roleData.qnRoleData.RoleInfo.EquipInfo.equip5.img}}" wx:if="{{roleData.qnRoleData.RoleInfo.EquipInfo.equip5}}"></image>
 	                </view>
-	                <view class="m eq-table eq11" bindtap="showQnEqInfo" data-eq="11">
+	                <view class="m eq-table eq11" bindtap="showGameEqInfo" data-game="qn" data-eq="11">
 	                	<image src="{{roleData.qnRoleData.RoleInfo.EquipInfo.equip11.img}}" wx:if="{{roleData.qnRoleData.RoleInfo.EquipInfo.equip11}}"></image>
 	                </view>
 	            </view>
 	            <view class="eq-5 eq">
-	                <view class="s eq-table eq19" bindtap="showQnEqInfo" data-eq="19">
+	                <view class="s eq-table eq19" bindtap="showGameEqInfo" data-game="qn" data-eq="19">
 	                	<image src="{{roleData.qnRoleData.RoleInfo.EquipInfo.equip19.img}}" wx:if="{{roleData.qnRoleData.RoleInfo.EquipInfo.equip19}}"></image>
 	                </view>
-	                <view class="s eq-table eq15" bindtap="showQnEqInfo" data-eq="15">
+	                <view class="s eq-table eq15" bindtap="showGameEqInfo" data-game="qn" data-eq="15">
 	                	<image src="{{roleData.qnRoleData.RoleInfo.EquipInfo.equip15.img}}" wx:if="{{roleData.qnRoleData.RoleInfo.EquipInfo.equip15}}"></image>
 	                </view>
-	                <view class="s eq-table eq14" bindtap="showQnEqInfo" data-eq="14">
+	                <view class="s eq-table eq14" bindtap="showGameEqInfo" data-game="qn" data-eq="14">
 	                	<image src="{{roleData.qnRoleData.RoleInfo.EquipInfo.equip14.img}}" wx:if="{{roleData.qnRoleData.RoleInfo.EquipInfo.equip14}}"></image>
 	                </view>
-	                <view class="s eq-table eq8" bindtap="showQnEqInfo" data-eq="8">
+	                <view class="s eq-table eq8" bindtap="showGameEqInfo" data-game="qn" data-eq="8">
 	                	<image src="{{roleData.qnRoleData.RoleInfo.EquipInfo.equip8.img}}" wx:if="{{roleData.qnRoleData.RoleInfo.EquipInfo.equip8}}"></image>
 	                </view>
-	                <view class="s eq-table eq12" bindtap="showQnEqInfo" data-eq="12">
+	                <view class="s eq-table eq12" bindtap="showGameEqInfo" data-game="qn" data-eq="12">
 	                	<image src="{{roleData.qnRoleData.RoleInfo.EquipInfo.equip12.img}}" wx:if="{{roleData.qnRoleData.RoleInfo.EquipInfo.equip12}}"></image>
 	                </view>
 	            </view>
 	        </view>
-	        <view class="mask" wx:if="{{roleData.showQnEq}}">
+	        <view class="mask" wx:if="{{roleData.showqnEq}}">
 	            <view class="close-mask" bindtap="hideEqInfo">
 	                <image src="http://10.240.163.56/md_xcx/images/closemask.png" />
 	            </view>
@@ -254,8 +254,8 @@
 
 <template name="album_temp">
 	<view class="gallery-box">
-		<view class="add-album single-gallery" bindtap="addAlbum"></view>
-		<view data-type="{{albumItem.Type}}" data-id="albumData.avatarAlbum.ID" class="single-gallery" bindtap="toAlbum">
+		<view class="add-album single-gallery" bindtap="addAlbum" wx:if="{{albumData.meta.isSelf}}"></view>
+		<view data-type="{{albumItem.Type}}" data-id="{{albumData.avatarAlbum.ID}}" class="single-gallery" bindtap="toAlbum">
 			<text class="channel-tip channelnull"></text>
 			<text class="empty-vertical"></text>
 			<image src="{{albumData.avatarAlbum.CoverUrl?albumData.avatarAlbum.CoverUrl:'http://10.240.163.56/md_xcx/images/default.jpg'}}" mode="aspectFill"/>

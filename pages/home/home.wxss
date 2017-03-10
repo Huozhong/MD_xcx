@@ -167,13 +167,17 @@ page{
     height: 100%;
 }
 
+.container{
+    background-color: #e7e7e7;
+}
+
 .albumWrap{
     padding: 88rpx 50rpx;
     background-color: #e7e7e7;
-    height: auto;
-    /*min-height: 100%;*/
     width: 100%;
+    height: auto;
     box-sizing: border-box;
+    overflow: hidden;
 }
 
 .gallery-box{

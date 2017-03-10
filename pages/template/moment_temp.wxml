@@ -11,17 +11,6 @@
                     <p class="name fl" bindtap="bindToHome" data-userid="{{momentItem.userInfo.ID}}">{{momentItem.userInfo.NickName}}</p>
                     <view class="{{momentItem.IsTop >= 1? 'moemntTag hot fl':'moemntTag fl'}}"></view>
                     <view class="momentMore icon fr" catchtap="bindShowMore" data-mom_index="{{momx}}"></view>
-                    <view class="momentMoreWrap" wx:if="{{momentItem.showMore}}" catchtap="bindShowMore" data-mom_index="{{momx}}">
-                        <span class="triangle_border_up active"></span>
-                        <ul>
-                            <li id="pop-detail" catchtap="bindShowMomentDetail" data-mom_id="{{momentItem.ID}}" data-mom_index="{{momx}}" wx:if="{{!item.isMomentDetail}}"><div>查看详情</div></li>
-                            <li id="pop-add"><div>加关注</div></li>
-                            <li id="pop-page" bindtap="bindToHome" data-userid="{{momentItem.userInfo.ID}}"><div>查看Ta的主页</div></li>
-                            <li id="pop-message"><div>发送留言</div></li>
-                            <li id="pop-share"><div>分享新鲜事</div></li>
-                            <li id="pop-delete"><div>删除新鲜事</div></li>
-                        </ul>
-                    </view>
                 </view>
                 <view class="momentTxt" wx:if="{{momentItem.Text}}">
                     <template is="wxParse" data="{{wxParseData:momentItem.Html.nodes}}" />
@@ -40,7 +29,7 @@
                         <text wx:else>{{momentItem.commlist.comsNum}}</text>
                         <view class="momentCommIco icon"></view>
                     </view>
-                    <view class="likeIcoWrap fr" bindtap="bindLike" data-mom_id="{{momentItem.ID}}">
+                    <view class="likeIcoWrap fr" bindtap="bindLike" data-mom_index="{{momx}}" data-type="{{momentItem.userLike?'0':'1'}}">
                         <text>{{momentItem.zanlist.length}}</text>
                         <view class="{{momentItem.userLike? 'momentLikeIco icon userLike':'momentLikeIco icon'}}"></view>
                     </view>
@@ -48,23 +37,21 @@
                 <view class="zanComWrap" wx:if="{{momentItem.showCommList}}">
                     <view class="zanWrap">
                         <text class="zanUser">{{momentItem.zanUsers}}</text>
-                        <!-- <block wx:for="{{momentItem.zanlist}}" wx:key="zan" wx:for-index="zanx" wx:for-item="zanitem">
-                        </block> -->
                     </view>
                     <view class="inputWrap">
-                        <input placeholder="{{momentItem.inputTxt}}" bindinput="bindInput" class="placeholder" maxlength='163' focus="{{momentItem.inputFocus}}"/>
-                        <button class="submitComm">评论</button>
+                        <input placeholder="{{momentItem.inputTxt}}" value="{{momentItem.inputVal}}" bindinput="bindInput" class="placeholder" maxlength='163' focus="{{momentItem.inputFocus}}" data-mom_index="{{momx}}" catchtap="inputFocus" />
+                        <button class="submitComm" bindtap="submitComm" data-mom_index="{{momx}}">{{momentItem.btnTxt}}</button>
                     </view>
                     <view class="comWrap">
                         <block wx:for="{{momentItem.commlist.commlist}}" wx:key="comm" wx:for-index="commx" wx:for-item="commItem" data-id="{{momx}}">
                             <view class="comment-item">
-                                <text class="commUser">{{commItem.userInfo.NickName}}</text>
+                                <text class="commentuserinfo"><text class="commUser" bindtap="bindToHome" data-userid="{{commItem.userInfo.ID}}">{{commItem.userInfo.NickName}}</text><text wx:if="{{commItem.replyUserInfo&&commItem.replyUserInfo.NickName}}"> 回复<text class="commUser" bindtap="bindToHome" data-userid="{{commItem.replyUserInfo.ID}}"> {{commItem.replyUserInfo.NickName}}</text></text> :</text>
                                 <view class="commentTxt">
                                     <template is="wxParse" data="{{wxParseData:commItem.Html.nodes}}" />
                                 </view>
                                 <view class="bottom">
                                     <text>{{commItem.PublishTime}}</text>
-                                    <view class="commentIcoWrap fr" bindtap="bindAnsComm" data-comm_index="{{commx}}" data-mom_index="{{momx}}">
+                                    <view class="commentIcoWrap fr" catchtap="bindAnsComm" data-comm_index="{{commx}}" data-mom_index="{{momx}}" wx:if="{{!commItem.isMyComm}}">
                                         <view class="momentCommIco icon"></view>
                                     </view>
                                 </view>

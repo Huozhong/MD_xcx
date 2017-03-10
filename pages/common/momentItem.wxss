@@ -54,6 +54,10 @@
     background-position: -92rpx -416rpx;
 }
 
+.bottom .momentLikeIco.userLike{
+    background-position: -92rpx -458rpx;
+}
+
 .bottom .momentCommIco{
     width: 46rpx;
     height: 29rpx;
@@ -178,6 +182,7 @@
   margin-top: 20rpx;
   background: #e7e7e7;
   padding-top: 20rpx;
+  border: 1rpx solid #ddd;
 }
 
 .moment-item .zanWrap{
@@ -228,16 +233,19 @@
 .moment-item .comment-item{
   box-sizing: border-box;
   border-top: 1rpx solid #bbb;
-  padding: 10rpx 20rpx;
+  padding: 10rpx 10rpx;
 }
 
-.moment-item .comment-item .commUser{
+.moment-item .comment-item .commentuserinfo{
   display: block;
   font-size: 28rpx;
-  color: #85a9d6;
   height: 40rpx;
   line-height: 40rpx;
   font-weight: bold;
+}
+
+.moment-item .comment-item .commUser{
+  color: #85a9d6;
 }
 .moment-item .comment-item .commentTxt{
   font-size: 28rpx;

@@ -4,31 +4,45 @@ let WxParse = require('../wxParse/wxParse.js');
 const HOST = "https://ssl.hi.163.com/md/";
 // const HOST = "http://api.hi.163.com/md/";
 
-function formatTime(date) {
-    let year = date.getFullYear();
-    let month = date.getMonth() + 1;
-    let day = date.getDate();
 
-    let hour = date.getHours();
-    let minute = date.getMinutes();
-    let second = date.getSeconds();
-    return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':');
+function previewImage(current, urls){
+    wx.previewImage({
+        current: current, // 当前显示图片的http链接
+        urls: urls // 需要预览的图片http链接列表
+    })
 }
 
-function formatNumber(n) {
-    n = n.toString();
-    return n[1] ? n : '0' + n;
+function addFriend(id,cb){
+    let url = HOST + 'qnm/addfri',
+        data = {'targetid': id};
+    requestData(url,data,function(result){
+        let resData = result.data;
+        if(resData.code == 0){
+            wx.showToast({
+                title: '关注成功',
+                icon: 'success',
+                duration: 1000,
+                success: function(){
+                    setTimeout(function(){
+                        typeof cb == 'function' && cb();
+                    },1000);
+                }
+            })
+        }else{
+            errorTip(resData.msg);
+        }
+    },function(){})
 }
-
 
 function requestData(url, data, successFun, failFun, nokey) {
+    console.log(nokey);
     wx.showToast({
         title: '加载中',
         icon: 'loading',
         duration: 10000
     });
-    if(!data) data = {};
-    if(!nokey) data['skey'] = wx.getStorageSync('skey');
+    if (!data) data = {};
+    if (!nokey) data['skey'] = wx.getStorageSync('skey');
     wx.request({
         url: url,
         method: "GET",
@@ -43,7 +57,7 @@ function requestData(url, data, successFun, failFun, nokey) {
         fail: function(result) {
             console.log(result)
             wx.hideToast();
-            // errorTip();
+            errorTip();
             failFun(result);
         }
     })
@@ -54,10 +68,21 @@ function initMomentsOrMsgsData(datas, that, type) {
         datas[i].Text = parseFace(datas[i].Text);
         datas[i].Html = WxParse.wxParse('html', 'html', datas[i].Text, that, 0);
         datas[i].PublishTime = getPublishTime(datas[i].duration, datas[i].CreatTime);
-        if(type == 'moment'){
+        if (type == 'moment') {
+            that.data.followTypeHash[datas[i].UserId] = datas[i].Type;
             datas[i].showMore = false;
             datas[i].inputTxt = "输入评论内容";
-        }else{
+            datas[i].btnTxt = "评论";
+            !!datas[i].zanlist ?
+                function() {
+                    for (var j = 0; j < datas[i].zanlist.length; j++) {
+                        if (that.data.MYID == datas[i].zanlist[j].zanUserid) {
+                            datas[i].userLike = true;
+                            j = datas[i].zanlist.length;
+                        }
+                    }
+                }() : datas[i].userLike = false;
+        } else {
             datas[i].inputTxt = "输入回复内容";
         }
     }
@@ -135,9 +160,9 @@ function showTip(title, content, hasCancel, confirmText, cb) {
 }
 
 // 数据出错时的提示
-function errorTip(txt) {
+function errorTip(txt, cb) {
     let _txt = txt || '系统错误，稍后再试！';
-    showTip('错误', _txt, false, '确定');
+    showTip('错误', _txt, false, '确定', cb);
 }
 
 // 未绑定账号时的提示
@@ -170,7 +195,8 @@ function toMyHome() {
 function getCommOfMon(id, index, that) {
     let _url = 'qnm/getcomosfmom',
         data = { 'userid': 64 };
-    if(that.data.moments[index].comsNum == 0 && !that.data.moments[index].zanlist[0]){
+    that.data.moments[index].inputFocus = true;
+    if (that.data.moments[index].comsNum == 0 && !that.data.moments[index].zanlist[0]) {
         that.data.moments[index].showCommList = true;
         that.setData({
             moments: that.data.moments
@@ -182,13 +208,13 @@ function getCommOfMon(id, index, that) {
         requestData(HOST + _url, data, function(result) {
             let resultData = result.data;
             if (resultData.code == 0 && resultData.data) {
-                that.data.moments[index].showCommList = true;
+                
                 let commData = resultData.data.commlist;
                 let zanUsersArr = [],
                     zanlist = that.data.moments[index].zanlist;
                 if (zanlist[0]) {
                     for (var i = 0; i < zanlist.length; i++) {
-                        if(zanlist[i].userInfo && zanlist[i].userInfo.NickName)
+                        if (zanlist[i].userInfo && zanlist[i].userInfo.NickName)
                             zanUsersArr.push(zanlist[i].userInfo.NickName);
                     }
                 }
@@ -198,10 +224,13 @@ function getCommOfMon(id, index, that) {
                         commData[i].Text = parseFace(commData[i].Text);
                         commData[i].Html = WxParse.wxParse('html', 'html', commData[i].Text, that, 0);
                         commData[i].PublishTime = getPublishTime(commData[i].Duration, commData[i].CreatTime);
+                        commData[i].isMyComm = commData[i].UserId == that.data.MYID ? true : false;
                     }
                 }
+                momentData.zanUsersArr = zanUsersArr;
                 momentData.zanUsers = zanUsersArr.join(', ');
                 momentData.commlist = resultData.data;
+                that.data.moments[index].showCommList = true;
                 that.setData({
                     moments: that.data.moments
                 });
@@ -217,7 +246,7 @@ function getCommOfMon(id, index, that) {
 function getCommOfMsg(id, index, that) {
     let _url = 'qnm/getansofmsg',
         data = { 'userid': 64 };
-    if(that.data.messages[index].answerNum == 0){
+    if (that.data.messages[index].answerNum == 0) {
         that.data.messages[index].showCommList = true;
         that.setData({
             messages: that.data.messages
@@ -252,6 +281,48 @@ function getCommOfMsg(id, index, that) {
     }
 }
 
+function likeMoment(id, type, cb) {
+    let url = HOST + 'qnm/setzan',
+        data = { 'mid': id, 'type': type };
+    requestData(url, data, function(result) {
+        let resData = result.data;
+        if (resData.code == 0) {
+            typeof cb == 'function' && cb(resData.data);
+        } else {
+            errorTip();
+        }
+    }, function(result) {})
+}
+
+function formatTime(date) {
+    let year = date.getFullYear();
+    let month = date.getMonth() + 1;
+    let day = date.getDate();
+
+    let hour = date.getHours();
+    let minute = date.getMinutes();
+    let second = date.getSeconds();
+    return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':');
+}
+
+function formatNumber(n) {
+    n = n.toString();
+    return n[1] ? n : '0' + n;
+}
+
+function chooseImg(count, cb){
+    wx.chooseImage({
+        count: count,
+        sizeType: ['original'], // 可以指定是原图还是压缩图，默认二者都有
+        sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+        success: function(res) {
+            // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+            var tempFilePaths = res.tempFilePaths
+            typeof cb == 'function' & cb(tempFilePaths);
+        }
+    });
+}
+
 module.exports = {
     formatTime: formatTime,
     HOST: HOST,
@@ -268,5 +339,9 @@ module.exports = {
     getCommOfMon: getCommOfMon,
     getCommOfMsg: getCommOfMsg,
     AUTHINGMARK: '%7Cwatermark&type=1&gravity=center&image=Y29tbW9uL3dhdGVybWFyay1hdWRpdC5wbmc=',
-    NOPASSEDMARK: '%7Cwatermark&type=1&gravity=center&image=dXBsb2FkLzIwMTcwMS8xOC9hNzFlYWEwMGRkNDcxMWU2ODZlZWE1YTA5OTlhMzE3MQ=='
+    NOPASSEDMARK: '%7Cwatermark&type=1&gravity=center&image=dXBsb2FkLzIwMTcwMS8xOC9hNzFlYWEwMGRkNDcxMWU2ODZlZWE1YTA5OTlhMzE3MQ==',
+    likeMoment: likeMoment,
+    addFriend: addFriend,
+    previewImage: previewImage,
+    chooseImg: chooseImg
 }

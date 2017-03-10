@@ -1,6 +1,6 @@
 <!--moments.wxml-->
 <import src="../template/moment_temp.wxml" />
-<view bindtap="bindHideMore">
+<view>
     <view class="nav-wrap">
         <view class="top-nav flex-wrap flex-tab">
             <view class="{{!isHot? 'top-nav-item flex-item current':'top-nav-item flex-item '}}" bindtap="bindChangeTopNav" data-ishot="0">好友</view>
@@ -23,7 +23,7 @@
         </view>
     </view>
     <view class="container" style="height: 100%">
-        <view class="pullDownRefresh-tip tip" wx:if="{{pullDown}}">更新数据</view>
+        <!-- <view class="pullDownRefresh-tip tip" wx:if="{{pullDown}}">更新数据</view> -->
         <view class="moments-wrap">
             <template is="moment_temp" data="{{moments}}"></template>
             <view class="tip" wx:if="{{!hasMore}}">暂无更多数据</view>

@@ -13,7 +13,8 @@
     "pages/bindRole/bindRole",
     "pages/newAlbum/newAlbum",
     "pages/album/album",
-    "pages/photos/photos"
+    "pages/photos/photos",
+    "pages/newMoment/newMoment"
   ],
   "window":{
     "backgroundTextStyle":"light",
@@ -38,7 +39,7 @@
       "selectedIconPath": "images/tab_contact_s.png",
       "text": "通讯录"
     }, {
-      "pagePath": "pages/new/moment",
+      "pagePath": "pages/newMoment/newMoment",
       "iconPath":"images/tab_new.png",
       "backgroundColor": "#fff",
       "text": "发布"

@@ -57,11 +57,11 @@
 				<view class="avatarWrap fl">
 					<image class="informUserAvatar" src="{{msginformItem.userInfo.Avatar?msginformItem.userInfo.Avatar:'http://10.240.163.56/md_xcx/images/defaultAvatar.jpg'}}" bindtap="bindToHome" data-userid="{{msginformItem.userInfo.ID}}"></image>
 				</view>
-				<view class="informConWrap fr"  bindtap="bindShowMessageDetail" data-msg_id="{{msginformItem.refer.ID}}">
+				<view class="informConWrap fr"  bindtap="bindShowMessageDetail" data-msg_id="{{msginformItem.refer.TargetId}}">
 					<view>
 						<text class="userName" bindtap="bindToHome" data-userid="{{msginformItem.userInfo.ID}}">{{msginformItem.userInfo.NickName}}</text>
-						<text wx:if="{{msginformItem.Type == 3}}">给你留言了：</text>
-						<text wx:if="{{msginformItem.Type == 5}}">回复了你的留言：</text>
+						<text wx:if="{{msginformItem.Type == 5}}">给你留言了：</text>
+						<text wx:if="{{msginformItem.Type == 3}}">回复了你的留言：</text>
 					</view>
 					<view>
 						<template is="wxParse" data="{{wxParseData:msginformItem.TextHtml.nodes}}" />

@@ -15,6 +15,18 @@ page{
 	font-size: 30rpx;
 	padding: 0 20rpx;
 	box-sizing: border-box;
+	padding-top: 140rpx;
+}
+
+.top{
+	box-sizing: border-box;
+	width: 100%;
+	height: 120rpx;
+	position: absolute;
+	top: 20rpx;
+	left: 0;
+	z-index: 3;
+	padding: 0 20rpx;
 }
 
 .icon-upload{
@@ -28,7 +40,6 @@ page{
 .photosWrap{
 	margin: 0 auto;
 	width: 90%;
-	padding-top: 50rpx;
 	display: flex;
 	flex-flow: row wrap;
 	justify-content: space-between;
@@ -38,9 +49,170 @@ page{
 	width: 300rpx;
 	height: 300rpx;
 	margin-bottom: 20rpx;
+	position: relative;
 }
 
 .photo image{
 	width: 100%;
 	height: 100%;
 }
+
+.photo .imgmask{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,0.5);
+}
+
+.photo .imgmask icon{
+	float: right;
+	margin-top: 10rpx;
+	margin-right: 10rpx;
+}
+
+.sameBtn{
+	width: 330rpx;
+	margin-bottom: 30rpx;
+}
+
+.manAlbumBtn{
+	position: relative;
+	
+}
+
+.albumMoreWrap{
+	position: absolute;
+	top: 80rpx;
+	font-size: 24rpx;
+	right: 0;
+	color: #fff;
+	width: 310rpx;
+	z-index: 100;
+}
+
+.triangle_border_up {
+	margin: 0 auto;
+    width: 0;
+    border-width: 0 10rpx 10rpx;
+    border-style: solid;
+    border-color: transparent transparent #85a9d6;
+    box-sizing: content-box;
+    display: block;
+}
+
+.opItem:first-child {
+    border-radius: 10rpx 10rpx 0 0;
+}
+
+.opItem:last-child {
+    border-radius: 0 0 10rpx 10rpx;
+}
+
+.opItem{
+	width: 100%;
+	height: 70rpx;
+	border-bottom: 2rpx solid #97b6dc;
+	background-color: #85a9d6;
+	text-align: center;
+	line-height: 70rpx;
+	font-size: 28rpx;
+	color: #fff;
+}
+
+.albumNameWrap{
+	width: 100%;
+}
+
+.moveToWrap{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 64rpx;
+	clear: both;
+	height: 80rpx;
+	z-index: 3;
+}
+
+.moveToWrap .title{
+	height: 100%;
+	line-height: 80rpx;
+	font-size: 30rpx;
+	color: #000;
+}
+
+.moveToWrap .albumSelect{
+	margin-left: 260rpx;
+	margin-right: 180rpx;
+	padding-top: 9rpx;
+}
+
+.moveToWrap .albumSelect select{
+	display: block;
+	width: 100%;
+	border: 2rpx solid #2c3550;
+	height: 60rpx;
+	background: url(http://10.240.163.56/md_xcx/images/drop.png) no-repeat;
+	background-size: 18rpx 11rpx;
+    background-position: 240rpx center;
+    position: relative;
+}
+
+.moveToWrap .albumSelect .options{
+	position: absolute;
+	top: 60rpx;
+	left: -2rpx;
+	width: 100%;
+	height: 200rpx;
+	border: 2rpx solid #2c3550;
+	border-top: none;
+}
+
+.moveToWrap .albumSelect option{
+	display: block;
+	width: 100%;
+	background-color: #fff;
+	border-bottom: 2rpx solid #2c3550;
+	height: 60rpx;
+	line-height: 60rpx;
+	text-indent: 10rpx;
+}
+
+.moveToWrap .albumSelect option:last-child{
+	border-bottom: none;
+}
+
+.moveToWrap .albumSelected{
+	width: 100%;
+	height: 100%;
+	display: block;
+	line-height: 60rpx;
+	text-indent: 10rpx;
+}
+
+.mutilOpBtnsWrap{
+	position: absolute;
+	top: 80rpx;
+	left: 0;
+	width: 100%;
+	height: 60rpx;
+	line-height: 60rpx;
+	font-size: 28rpx;
+}
+
+.mutilOpBtnsWrap text{
+	display: block;
+	width: 120rpx;
+	text-align: center;
+}
+
+.cancleMutilOp{
+	color: #DC143C;
+}
+
+.allCheck{
+	color: #85a9d6;
+}
+

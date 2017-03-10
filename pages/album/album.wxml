@@ -1,17 +1,63 @@
 <!--contact.wxml-->
-<view class="container">
-	<view class="conentWrap">
-		<view class="addImgBtn sameBtn">
-			<view class="icon icon-upload"></view><text>上传照片</text>
+<view class="container" bindtouchstart="bindHideAlbumMan">
+	<view class="conentWrap" wx:if="{{!changeName}}">
+		<view class="top">
+			<view class="addImgBtn sameBtn fl" wx:if="{{albumData.meta.isSelf&&albumData.album.Name!='头像相册'&&albumData.album.Name!='新鲜事相册'&&!mutilOp}}">
+				<view class="icon icon-upload"></view><text>上传照片</text>
+			</view>
+			<view class="manAlbumBtn sameBtn fr" wx:if="{{albumData.meta.isSelf&&!mutilOp}}" catchtap="bindShowAlbumMan">
+				<view class="icon icon-upload"></view><text>编辑管理</text>
+				
+				<view class="albumMoreWrap" wx:if="{{showAlbumMan}}">
+				    <span class="triangle_border_up active"></span>
+				    <view class="mansWrap">
+				        <view class="opItem" catchtap="changeName" wx:if="{{albumData.album.Name!='头像相册'&&albumData.album.Name!='新鲜事相册'}}">编辑相册名称</view>
+				        <view class="opItem" catchtap="mutilOp" data-type="move">批量移动</view>
+				        <view class="opItem" catchtap="mutilOp" data-type="del">批量删除</view>
+				        <view class="opItem" catchtap="delAlbum" wx:if="{{albumData.album.Name!='头像相册'&&albumData.album.Name!='新鲜事相册'}}">删除相册</view>
+				    </view>
+				</view>
+			</view>
+			<view class="mutilOpBtnsWrap" wx:if="{{mutilOp}}">
+				<text class="allCheck fl" bindtap="allCheck">{{allChecked?'取消全选':'全选'}}</text>
+				<text class="allCheck fl" bindtap="confirmMutiOp">确认操作</text>
+				<text class="cancleMutilOp fr" bindtap="cancleMutilOp">取消</text>
+			</view>
+			<view class="moveToWrap clearFix" wx:if="{{mutilOpType == 'move'}}">
+				<view class="title fl" >请选择目标相册：</view>
+				<view class="albumSelect">
+					<select>
+						<text class="albumSelected" bindtap="bindShowAlbumOptions">{{selectMoveAlbum.Name}}</text>
+						<scroll-view class="options" wx:if="{{showAlbumOptions}}" scroll-y="true">
+							<block wx:for="{{albumData.targetMovedAlbums}}" wx:key="album" wx:for-index="albumx" wx:for-item="albumItem" data-ID="{{ID}}">
+								<option bindtap="selectAlbum" data-index="{{albumx}}">{{albumItem.Name}}</option>
+							</block>
+						</scroll-view>
+					</select>
+				</view>
+			</view>
+			
 		</view>
+		
 		<view class="photosWrap">
 			<block wx:for="{{albumData.photos}}" wx:key="photo" wx:for-index="photox" wx:for-item="photoItem" data-ID="{{ID}}">
-				<view class="photo" data-id="{{photoItem.ID}}">
-					<span class="vertical"></span>
-					<image src="{{photoItem.Url}}" mode="aspectFill" />
+				<view class="photo">
+					<image src="{{photoItem.Url}}" mode="aspectFill" data-id="{{photoItem.ID}}" bindtap="goToPhotos"/>
+					<view class="imgmask" wx:if="{{mutilOp}}" bindtap="checkPhoto" data-index="{{photox}}">
+						<icon type="{{photoItem.checked?'success':'success_circle'}}"/>
+					</view>
 				</view>
 			</block>
-			<view class="noData tip" wx:if="{{noData}}">该相册还没有图片<text>？赶紧上传你的靓图吧</text></view>
+			<view class="noMoreData tip" wx:if="{{noMoreData}}">暂无更多图片</view>
+		</view>
+	</view>
+	<view class="albumNameWrap" wx:if="{{changeName}}">
+		<view class="set_item noBoder">
+			<input focus="true" type="text" placeholder="此处输入相册名称" value="{{inputVal}}" bindinput="bindNameInput" maxlength="7" />
+			<view class="btnsWrap">
+				<text class="{{'fl save' + (nameChanged? ' active':'')}}" bindtap="saveChange">保存</text>
+				<text class="fr cancle" bindtap="cancleChange">取消</text>
+			</view>
 		</view>
 	</view>
 </view>

@@ -1,7 +1,7 @@
 //moments.js
 let app = getApp(),
     util = require('../../utils/util.js'),
-    WxParse = require('../../wxParse/wxParse.js'),
+    momentUtil = require('../../utils/momentUtil.js'),
     page = 0,
     lastid = null;
 Page({
@@ -9,31 +9,37 @@ Page({
         hasMore: true,
         moments: [],
         scrollTop: 10,
-        pullDown: false,
         isHot: true,
         category: '',
         isLogin: false,
         showMore: false,
         momentsNoMore: false,
-        isMomentList: true
+        isMomentList: true,
+        MYID: null,
+        followTypeHash: {},
+        MYID: null
     },
     // 点击单条新鲜事的评论调用
     bindAddComm: function(e) {
         let mom_index = e.currentTarget.dataset.mom_index;
         let mom_id = e.currentTarget.dataset.mom_id;
-        if(!this.data.moments[mom_index].showCommList){
-            this.getCommOfMon(mom_id,mom_index);
-        }else{
+        if (!this.data.moments[mom_index].showCommList) {
+            this.data.moments[mom_index].inputVal = '';
+            this.getCommOfMon(mom_id, mom_index);
+
+        } else {
             this.data.moments[mom_index].showCommList = false;
+            this.data.moments[mom_index].inputTxt = '输入评论内容';
+            this.data.moments[mom_index].btnTxt = '评论';
+            this.data.moments[mom_index].inputVal = '';
             this.setData({
                 moments: this.data.moments
             })
         }
     },
     // 点击进入主页时调用
-    bindToHome: function(e){
+    bindToHome: function(e) {
         let uid = e.currentTarget.dataset.userid;
-        // todo   判断是不是自己
         util.toHome(uid);
     },
     // 切换好友新鲜事和热门新鲜事
@@ -64,63 +70,46 @@ Page({
     },
     // 点击新鲜事点赞时调用
     bindLike: function(e) {
-        
-    },
-    // 点击非更多按钮处时调用
-    bindHideMore: function(e) {
-        for (let i = 0; i < this.data.moments.length; i++) {
-            this.data.moments[i].showMore = false;
-        }
-        this.setData({
-            moments: this.data.moments
-        });
+        let mom_index = e.currentTarget.dataset.mom_index;
+        let type = e.currentTarget.dataset.type;
+        momentUtil.likeMoment(mom_index, type, this);
     },
     // 点击图片时调用
     bindShowImgs: function(e) {
         let mom_index = e.currentTarget.dataset.mom_index,
             img_index = e.currentTarget.dataset.img_index;
-        let imageUrls = [];
-        for (var i = 0; i < this.data.moments[mom_index].ImgList.length; i++) {
-            imageUrls.push(this.data.moments[mom_index].ImgList[i].pic);
-        }
-        wx.previewImage({
-            current: this.data.moments[mom_index].ImgList[img_index].pic, // 当前显示图片的http链接
-            urls: imageUrls // 需要预览的图片http链接列表
-        })
+        momentUtil.previewMomentImgs(mom_index, img_index, this);
     },
     // 点击显示更多时调用
     bindShowMore: function(e) {
         let mom_index = e.currentTarget.dataset.mom_index;
-        for (let i = 0; i < this.data.moments.length; i++) {
-            this.data.moments[i].showMore = false;
-        }
-        this.data.moments[mom_index].showMore = true;
-        this.setData({
-            moments: this.data.moments
-        });
-    },
-    // 显示新鲜事详情时调用
-    bindShowMomentDetail: function(e) {
-        let showMomentId = e.currentTarget.dataset.mom_id;
-        this.bindHideMore(e);
-        wx.navigateTo({
-            url: '../moment/moment?momentid='+showMomentId
-        });
+        momentUtil.showMore(mom_index, this);
     },
     // 点击回复评论时调用
-    bindAnsComm: function(e){
+    bindAnsComm: function(e) {
         let comm_index = e.currentTarget.dataset.comm_index;
-        let momx = e.currentTarget.dataset.mom_index;
-        this.data.moments[momx].inputFocus = true;
-        let inputTxt = '回复'+this.data.moments[momx].commlist.commlist[comm_index].userInfo.NickName;
-        this.data.moments[momx].inputTxt = inputTxt;
-        this.setData({
-            moments: this.data.moments
-        });
+        let mom_index = e.currentTarget.dataset.mom_index;
+        momentUtil.ansComment(mom_index, comm_index, this);
+    },
+    inputFocus: function(e) {
+        let mom_index = e.currentTarget.dataset.mom_index;
+        momentUtil.commInputFocus(mom_index, this);
+    },
+    bindInput: function(e) {
+        let val = e.detail.value,
+            mom_index = e.currentTarget.dataset.mom_index;
+        momentUtil.commInputing(val, mom_index, this);
+    },
+    submitComm: function(e) {
+        let mom_index = e.currentTarget.dataset.mom_index;
+        momentUtil.submitComm(mom_index, this);
     },
     // 页面加载完成时调用
     onLoad: function() {
-        console.log(app.globalData);
+        if (app.globalData.MDUserInfo && app.globalData.MDUserInfo.ID)
+            this.setData({
+                MYID: app.globalData.MDUserInfo.ID
+            });
         this.refreshData();
         util.chargeMDUserInfo();
     },
@@ -136,7 +125,7 @@ Page({
     },
     // 页面下拉时调用
     onPullDownRefresh: function() {
-        this.setData({ pullDown: true });
+        // this.setData({ pullDown: true });
         wx.stopPullDownRefresh();
         this.refreshData();
     },
@@ -147,8 +136,9 @@ Page({
     // 获取新鲜事时调用
     getMoments: function() {
         let that = this,
+            data = {},
             _url = this.data.isHot ? 'qnm/gethotmoments' : 'qnm/getmoments',
-            data = { 'userid': 64 };
+            nokey = that.data.MYID? false : true;
         if (that.data.hasMore) {
             if (this.data.isHot) {
                 data['page'] = page++;
@@ -163,20 +153,21 @@ Page({
                 if (resultData.code == 0 && resultData.data) {
                     let resData = that.data.isHot ? resultData.data.list : resultData.data;
                     resData = util.initMomentsOrMsgsData(resData, that, 'moment');
-                    if (!that.data.isHot) {
-                        lastid = resData[resData.length - 1].ID;
-                    }
                     if (resData.length < 10) {
                         that.setData({
                             hasMore: false
                         });
+                        return;
+                    }
+                    if (!that.data.isHot) {
+                        lastid = resData[resData.length - 1].ID;
                     }
                     that.setData({
                         moments: that.data.moments.concat(resData)
                     });
-                    setTimeout(function() {
-                        that.setData({ pullDown: false });
-                    }, 500);
+                    // setTimeout(function() {
+                    //     that.setData({ pullDown: false });
+                    // }, 500);
                 } else {
                     that.setData({
                         hasMore: false
@@ -185,7 +176,7 @@ Page({
                 }
             }, function(result) {
                 --page;
-            });
+            },nokey);
         } else {
             that.setData({
                 hiddenTip: false
@@ -193,7 +184,11 @@ Page({
         }
     },
     // 获取新鲜事的评论
-    getCommOfMon: function(id,index){
-        util.getCommOfMon(id,index,this);
+    getCommOfMon: function(id, index) {
+        util.getCommOfMon(id, index, this);
+    },
+    bindShowMomentDetail: function(e){
+        let id = e.currentTarget.dataset.mom_id;
+        momentUtil.goToMomentDetail(id);
     }
 })

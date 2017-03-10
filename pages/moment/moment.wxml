@@ -1,6 +1,6 @@
 <!--moments.wxml-->
 <import src="../template/moment_temp.wxml" />
-<view class="container" style="height: 100%" bindtap="bindHideMore">
+<view class="container" style="height: 100%">
     <view class="moments-wrap moment-wrap">
         <template is="moment_temp" data="{{moments}}"></template>
     </view>

@@ -4,8 +4,7 @@ page{
 	height: 100%;
 }
 .container{
-	height: auto;
-	min-height: 100%;
+	height: 100%;
 	background-color: #efefef;
 }
 
@@ -14,22 +13,126 @@ page{
 	height: 100%;
 	font-size: 30rpx;
 	padding: 0 20rpx;
+	box-sizing: border-box;
+
 }
 
 .photos{
-	width: 80%;
+	width: 100%;
 	height: 100%;
-	position: absolute;
-	left: 50%;
-	transform: translateX(-50%);
 }
 
 .photos image{
 	display: block;
-	width: 90%;
-	height: 100%;
+	width: 100%;
+	height: 500rpx;
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
+}
+
+.photos .btns{
+	position: absolute;
+	bottom: 270rpx;
+	width: 100%;
+	height: 80rpx;
+	line-height: 80rpx;
+	font-size: 28rpx;
+}
+
+.desc{
+	clear: both;
+	line-height: 50rpx;
+}
+
+.jubao,.zan{
+	width: 100rpx;
+	height: 100%;
+	text-align: center;
+	color: #85a9d6;
+}
+
+.zan .icon{
+	width: 34rpx;
+	height: 28rpx;
+	margin-left: 5rpx;
+	background-position: -92rpx -416rpx;
+}
+
+.zan .icon.active{
+    background-position: -0.93rem -4.58rem;
+}
+
+
+.tip{
+	position: absolute;
+	top: 60rpx;
+	left: 20rpx;
+	color: #bbb;
+	text-align: left;
+}
+
+.photoManWrap{
+	position: absolute;
+	top: 20rpx;
+	right: 20rpx;
+}
+
+.sameBtn{
+	width: 330rpx;
+	margin-bottom: 30rpx;
+}
+
+.manAlbumBtn{
+	position: relative;
+	
+}
+
+.albumMoreWrap{
+	position: absolute;
+	top: 80rpx;
+	font-size: 24rpx;
+	right: 0;
+	color: #fff;
+	width: 310rpx;
+	z-index: 100;
+}
+
+.triangle_border_up {
+	margin: 0 auto;
+    width: 0;
+    border-width: 0 10rpx 10rpx;
+    border-style: solid;
+    border-color: transparent transparent #85a9d6;
+    box-sizing: content-box;
+    display: block;
+}
+
+.opItem:first-child {
+    border-radius: 10rpx 10rpx 0 0;
+}
+
+.opItem:last-child {
+    border-radius: 0 0 10rpx 10rpx;
+}
+
+.opItem{
+	width: 100%;
+	height: 70rpx;
+	border-bottom: 2rpx solid #97b6dc;
+	background-color: #85a9d6;
+	text-align: center;
+	line-height: 70rpx;
+	font-size: 28rpx;
+	color: #fff;
+}
+
+
+.set_item {
+	margin-top: 20rpx;
+}
+
+.nameInfo, .descInfo{
+	color: #85a9d6;
 }

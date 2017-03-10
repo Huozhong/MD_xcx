@@ -31,7 +31,7 @@
                     <view class="comWrap">
                         <block wx:for="{{messageItem.anslist.anslist}}" wx:key="ans" wx:for-index="ansx" wx:for-item="ansItem">
                             <view class="comment-item">
-                                <text class="commUser">{{ansItem.userInfo.NickName}}</text>
+                                <text class="commentuserinfo"><text class="commUser" bindtap="bindToHome" data-userid="{{ansItem.userInfo.ID}}">{{ansItem.userInfo.NickName}}</text><text wx:if="{{ansItem.replyUserInfo}}"> 回复<text class="commUser" bindtap="bindToHome" data-userid="{{ansItem.replyUserInfo.ID}}"> {{ansItem.replyUserInfo.NickName}}</text></text> :</text>
                                 <view class="commentTxt">
                                     <template is="wxParse" data="{{wxParseData:ansItem.Html.nodes}}" />
                                 </view>

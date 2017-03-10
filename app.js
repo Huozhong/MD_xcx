@@ -8,12 +8,12 @@ App({
             that.mdLogin(result);
         });
         setTimeout(function() {
-            wx.navigateTo({
-                url: '../photos/photos?photoid=24191'
-            });
-            // wx.switchTab({
-            //     url: '../myhome/myhome'
+            // wx.navigateTo({
+            //     url: '../photos/photos?photoid=7629'
             // });
+            wx.switchTab({
+                url: '../newMoment/newMoment'
+            });
         }, 2000);
 
         // wx.clearStorage();
@@ -21,13 +21,12 @@ App({
     getWxUserInfo: function(cb) {
         let that = this
         this.wxLogin(function(result) {
-            console.log(result);
             util.requestData(util.HOST+'wx/login',{'code':result.code},function(result){
                 let resData = result.data;
                 if(resData.code == 0 && resData.data && resData.data.skey){
                     let skey = resData.data.skey,
-                        isBindMd = resData.data.isBindMd;
-                    that.globalData.isBindMd = isBindMd;
+                        MDUserInfo = resData.data.userInfo || {};
+                    that.globalData.MDUserInfo = MDUserInfo;
                     wx.setStorageSync('skey', skey);
                 }else{
                     util.errorTip("微信授权失败，请稍后再试。");

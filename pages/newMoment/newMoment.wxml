@@ -1,0 +1,36 @@
+<!--contact.wxml-->
+<view class="container">
+	<view class="conentWrap">
+		<view class="tip codeTip">请选择新鲜事所属的游戏</view>
+		<view class="gameNavWrap">
+			<view class="{{'gameNav qnm' + (curGame == 'qnm'? ' active':'')}}" data-game="qnm" bindtap="changeGame">
+	            <view class="game_name">
+	            	<text>倩女幽魂</text>
+	            	<text>手游</text>
+	            </view>
+	        </view>
+	        <view class="{{'gameNav qn' + (curGame == 'qn'? ' active':'')}}" data-game="qn" bindtap="changeGame">
+		        <view class="game_name">
+		        	<text>新倩女幽魂</text>
+		        	<text>Online</text>
+		        </view>
+	        </view>
+		</view>
+		<view class="textInputWrap">
+			<textarea placeholder="玩着倩女，我想说....." auto-focus="true" placeholder-style="color: #aaa;" class="textInput" maxlength="163" />
+		</view>
+		<view class="faceBtn">
+			<view class="icon icon-facebtn"></view>
+		</view>
+		<view class="uploadImgWrap clearFix">
+			<block wx:for="{{imgUrls}}" wx:key="img" wx:for-index="imgx" wx:for-item="imgItem" data-ID="{{ID}}">
+				<view class="imgWrap">
+					<image mode="aspectFill" data-img_index="{{imgx}}" src="{{imgItem}}"></image>
+					<view class="delete"></view>
+				</view>
+			</block>
+			<view class="imgWrap addImg" bindtap="chooseImg" wx:if="{{imgUrls.length<9}}"></view>
+		</view>
+		<view class="faceWrap"></view>
+	</view>
+</view>

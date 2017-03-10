@@ -97,13 +97,6 @@ page{
     background-position: 0 -250rpx;
 }
 
-.codeTip{
-	text-align: left;
-	font-size: 30rpx;
-	height: 80rpx;
-	line-height: 80rpx;
-}
-
 .codeWrap{
 	margin-top: 50rpx;
 	width: 100%;

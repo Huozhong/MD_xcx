@@ -1,0 +1,81 @@
+/**contact.wxss**/
+@import "../common/common.wxss";
+page{
+	height: 100%;
+}
+.container{
+	padding: 20rpx 0;
+	height: 100%;
+	background-color: #efefef;
+	box-sizing: border-box;
+}
+
+.conentWrap{
+	width: 100%;
+	font-size: 30rpx;
+	padding: 0 40rpx;
+	box-sizing: border-box;
+}
+
+.textInputWrap{
+	width: 100%;
+	margin-top: 30rpx;
+}
+
+.textInputWrap .textInput{
+	width: 100%;
+	height: 170rpx;
+	color: #000;
+	font-size: 30rpx;
+	outline: none;
+	border: none;
+}
+
+.faceBtn{
+	margin-top: 20rpx;
+	height: 46rpx;
+	width: 100%;
+}
+
+.faceBtn .icon-facebtn{
+	width: 45rpx;
+	height: 45rpx;
+	background-position: -358rpx -228rpx;
+}
+
+.uploadImgWrap{
+	width: 100%;
+	height: auto;
+	margin-top: 20rpx;
+}
+
+.uploadImgWrap .imgWrap{
+	float: left;
+	width: 150rpx;
+	height: 150rpx;
+	margin-bottom: 15rpx;
+	margin-right: 15rpx;
+	position: relative;
+}
+
+.uploadImgWrap .imgWrap .delete{
+	position: absolute;
+	width: 49rpx;
+	height: 49rpx;
+	top: 0;
+	right: 0;
+	background: url("http://10.240.163.56/md_xcx/images/icon.png") no-repeat;
+	background-size: 450rpx 570rpx;
+	background-position: -356rpx -292rpx;
+}
+
+.uploadImgWrap .imgWrap image{
+	width: 100%;
+	height: 100%;
+}
+
+.imgWrap.addImg{
+	background: url("http://10.240.163.56/md_xcx/images/icon-plus.png") no-repeat center;
+	background-size: 100rpx 100rpx;
+	border: 1rpx solid #2c3550;
+}

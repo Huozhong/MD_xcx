@@ -20,33 +20,38 @@ Page({
         showAddressPicker: false
     },
     bindChangeAvatar: function() {
-        wx.chooseImage({
-            count: 1,
-            sizeType: ['original'], // 可以指定是原图还是压缩图，默认二者都有
-            sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-            success: function(res) {
-                // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-                var tempFilePaths = res.tempFilePaths
-                console.log(res);
-                // wx.uploadFile({
-                //     url: 'http://example.weixin.qq.com/upload', //仅为示例，非真实的接口地址
-                //     filePath: tempFilePaths[0],
-                //     name: 'file',
-                //     formData: {
-                //         'user': 'test'
-                //     },
-                //     success: function(res) {
-                //         var data = res.data
-                //             //do something
-                //     }
-                // })
-            }
+        util.chooseImg(1, function(tempFilePaths){
+            util.requestData(util.HOST + 'nos/gettoken', { type: "md_photo"},function(result){
+                let data =result.data;
+                console.log(data);
+                var bucketname = data.data.bucketname;
+                var objectname = data.data.objectname;
+                var token = data.data.token;
+                var objectPrefix = data.data.prefix;
+                wx.uploadFile({
+                    url: 'https://nos.netease.com' + "/" + bucketname + '/' + objectname + '?offset=0&complete=true&version=1.0', //仅为示例，非真实的接口地址
+                    filePath: tempFilePaths[0],
+                    name: 'file',
+                    header: {
+                        "x-nos-token": token,
+                        'Content-Type': "application/json;charset=UTF-8",
+                        Host: 'nos.netease.com'
+                    },
+                    success: function(res) {
+                        console.log(res);
+                            //do something
+                    },
+                    fail: function(res){
+                        console.log(res);
+                    }
+                })
+            });
         })
     },
     bindChangeNickName: function() {
         let that = this;
-        util.showTip('提示','梦岛昵称修改后一个月之内不能再次修改，确认修改么？',true,'确认', function(res){
-            if(res.confirm){
+        util.showTip('提示', '梦岛昵称修改后一个月之内不能再次修改，确认修改么？', true, '确认', function(res) {
+            if (res.confirm) {
                 that.setData({
                     settingNickName: true
                 });
@@ -56,11 +61,11 @@ Page({
             }
         });
     },
-    bindNameInput: function(e){
+    bindNameInput: function(e) {
         let nowV = e.detail.value;
-        if(nowV != this.data.userInfo.NickName){
+        if (nowV != this.data.userInfo.NickName) {
             this.data.nameChanged = true;
-        }else{
+        } else {
             this.data.nameChanged = false;
         }
         this.setData({
@@ -75,11 +80,11 @@ Page({
             title: '设置签名'
         });
     },
-    bindSignatrueInput: function(e){
+    bindSignatrueInput: function(e) {
         let nowV = e.detail.value;
-        if(nowV != this.data.userInfo.Signatrue){
+        if (nowV != this.data.userInfo.Signatrue) {
             this.data.signatureChanged = true;
-        }else{
+        } else {
             this.data.signatureChanged = false;
         }
         this.setData({
@@ -102,7 +107,7 @@ Page({
             urls: [url]
         })
     },
-    backToInfoSet: function(){
+    backToInfoSet: function() {
         this.setData({
             settingNickName: false,
             settingSignatrue: false,
@@ -155,25 +160,25 @@ Page({
         let value = [];
         for (let i = 0; i < cityData.length; i++) {
             provinces.push(cityData[i].name);
-            if(province && province == cityData[i].name){
+            if (province && province == cityData[i].name) {
                 value[0] = i;
             }
         }
-        let j = value.length > 0? value[0]:0;
+        let j = value.length > 0 ? value[0] : 0;
         for (let a = 0; a < cityData[j].sub.length; a++) {
             citys.push(cityData[j].sub[a].name);
-            if(city && city == cityData[j].sub[a].name){
+            if (city && city == cityData[j].sub[a].name) {
                 value[1] = a;
             }
         }
-        
+
         that.setData({
             'provinces': provinces,
             'citys': citys,
-            'province': province?province:cityData[0].name,
-            'city': city?city:cityData[0].sub[0].name,
+            'province': province ? province : cityData[0].name,
+            'city': city ? city : cityData[0].sub[0].name,
         });
-        setTimeout(function(){
+        setTimeout(function() {
             that.setData({
                 'value': value,
                 'values': value
@@ -187,11 +192,11 @@ Page({
             wx.hideNavigationBarLoading();
             let resData = result.data;
             if (resData.code == 0 && resData.data) {
-                if(resData.data.Province&&resData.data.City){
-                    resData.data.Address = resData.data.Province +' '+ resData.data.City;
-                    if(resData.data.Address.length>15)
-                        resData.data.Address = resData.data.Address.substr(0,15)+'...';
-                    that.initCityData(resData.data.Province,resData.data.City);
+                if (resData.data.Province && resData.data.City) {
+                    resData.data.Address = resData.data.Province + ' ' + resData.data.City;
+                    if (resData.data.Address.length > 15)
+                        resData.data.Address = resData.data.Address.substr(0, 15) + '...';
+                    that.initCityData(resData.data.Province, resData.data.City);
                 }
                 that.setData({
                     userInfo: resData.data

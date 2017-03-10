@@ -1,12 +1,50 @@
 <!--contact.wxml-->
-<view class="container">
-	<view class="conentWrap">
-		<swiper-view class="photos" duration="300" autoplay="true" interval="1000" current="0">
-			<block wx:for="{{photos}}" wx:key="photo" wx:for-index="photox" wx:for-item="photoItem" data-ID="{{ID}}">
+<view class="container" bindtap="hidePhotoMan">
+	<view class="conentWrap" wx:if="{{!editPhotoInfo}}">
+		<swiper class="photos" current="{{curPhotoIndex}}" bindchange="swiperChange">
+			<block wx:for="{{thumbPhotos}}" wx:key="photo" wx:for-index="photox" wx:for-item="photoItem" data-ID="{{ID}}">
 				<swiper-item class="photo">
-					<image src="{{photoItem}}" mode="aspectFit"></image>
+					<image src="{{photoItem}}" mode="aspectFit" bindtap="showBigPic"></image>
+					<view class="btns clearFix">
+						<view class="name fl">图片名称：<text class="nameInfo">{{photosData.albumPhotos[photox].Name}}</text></view>
+						<view class="zan fr">
+							<text class="count">{{photosData.albumPhotos[photox].LikesCount}}</text>
+							<view class="{{'icon momentLikeIco '+(photosData.albumPhotos[photox].isUserLikePhoto? 'active':'')}}"></view>
+						</view>
+						<view class="jubao fr">举报</view>
+						<view class="desc">
+							<view>图片描述：</view>
+							<view class="descInfo">{{photosData.albumPhotos[photox].Desc}}</view>
+						</view>
+					</view>
+					
 				</swiper-item>
 			</block>
-		</swiper-view>
+		</swiper>
+		<view class="tip">左右滑动切换，点击查看大图</view>
+		<view class="photoManWrap">
+		<!--  wx:if="{{photosData.isUserOwnPhoto}}" -->
+			<view class="manAlbumBtn sameBtn fr" catchtap="bindShowPhotoMan">
+				<view class="icon icon-upload"></view><text>编辑图片</text>
+				<view class="albumMoreWrap" wx:if="{{showPhotoMan}}">
+				    <span class="triangle_border_up active"></span>
+				    <view class="mansWrap">
+				        <view class="opItem" catchtap="setCover">设为相册封面</view>
+				        <view class="opItem" catchtap="editPhotoInfo" data-type="name">编辑名称</view>
+				        <view class="opItem" catchtap="editPhotoInfo" data-type="desc">编辑描述</view>
+				        <view class="opItem" catchtap="delPhoto">删除图片</view>
+				    </view>
+				</view>
+			</view>
+		</view>
+	</view>
+	<view class="conentWrap" wx:if="{{editPhotoInfo}}">
+		<view class="set_item noBoder">
+			<input focus="true" type="text" placeholder="{{inputPlaceholder}}" value="{{inputVal}}" bindinput="bindInput" maxlength="{{inputLength}}" />
+			<view class="btnsWrap">
+				<text class="{{'fl save' + (inputValChanged? ' active':'')}}" bindtap="save">保存</text>
+				<text class="fr cancle" bindtap="cancleChange">取消</text>
+			</view>
+		</view>
 	</view>
 </view>

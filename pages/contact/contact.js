@@ -12,13 +12,20 @@ Page({
         searchVal: ''
     },
     onLoad: function() {
+        
+    },
+    onShow: function(){
+        console.log(app.globalData);
+        if(!app.globalData.MDUserInfo.ID){
+            util.showLoginTip();
+            return;
+        }
         this.getDate();
     },
     getDate: function(){
     	let that = this,
-    		url = util.HOST + 'qnm/getcontacts',
-    		data = {'userid': 64};
-    	util.requestData(url, data, function(result){
+    		url = util.HOST + 'qnm/getcontacts';
+    	util.requestData(url, null, function(result){
     		let resData = result.data;
     		if(resData.code == 0&& resData.data){
 				if(resData.data[0]){
